@@ -5,7 +5,7 @@ import { Component, View, bootstrap } from 'angular2/angular2';
 import { HelloComponent } from './hello.component';
 
 @Component({
-  selector: 'hello-app'
+  selector: 'hello-app',
 })
 @View({
   directives: [HelloComponent],

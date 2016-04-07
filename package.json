@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"start": "http-server public",
-	"dev": "gulp",
-	"optional": ["es7.decorators"],
-	"plugins": [
-		"angular2-annotations"
-	]
+    "start": "http-server public",
+    "dev": "gulp",
+    "optional": [
+      "es7.decorators"
+    ],
+    "plugins": [
+      "angular2-annotations"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +21,8 @@
     "babel-plugin-angular2-annotations": "^2.0.1",
     "babelify": "^6.3.0",
     "browserify": "^11.0.1",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.7",
     "http-server": "^0.8.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",

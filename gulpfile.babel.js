@@ -1,5 +1,6 @@
 ﻿// -- Gulp Plugins ------------------------------------
 import gulp from 'gulp';  
+import gutil, { PluginError } from 'gulp-util';
 import source from 'vinyl-source-stream';  
 import buffer from 'vinyl-buffer';  
 import browserify from 'browserify';  
@@ -9,7 +10,7 @@ import babelify from 'babelify';
 // -- Helper functions --------------------------------
 function bundle(b) {  
   return b.bundle()
-    .on('error', (err) => console.log(err);)
+    .on('error', (err) => console.log(err))
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulp.dest('./public'));
