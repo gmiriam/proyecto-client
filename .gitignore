@@ -1,2 +1,4 @@
-node_modules
-*.log
+typings/
+node_modules/
+*.js
+*.js.map

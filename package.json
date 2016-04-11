@@ -1,35 +1,29 @@
 {
-  "name": "frontend",
+  "name": "angular2-quickstart",
   "version": "1.0.0",
-  "description": "frontend del proyecto",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server public",
-    "dev": "gulp",
-    "optional": [
-      "es7.decorators"
-    ],
-    "plugins": [
-      "angular2-annotations"
-    ]
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "docker-build": "docker build -t ng2-quickstart .",
+    "docker": "npm run docker-build && docker run -it --rm -p 3000:3000 -p 3001:3001 ng2-quickstart",
+    "postinstall": "typings install"
   },
-  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^5.8.25",
-    "babel-plugin-angular2-annotations": "^2.0.1",
-    "babelify": "^6.3.0",
-    "browserify": "^11.0.1",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7",
-    "http-server": "^0.8.5",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.6.0"
-  },
   "dependencies": {
-    "reflect-metadata": "^0.1.0",
-    "zone.js": "^0.5.8"
+    "angular2": "2.0.0-beta.14",
+    "systemjs": "0.19.25",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.6.6"
+  },
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.9",
+    "typings":"^0.7.12"
   }
 }
