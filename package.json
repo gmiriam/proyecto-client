@@ -2,6 +2,7 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
+    "prestart": "grunt",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -23,7 +24,13 @@
   "devDependencies": {
     "bootstrap": "^3.3.6",
     "concurrently": "^2.0.0",
+    "grunt": "^1.0.1",
+    "grunt-bg-shell": "^2.3.3",
+    "grunt-contrib-stylus": "^1.2.0",
+    "grunt-mkdir": "^1.0.0",
     "lite-server": "^2.2.0",
+    "nib": "^1.1.0",
+    "stylus": "^0.54.2",
     "typescript": "^1.8.9",
     "typings": "^0.7.12"
   }
