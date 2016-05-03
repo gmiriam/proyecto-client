@@ -12,8 +12,12 @@ module.exports = function(grunt) {
     },
     stylus: {
       compile: {
+        options: {
+          'compress': true,
+          'include css': true
+        },
         files: {
-          'dist/css/style.css': 'app/styl/style.styl'
+          'dist/css/style.css': 'src/styl/style.styl'
         }
       }
     }
