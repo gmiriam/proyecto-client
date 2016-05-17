@@ -39,7 +39,7 @@
     "angular2-in-memory-web-api": "0.0.7",
     "bootstrap": "^3.3.6"
   },
-    "devDependencies": {
+  "devDependencies": {
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
@@ -66,8 +66,5 @@
     "grunt-mkdir": "^1.0.0",
     "nib": "^1.1.0",
     "stylus": "^0.54.2"
-  },
-  "devDependencies": {
-
   }
 }

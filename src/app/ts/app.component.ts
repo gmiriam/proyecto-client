@@ -1,5 +1,5 @@
-﻿import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router-deprecated';
-import { Component }       from 'angular2/core';
+﻿import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Component }       from '@angular/core';
 import { HeroService }     from './hero.service';
 import { HeroesComponent } from './heroes.component';
 @Component({
