@@ -23,7 +23,7 @@ export class Login {
     let headers = new Headers();
     headers.append('Authorization', 'Basic YXBwbGljYXRpb246c2VjcmV0');
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.http.post('http://localhost:3001/oauth/token', bodyEncoded, { headers: headers })
+    this.http.post('http://localhost:3010/oauth/token', bodyEncoded, { headers: headers })
       .subscribe(
         response => {
           localStorage.setItem('accessToken', response.json().access_token);

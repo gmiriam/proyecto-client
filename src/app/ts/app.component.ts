@@ -5,6 +5,7 @@ import { HeroesComponent } from './heroes.component';
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Home} from './home';
 import {Login} from './login';
+import {Tasks} from './tasks';
 //import {Signup} from './signup';
 @Component({
   selector: 'my-app',
@@ -20,6 +21,7 @@ import {Login} from './login';
   { path: '/', redirectTo: ['/Home'] },
   { path: '/home', component: Home, as: 'Home' },
   { path: '/login', component: Login, as: 'Login' },
+  { path: '/tasks', component: Tasks, as: 'Tasks' }
  // { path: '/signup', component: Signup, as: 'Signup' }
 ])
 

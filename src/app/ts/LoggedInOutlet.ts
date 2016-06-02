@@ -23,10 +23,13 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   }
 
   activate(instruction: ComponentInstruction) {
+
     let url = instruction.urlPath;
+
     if (!this.publicRoutes[url] && !localStorage.getItem('accessToken')) {
       this.parentRouter.navigateByUrl('/login');
     }
+
     return super.activate(instruction);
   }
 }

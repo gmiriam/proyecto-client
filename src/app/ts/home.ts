@@ -33,12 +33,12 @@ export class Home {
   }
 
   callAnonymousApi() {
-    this._callApi('Anonymous', 'http://localhost:3001/');
+    this._callApi('Anonymous', 'http://localhost:3010/');
   }
 
   callSecuredApi() {
     // We call the secured API
-    this._callApi('Secured', 'http://localhost:3001/');
+    this._callApi('Secured', 'http://localhost:3010/');
   }
 
   _callApi(type, url) {
