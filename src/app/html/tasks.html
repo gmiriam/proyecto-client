@@ -1,10 +1,61 @@
 <h1> Tareas: </h1>
-
+<button class="add-button" (click)="showForm($event)">Añadir nueva tarea</button>
 <ul class="heroes">
   <li *ngFor="let task of taskList">
     <span class="hero-element">
       <span class="badge">{{task.name}}</span> {{task.statement}}
     </span>
-    <button class="delete-button" (click)="delete(hero, $event)">Delete</button>
+    <button class="delete-button" (click)="delete(task, $event)">Delete</button>
   </li>
 </ul>
+<div *ngIf="formEnable">
+	<form class="form-horizontal" [ngFormModel]="taskForm" (ngSubmit)="onSubmit($event)">
+	  <div class="form-group">
+	    <label for="name" class="col-sm-2 control-label">Nombre</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="name" id="name" placeholder="Nombre">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="statement" class="col-sm-2 control-label">Enunciado</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="statement" id="statement" placeholder="Enunciado">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="startDate" class="col-sm-2 control-label">Disponible desde</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="startDate" id="startDate" placeholder="Disponible desde">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="endDate" class="col-sm-2 control-label">Fecha límite</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="endDate" id="endDate" placeholder="Fecha límite">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="maxScore" class="col-sm-2 control-label">Puntuación máxima</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="maxScore" id="maxScore" placeholder="Puntuación máxima">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="teacher" class="col-sm-2 control-label">Responsable</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" ngControl="teacher" id="teacher" placeholder="Responsable">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-default">Guardar cambios</button>
+	    </div>
+	  </div>
+	</form>
+</div>
