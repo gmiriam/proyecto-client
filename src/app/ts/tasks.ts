@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, Validators } from '@angular/common';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 
 
@@ -13,11 +13,12 @@ import { Http, Headers, Response } from '@angular/http';
 export class Tasks {
 	taskList: Object[];
 	formEnable: boolean;
-	taskForm: Object;
+	taskForm: ControlGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getTasks();
 		this.taskForm = fb.group({
+			_id:[""],
 	    	name: ["", Validators.required],
 	    	statement: ["", Validators.required],
 			startDate: ["", Validators.required],
@@ -26,14 +27,26 @@ export class Tasks {
 			teacher: ["", Validators.required]
 		});
 	}
-	showForm(event) {
+	showForm(event, task) {
+  	this.taskForm.controls['_id'].updateValue(task ? task._id : "");
+  	this.taskForm.controls['name'].updateValue(task ? task.name : "");
+  	this.taskForm.controls['statement'].updateValue(task ? task.statement : "");
+  	this.taskForm.controls['startDate'].updateValue(task ? task.startDate : "");
+  	this.taskForm.controls['endDate'].updateValue(task ? task.endDate : "");
+  	this.taskForm.controls['maxScore'].updateValue(task ? task.maxScore : "");
+  	this.taskForm.controls['teacher'].updateValue(task ? task.teacher : "");
 	  this.formEnable = true;
   }
 
   	onSubmit(event) {
-  		console.log("Event: ", event, this.taskForm.value)
 		this.formEnable = false;
-		this.add(this.taskForm.value)
+		let value = this.taskForm.value;
+		if (value._id){
+			this.update(value)
+		}
+		else {
+			this.add(value)
+		}
 	}
 	getTasks() {
 	  this.http.get('http://localhost:3000/task/findAll')
@@ -57,11 +70,8 @@ export class Tasks {
   }
 
 	add(task) {
-    let body = JSON.stringify(task);
-	console.debug("mando", body)
-	    let bodyEncoded = Object.keys(task).map(function(k) {
-	      return encodeURIComponent(k) + '=' + encodeURIComponent(task[k])
-	    }).join('&');
+		let body = JSON.stringify(task);
+		console.debug("mando", body)
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
@@ -78,6 +88,29 @@ export class Tasks {
 	        }
 	      );
 	}
+
+
+
+	update(task) {
+		let body = JSON.stringify(task);
+		console.debug("mando", body)
+	    let headers = new Headers();
+	    headers.append('Content-Type', 'application/json');
+
+	    this.http.put('http://localhost:3000/task/update/' + task._id, body, { headers: headers })
+	      .subscribe(
+	        response => {
+	          console.log(response)
+				this.getTasks();
+
+	        },
+	        error => {
+	          alert(error.text());
+	          console.log(error.text());
+	        }
+	      );
+	}
+
 
   delete(task, event) {
 	this.http.delete('http://localhost:3000/task/delete/' + task._id)

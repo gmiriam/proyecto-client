@@ -5,7 +5,8 @@
     <span class="hero-element">
       <span class="badge">{{task.name}}</span> {{task.statement}}
     </span>
-    <button class="delete-button" (click)="delete(task, $event)">Delete</button>
+    <button class="edit-button" (click)= "showForm($event, task)">Editar</button>
+    <button class="delete-button" (click)="delete(task, $event)">Eliminar</button>
   </li>
 </ul>
 <div *ngIf="formEnable">
