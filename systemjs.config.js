@@ -4,7 +4,8 @@
     'app':                        'app', // 'dist',
     'rxjs':                       'node_modules/rxjs',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
-    '@angular':                   'node_modules/@angular'
+    '@angular':                   'node_modules/@angular',
+    'ng2-uploader': 'node_modules/ng2-uploader/ng2-uploader.js'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {

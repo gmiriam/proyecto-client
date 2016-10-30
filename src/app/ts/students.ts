@@ -3,49 +3,54 @@ import { Router, RouterLink } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 
-export class Task {
+
+export class Student {
 	_id: string;
-	name: string;
-	statement: string;
-	startDate: string;
-	endDate: string;
-	maxScore: string;
-	teacher: string;
+	firstName: string;
+	surname: string;
+	email: string;
+	password: string;
+	subjects: string;
+	tasks: string;
 }
 
 @Component({
-	selector: 'tasks',
+	selector: 'students',
 	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  templateUrl: 'src/app/html/tasks.html',
+  	templateUrl: 'src/app/html/students.html',
   //  styleUrls: ['./login.css']
 })
-
-export class Tasks {
-	taskList: Task[];
-	taskToEdit: Task;
+export class Students {
+	studentList: Object[];
+	studentToEdit: Student;
 	formEnable: boolean;
-	taskForm: ControlGroup;
+	studentForm: ControlGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
-		this.getTasks();
-		this.taskForm = fb.group({
+		this.getStudents();
+		this.studentForm = fb.group({
 			_id:[""],
-			name: ["", Validators.required],
-			statement: ["", Validators.required],
-			startDate: ["", Validators.required],
-			endDate: [""],
-			maxScore: [""],
-			teacher: ["", Validators.required]
+	    	firstName: ["", Validators.required],
+	    	surname: [""],
+	    	email: [""],
+	    	password: ["", Validators.required],
+	    	subjects: [""],
+	    	tasks: [""],
 		});
 	}
-	showForm(event, task) {
-		this.taskToEdit = task ? task : { _id: null };
+
+	showForm(event, student) {
+		this.studentToEdit = student ? student : { _id: null };
 		this.formEnable = true;
 	}
 
   	onSubmit(event) {
+  		if (!this.studentForm.valid) {
+  			alert("invalido")
+  			return;
+  		}
 		this.formEnable = false;
-		let value = this.taskToEdit;
+		let value = this.studentToEdit;
 		if (value._id){
 			this.update(value)
 		}
@@ -53,13 +58,12 @@ export class Tasks {
 			this.add(value)
 		}
 	}
-	getTasks() {
-	  this.http.get('http://localhost:3000/task/findAll')
+	getStudents() {
+	  this.http.get('http://localhost:3000/student/findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
-			  console.debug("entra")
-			  this.taskList = content;
+			  this.studentList = content;
 
 			  for (var i = 0; i < content.length; i++) {
 				  var data = content[i];
@@ -75,16 +79,16 @@ export class Tasks {
  	  );
   }
 
-	add(task) {
-		let body = JSON.stringify(task);
+	add(student) {
+		let body = JSON.stringify(student);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/task/add', body, { headers: headers })
+	    this.http.post('http://localhost:3000/student/add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getStudents();
 
 	        },
 	        error => {
@@ -96,17 +100,16 @@ export class Tasks {
 
 
 
-	update(task) {
-		let body = JSON.stringify(task);
-		console.debug("mando", body)
+	update(student) {
+		let body = JSON.stringify(student);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/task/update/' + task._id, body, { headers: headers })
+	    this.http.put('http://localhost:3000/student/update/' + student._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getStudents();
 
 	        },
 	        error => {
@@ -117,15 +120,15 @@ export class Tasks {
 	}
 
 
-  delete(task, event) {
-	this.http.delete('http://localhost:3000/task/delete/' + task._id)
+  delete(student, event) {
+	this.http.delete('http://localhost:3000/student/delete/' + student._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;
           	  console.log(status)
           	  if(status == "success") {
           	  	alert("Se ha borrado con éxito")
-				this.getTasks();
+				this.getStudents();
 			  }
 		},
 		error => {

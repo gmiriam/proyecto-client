@@ -1,0 +1,41 @@
+<h1> Puntuaciones: </h1>
+<button class="add-button" (click)="showForm($event)">Añadir nueva puntuación</button>
+<ul class="heroes">
+  <li *ngFor="let score of scoreList">
+    <span class="hero-element">
+      <span class="badge">{{score.student}}</span> {{score.subject}}
+    </span>
+    <button class="edit-button" (click)= "showForm($event, score)">Editar</button>
+    <button class="delete-button" (click)="delete(score, $event)">Eliminar</button>
+  </li>
+</ul>
+<div *ngIf="formEnable">
+	<form class="form-horizontal" [ngFormModel]="scoreForm" (ngSubmit)="onSubmit($event)">
+	  <div class="form-group">
+	    <label for="student" class="col-sm-2 control-label">Estudiante</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.student" ngControl="student" id="student" placeholder="Estudiante">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="subject" class="col-sm-2 control-label">Asignatura</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.subject" ngControl="subject" id="subject" placeholder="Asignatura">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="finalScore" class="col-sm-2 control-label">Puntuación final</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.finalScore" ngControl="finalScore" id="finalScore" placeholder="Puntuación final">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-default">Guardar cambios</button>
+	    </div>
+	  </div>
+	</form>
+</div>

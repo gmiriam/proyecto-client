@@ -3,49 +3,48 @@ import { Router, RouterLink } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 
-export class Task {
+
+export class Teacher {
 	_id: string;
-	name: string;
-	statement: string;
-	startDate: string;
-	endDate: string;
-	maxScore: string;
-	teacher: string;
+	firstName: string;
+	surname: string;
+	email: string;
+	password: string;
+	subjects: string;
 }
 
 @Component({
-	selector: 'tasks',
+	selector: 'teachers',
 	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  templateUrl: 'src/app/html/tasks.html',
+  	templateUrl: 'src/app/html/teachers.html',
   //  styleUrls: ['./login.css']
 })
-
-export class Tasks {
-	taskList: Task[];
-	taskToEdit: Task;
+export class Teachers {
+	teacherList: Object[];
+	teacherToEdit: Teacher;
 	formEnable: boolean;
-	taskForm: ControlGroup;
+	teacherForm: ControlGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
-		this.getTasks();
-		this.taskForm = fb.group({
+		this.getTeachers();
+		this.teacherForm = fb.group({
 			_id:[""],
-			name: ["", Validators.required],
-			statement: ["", Validators.required],
-			startDate: ["", Validators.required],
-			endDate: [""],
-			maxScore: [""],
-			teacher: ["", Validators.required]
+	    	firstName: ["", Validators.required],
+	    	surname: [""],
+	    	email: [""],
+	    	password: ["", Validators.required],
+	    	subjects: [""],
 		});
 	}
-	showForm(event, task) {
-		this.taskToEdit = task ? task : { _id: null };
+
+	showForm(event, teacher) {
+		this.teacherToEdit = teacher ? teacher : { _id: null };
 		this.formEnable = true;
 	}
 
   	onSubmit(event) {
 		this.formEnable = false;
-		let value = this.taskToEdit;
+		let value = this.teacherToEdit;
 		if (value._id){
 			this.update(value)
 		}
@@ -53,13 +52,12 @@ export class Tasks {
 			this.add(value)
 		}
 	}
-	getTasks() {
-	  this.http.get('http://localhost:3000/task/findAll')
+	getTeachers() {
+	  this.http.get('http://localhost:3000/teacher/findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
-			  console.debug("entra")
-			  this.taskList = content;
+			  this.teacherList = content;
 
 			  for (var i = 0; i < content.length; i++) {
 				  var data = content[i];
@@ -75,16 +73,16 @@ export class Tasks {
  	  );
   }
 
-	add(task) {
-		let body = JSON.stringify(task);
+	add(teacher) {
+		let body = JSON.stringify(teacher);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/task/add', body, { headers: headers })
+	    this.http.post('http://localhost:3000/teacher/add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getTeachers();
 
 	        },
 	        error => {
@@ -96,17 +94,16 @@ export class Tasks {
 
 
 
-	update(task) {
-		let body = JSON.stringify(task);
-		console.debug("mando", body)
+	update(teacher) {
+		let body = JSON.stringify(teacher);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/task/update/' + task._id, body, { headers: headers })
+	    this.http.put('http://localhost:3000/teacher/update/' + teacher._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getTeachers();
 
 	        },
 	        error => {
@@ -117,15 +114,15 @@ export class Tasks {
 	}
 
 
-  delete(task, event) {
-	this.http.delete('http://localhost:3000/task/delete/' + task._id)
+  delete(teacher, event) {
+	this.http.delete('http://localhost:3000/teacher/delete/' + teacher._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;
           	  console.log(status)
           	  if(status == "success") {
           	  	alert("Se ha borrado con éxito")
-				this.getTasks();
+				this.getTeachers();
 			  }
 		},
 		error => {

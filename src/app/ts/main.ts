@@ -6,6 +6,7 @@ import { Http, HTTP_PROVIDERS } from '@angular/http';
 //import { AuthConfig, AuthHttp, AUTH_PROVIDERS } from 'angular2-jwt';
 import {AppComponent} from './app.component';
 import {navbarComponent} from './navbar.component';
+//import {ng2UploaderComponent} from './ng2Uploader.component';
 
 
 bootstrap(AppComponent,

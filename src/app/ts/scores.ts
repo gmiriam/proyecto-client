@@ -1,38 +1,46 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 
 
+export class Score {
+	_id: string;
+	student: string;
+	subject: string;
+	finalScore: string;
+}
+
 @Component({
-	selector: 'courses',
+	selector: 'scores',
 	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  templateUrl: 'src/app/html/courses.html',
+  	templateUrl: 'src/app/html/scores.html',
   //  styleUrls: ['./login.css']
 })
-export class Courses {
-	courseList: Object[];
+export class Scores {
+	scoreList: Object[];
+	scoreToEdit: Score;
 	formEnable: boolean;
-	courseForm: ControlGroup;
+	scoreForm: ControlGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
-		this.getTasks();
-		this.taskForm = fb.group({
+		this.getScores();
+		this.scoreForm = fb.group({
 			_id:[""],
-	    	name: ["", Validators.required],
-	    	subjects: [""],
+	    	student: ["", Validators.required],
+	    	subject: [""],
+	    	finalScore: [""],
 		});
 	}
-	showForm(event, course) {
-  	this.courseForm.controls['_id'].updateValue(course ? course._id : "");
-  	this.courseForm.controls['name'].updateValue(course ? course.name : "");
-  	this.courseForm.controls['subjects'].updateValue(course ? course.subjects : "");
-	this.formEnable = true;
-  }
+
+	showForm(event, score) {
+		this.scoreToEdit = score ? score : { _id: null };
+		this.formEnable = true;
+	}
 
   	onSubmit(event) {
 		this.formEnable = false;
-		let value = this.courseForm.value;
+		let value = this.scoreToEdit;
 		if (value._id){
 			this.update(value)
 		}
@@ -40,12 +48,12 @@ export class Courses {
 			this.add(value)
 		}
 	}
-	getCourses() {
-	  this.http.get('http://localhost:3000/course/findAll')
+	getScores() {
+	  this.http.get('http://localhost:3000/score/findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
-			  this.courseList = content;
+			  this.scoreList = content;
 
 			  for (var i = 0; i < content.length; i++) {
 				  var data = content[i];
@@ -61,16 +69,16 @@ export class Courses {
  	  );
   }
 
-	add(course) {
-		let body = JSON.stringify(course);
+	add(score) {
+		let body = JSON.stringify(score);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/course/add', body, { headers: headers })
+	    this.http.post('http://localhost:3000/score/add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getCourses();
+				this.getScores();
 
 	        },
 	        error => {
@@ -82,16 +90,16 @@ export class Courses {
 
 
 
-	update(course) {
-		let body = JSON.stringify(course);
+	update(score) {
+		let body = JSON.stringify(score);
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/course/update/' + course._id, body, { headers: headers })
+	    this.http.put('http://localhost:3000/score/update/' + score._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getCourses();
+				this.getScores();
 
 	        },
 	        error => {
@@ -102,15 +110,15 @@ export class Courses {
 	}
 
 
-  delete(course, event) {
-	this.http.delete('http://localhost:3000/course/delete/' + course._id)
+  delete(score, event) {
+	this.http.delete('http://localhost:3000/score/delete/' + score._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;
           	  console.log(status)
           	  if(status == "success") {
           	  	alert("Se ha borrado con éxito")
-				this.getCourses();
+				this.getScores();
 			  }
 		},
 		error => {
