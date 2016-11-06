@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
 export class Task {
@@ -15,7 +15,6 @@ export class Task {
 
 @Component({
 	selector: 'tasks',
-	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   templateUrl: 'src/app/html/tasks.html',
   //  styleUrls: ['./login.css']
 })
@@ -24,7 +23,7 @@ export class Tasks {
 	taskList: Task[];
 	taskToEdit: Task;
 	formEnable: boolean;
-	taskForm: ControlGroup;
+	taskForm: FormGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getTasks();

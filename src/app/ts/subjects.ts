@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
 
@@ -13,7 +13,6 @@ export class Subject {
 
 @Component({
 	selector: 'subjects',
-	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   	templateUrl: 'src/app/html/subjects.html',
   //  styleUrls: ['./login.css']
 })
@@ -21,7 +20,7 @@ export class Subjects {
 	subjectList: Object[];
 	subjectToEdit: Subject;
 	formEnable: boolean;
-	subjectForm: ControlGroup;
+	subjectForm: FormGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getSubjects();

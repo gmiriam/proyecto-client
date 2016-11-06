@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+//import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 
 
 @Component({
   selector: 'login',
-  directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
+  //directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   templateUrl: 'src/app/html/login.html',
   //  styleUrls: ['./login.css']
 })
@@ -27,7 +27,7 @@ export class Login {
       .subscribe(
         response => {
           localStorage.setItem('accessToken', response.json().access_token);
-          this.router.parent.navigateByUrl('/home');
+          this.router.navigate(['../home']);
         },
         error => {
           alert(error.text());
@@ -38,6 +38,6 @@ export class Login {
 
   signup(event) {
     event.preventDefault();
-    this.router.parent.navigateByUrl('/signup');
+    this.router.navigate(['../signup']);
   }
 }

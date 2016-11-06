@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
 
@@ -14,7 +14,6 @@ export class Delivery {
 
 @Component({
 	selector: 'deliveries',
-	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   	templateUrl: 'src/app/html/deliveries.html',
   //  styleUrls: ['./login.css']
 })
@@ -22,7 +21,7 @@ export class Deliveries {
 	deliveryList: Object[];
 	deliveryToEdit: Delivery;
 	formEnable: boolean;
-	deliveryForm: ControlGroup;
+	deliveryForm: FormGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getStudents();

@@ -1,5 +1,5 @@
-import {Directive, Attribute, ViewContainerRef, DynamicComponentLoader} from '@angular/core';
-import {Router, RouterOutlet, ComponentInstruction} from '@angular/router-deprecated';
+/*import {Directive, Attribute, ViewContainerRef, ComponentResolver} from '@angular/core';
+import {Router, RouterOutlet, ComponentInstruction} from '@angular/router';
 import {Login} from './login';
 
 @Directive({
@@ -9,7 +9,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;
   private parentRouter: Router;
 
-  constructor(_viewContainerRef: ViewContainerRef, _loader: DynamicComponentLoader,
+  constructor(_viewContainerRef: ViewContainerRef, _loader: ComponentResolver,
               _parentRouter: Router, @Attribute('name') nameAttr: string) {
     super(_viewContainerRef, _loader, _parentRouter, nameAttr);
 
@@ -32,4 +32,4 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
     return super.activate(instruction);
   }
-}
+}*/

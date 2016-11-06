@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
+//import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Headers } from '@angular/http';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 //import { AuthHttp } from 'angular2-jwt';
 
 
 @Component({
   selector: 'home',
-  directives: [CORE_DIRECTIVES],
+  //directives: [CORE_DIRECTIVES],
   // Here we specify the template we'll use
   templateUrl: 'src/app/html/home.html',
   //  styleUrls: ['./home.css']
@@ -29,7 +29,7 @@ export class Home {
     // Method to be called when the user wants to logout
     // Logging out means just deleting the JWT from localStorage and redirecting the user to the Login page
     localStorage.removeItem('accessToken');
-    this.router.parent.navigateByUrl('/login');
+    this.router/*.parent*/.navigateByUrl('../login');
   }
 
   callAnonymousApi() {

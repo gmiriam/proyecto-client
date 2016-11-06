@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
 
@@ -13,7 +13,6 @@ export class Score {
 
 @Component({
 	selector: 'scores',
-	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   	templateUrl: 'src/app/html/scores.html',
   //  styleUrls: ['./login.css']
 })
@@ -21,7 +20,7 @@ export class Scores {
 	scoreList: Object[];
 	scoreToEdit: Score;
 	formEnable: boolean;
-	scoreForm: ControlGroup;
+	scoreForm: FormGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getScores();

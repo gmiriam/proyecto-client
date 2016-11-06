@@ -1,20 +1,15 @@
-import {bootstrap}    from '@angular/platform-browser-dynamic';
-import { provide } from '@angular/core';
-import { FORM_PROVIDERS } from '@angular/common';
-import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { Http, HTTP_PROVIDERS } from '@angular/http';
 //import { AuthConfig, AuthHttp, AUTH_PROVIDERS } from 'angular2-jwt';
-import {AppComponent} from './app.component';
+
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
+
 import {navbarComponent} from './navbar.component';
-//import {ng2UploaderComponent} from './ng2Uploader.component';
+import {UploaderModule} from './uploader.module';
 
 
-bootstrap(AppComponent,
-	[
-		FORM_PROVIDERS,
-		ROUTER_PROVIDERS,
-		HTTP_PROVIDERS
-	]
-);
+platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(UploaderModule);
 
-bootstrap(navbarComponent);
+
+// TODO pasar a module??
+//bootstrap(navbarComponent);

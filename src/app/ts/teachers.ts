@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
 
@@ -15,7 +15,6 @@ export class Teacher {
 
 @Component({
 	selector: 'teachers',
-	directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   	templateUrl: 'src/app/html/teachers.html',
   //  styleUrls: ['./login.css']
 })
@@ -23,7 +22,7 @@ export class Teachers {
 	teacherList: Object[];
 	teacherToEdit: Teacher;
 	formEnable: boolean;
-	teacherForm: ControlGroup;
+	teacherForm: FormGroup;
 
 	constructor(public router: Router, public http: Http, fb: FormBuilder) {
 		this.getTeachers();
