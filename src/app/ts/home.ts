@@ -20,7 +20,8 @@ export class Home {
   response: string;
   api: string;
 
-  constructor(public router: Router, public http: Http/*, public authHttp: AuthHttp*/) {
+  //constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+  constructor(public router: Router, public http: Http) {
     // We get the JWT from localStorage
     this.accessToken = localStorage.getItem('accessToken');
   }
@@ -29,7 +30,8 @@ export class Home {
     // Method to be called when the user wants to logout
     // Logging out means just deleting the JWT from localStorage and redirecting the user to the Login page
     localStorage.removeItem('accessToken');
-    this.router/*.parent*/.navigateByUrl('../login');
+    //this.router.parent.navigateByUrl('../login');
+    this.router.navigateByUrl('../login');
   }
 
   callAnonymousApi() {

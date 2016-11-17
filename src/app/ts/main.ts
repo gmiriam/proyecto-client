@@ -3,12 +3,14 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app.module';
 
-import {navbarComponent} from './navbar.component';
-import {UploaderModule} from './uploader.module';
+//import {navbarComponent} from './navbar.component';
+//import {UploaderModule} from './uploader.module';
 
 
-platformBrowserDynamic().bootstrapModule(AppModule);
-platformBrowserDynamic().bootstrapModule(UploaderModule);
+const platform = platformBrowserDynamic();
+
+platform.bootstrapModule(AppModule);
+//platformBrowserDynamic().bootstrapModule(UploaderModule);
 
 
 // TODO pasar a module??

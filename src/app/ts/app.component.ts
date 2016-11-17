@@ -1,7 +1,8 @@
 ﻿import { Component }       from '@angular/core';
 
 @Component({
-  selector: 'auth-app',
+  selector: 'app',
+  //template: 'hola'
   template: `
     <div class="container body-container">
       <router-outlet></router-outlet>
@@ -9,6 +10,4 @@
   `
 })
 
-export class AppComponent {
-  constructor() {}
-}
+export class AppComponent { }

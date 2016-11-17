@@ -1,16 +1,28 @@
 ﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import {APP_ROUTER_PROVIDER} from './app.routes';
+import { routes } from './app.routes';
 import { AppComponent }  from './app.component';
+import {Home} from './home';
 
 @NgModule({
-  imports: [ BrowserModule, APP_ROUTER_PROVIDER, FormsModule, HttpModule ],       // module dependencies
-  declarations: [ AppComponent ],   // components and directives
-  bootstrap: [ AppComponent ],     // root component
-  providers: []                    // services
+  // module dependencies
+  imports: [
+  	BrowserModule,
+  	RouterModule.forRoot(routes),
+  	FormsModule,
+  	HttpModule
+  ],
+  // components and directives
+  declarations: [
+  	AppComponent,
+  	Home
+  ],
+  // root component
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }
