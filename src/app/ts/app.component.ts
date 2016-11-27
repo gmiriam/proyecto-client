@@ -2,7 +2,6 @@
 
 @Component({
   selector: 'app',
-  //template: 'hola'
   template: `
     <div class="container body-container">
       <router-outlet></router-outlet>

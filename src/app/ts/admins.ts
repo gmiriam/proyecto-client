@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
@@ -23,7 +22,7 @@ export class Admins {
 	formEnable: boolean;
 	adminForm: FormGroup;
 
-	constructor(public router: Router, public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder) {
 		this.getAdmins();
 		this.adminForm = fb.group({
 			_id:[""],

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 //import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 
@@ -11,7 +10,7 @@ import { Http, Headers } from '@angular/http';
   //  styleUrls: ['./login.css']
 })
 export class Login {
-  constructor(public router: Router, public http: Http) {}
+  constructor(public http: Http) {}
 
   login(event, username, password) {
     event.preventDefault();

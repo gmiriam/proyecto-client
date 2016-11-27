@@ -10,46 +10,46 @@
   </li>
 </ul>
 <div *ngIf="formEnable">
-	<form class="form-horizontal" [ngFormModel]="taskForm" (ngSubmit)="onSubmit($event)">
+	<form class="form-horizontal" [formGroup]="taskForm" (ngSubmit)="onSubmit($event)">
 	  <div class="form-group">
 	    <label for="name" class="col-sm-2 control-label">Nombre</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.name" ngControl="name" id="name" placeholder="Nombre">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.name" formControlName="name" id="name" placeholder="Nombre">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="statement" class="col-sm-2 control-label">Enunciado</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.statement" ngControl="statement" id="statement" placeholder="Enunciado">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.statement" formControlName="statement" id="statement" placeholder="Enunciado">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="startDate" class="col-sm-2 control-label">Disponible desde</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.startDate" ngControl="startDate" id="startDate" placeholder="Disponible desde">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.startDate" formControlName="startDate" id="startDate" placeholder="Disponible desde">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="endDate" class="col-sm-2 control-label">Fecha límite</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.endDate" ngControl="endDate" id="endDate" placeholder="Fecha límite">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.endDate" formControlName="endDate" id="endDate" placeholder="Fecha límite">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="maxScore" class="col-sm-2 control-label">Puntuación máxima</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.maxScore" ngControl="maxScore" id="maxScore" placeholder="Puntuación máxima">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.maxScore" formControlName="maxScore" id="maxScore" placeholder="Puntuación máxima">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="teacher" class="col-sm-2 control-label">Responsable</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.teacher" ngControl="teacher" id="teacher" placeholder="Responsable">
+	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.teacher" formControlName="teacher" id="teacher" placeholder="Responsable">
 	    </div>
 	  </div>
 

@@ -10,18 +10,18 @@
   </li>
 </ul>
 <div *ngIf="formEnable">
-	<form class="form-horizontal" [ngFormModel]="courseForm" (ngSubmit)="onSubmit($event)">
+	<form class="form-horizontal" [formGroup]="courseForm" (ngSubmit)="onSubmit($event)">
 	  <div class="form-group">
 	    <label for="name" class="col-sm-2 control-label">Nombre</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="courseToEdit.name" ngControl="name" id="name" placeholder="Nombre">
+	      <input type="text" class="form-control" [(ngModel)]="courseToEdit.name" formControlName="name" id="name" placeholder="Nombre">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="subjects" class="col-sm-2 control-label">Asignaturas</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="courseToEdit.subjects" ngControl="subjects" id="subjects" placeholder="Asignaturas">
+	      <input type="text" class="form-control" [(ngModel)]="courseToEdit.subjects" formControlName="subjects" id="subjects" placeholder="Asignaturas">
 	    </div>
 	  </div>
 

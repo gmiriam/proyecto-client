@@ -10,7 +10,7 @@ import { AppModule } from './app.module';
 const platform = platformBrowserDynamic();
 
 platform.bootstrapModule(AppModule);
-//platformBrowserDynamic().bootstrapModule(UploaderModule);
+//platform.bootstrapModule(UploaderModule);
 
 
 // TODO pasar a module??

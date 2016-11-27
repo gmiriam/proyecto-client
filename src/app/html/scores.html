@@ -10,25 +10,25 @@
   </li>
 </ul>
 <div *ngIf="formEnable">
-	<form class="form-horizontal" [ngFormModel]="scoreForm" (ngSubmit)="onSubmit($event)">
+	<form class="form-horizontal" [formGroup]="scoreForm" (ngSubmit)="onSubmit($event)">
 	  <div class="form-group">
 	    <label for="student" class="col-sm-2 control-label">Estudiante</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.student" ngControl="student" id="student" placeholder="Estudiante">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.student" formControlName="student" id="student" placeholder="Estudiante">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="subject" class="col-sm-2 control-label">Asignatura</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.subject" ngControl="subject" id="subject" placeholder="Asignatura">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.subject" formControlName="subject" id="subject" placeholder="Asignatura">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="finalScore" class="col-sm-2 control-label">Puntuación final</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.finalScore" ngControl="finalScore" id="finalScore" placeholder="Puntuación final">
+	      <input type="text" class="form-control" [(ngModel)]="scoreToEdit.finalScore" formControlName="finalScore" id="finalScore" placeholder="Puntuación final">
 	    </div>
 	  </div>
 

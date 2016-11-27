@@ -10,46 +10,46 @@
   </li>
 </ul>
 <div *ngIf="formEnable">
-	<form class="form-horizontal" [ngFormModel]="studentForm" (ngSubmit)="onSubmit($event)">
+	<form class="form-horizontal" [formGroup]="studentForm" (ngSubmit)="onSubmit($event)">
 	  <div class="form-group">
 	    <label for="firstName" class="col-sm-2 control-label">Nombre</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.firstName" ngControl="firstName" id="firstName" placeholder="Nombre">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.firstName" formControlName="firstName" id="firstName" placeholder="Nombre">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="surname" class="col-sm-2 control-label">Apellidos</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.surname" ngControl="surname" id="surname" placeholder="Apellidos">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.surname" formControlName="surname" id="surname" placeholder="Apellidos">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="email" class="col-sm-2 control-label">email</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.email" ngControl="email" id="email" placeholder="email">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.email" formControlName="email" id="email" placeholder="email">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="password" class="col-sm-2 control-label">Contraseña</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.password" ngControl="password" id="password" placeholder="Contraseña">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.password" formControlName="password" id="password" placeholder="Contraseña">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="subjects" class="col-sm-2 control-label">Asignaturas</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.subjects" ngControl="subjects" id="subjects" placeholder="Asignaturas">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.subjects" formControlName="subjects" id="subjects" placeholder="Asignaturas">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="subjects" class="col-sm-2 control-label">Tareas</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.tasks" ngControl="tasks" id="tasks" placeholder="Tareas">
+	      <input type="text" class="form-control" [(ngModel)]="studentToEdit.tasks" formControlName="tasks" id="tasks" placeholder="Tareas">
 	    </div>
 	  </div>
 

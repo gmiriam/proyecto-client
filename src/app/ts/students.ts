@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 
@@ -25,7 +24,7 @@ export class Students {
 	formEnable: boolean;
 	studentForm: FormGroup;
 
-	constructor(public router: Router, public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder) {
 		this.getStudents();
 		this.studentForm = fb.group({
 			_id:[""],

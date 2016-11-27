@@ -10,25 +10,25 @@
   </li>
 </ul>
 <div *ngIf="formEnable">
-	<form class="form-horizontal" [ngFormModel]="subjectForm" (ngSubmit)="onSubmit($event)">
+	<form class="form-horizontal" [formGroup]="subjectForm" (ngSubmit)="onSubmit($event)">
 	  <div class="form-group">
 	    <label for="name" class="col-sm-2 control-label">Nombre</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.name" ngControl="name" id="name" placeholder="Nombre">
+	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.name" formControlName="name" id="name" placeholder="Nombre">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="description" class="col-sm-2 control-label">Descripción</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.description" ngControl="description" id="description" placeholder="Descripción">
+	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.description" formControlName="description" id="description" placeholder="Descripción">
 	    </div>
 	  </div>
 
 	  <div class="form-group">
 	    <label for="temary" class="col-sm-2 control-label">Temario</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.temary" ngControl="temary" id="temary" placeholder="Temario">
+	      <input type="text" class="form-control" [(ngModel)]="subjectToEdit.temary" formControlName="temary" id="temary" placeholder="Temario">
 	    </div>
 	  </div>
 
