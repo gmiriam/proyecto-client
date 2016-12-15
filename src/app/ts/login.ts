@@ -26,7 +26,7 @@ export class Login {
       .subscribe(
         response => {
           localStorage.setItem('accessToken', response.json().access_token);
-          this.router.navigate(['../home']);
+          //this.router.navigate(['../home']);
         },
         error => {
           alert(error.text());
@@ -37,6 +37,6 @@ export class Login {
 
   signup(event) {
     event.preventDefault();
-    this.router.navigate(['../signup']);
+    //this.router.navigate(['../signup']);
   }
 }

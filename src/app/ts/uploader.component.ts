@@ -1,25 +1,13 @@
 import {Component} from '@angular/core';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
-    selector: 'ng2-uploader',
-    templateUrl: 'src/app/html/ng2Uploader.html'
+    selector: 'file-upload',
+    templateUrl: 'src/app/html/uploader.html'
 })
 
 export class UploaderComponent {
-  uploadFile: any;
-  hasBaseDropZoneOver: boolean = false;
-  options: Object = {
-    url: 'http://localhost:10050/upload'
-  };
-
-  handleUpload(data): void {
-    if (data && data.response) {
-      data = JSON.parse(data.response);
-      this.uploadFile = data;
-    }
-  }
-
-  fileOverBase(e:any):void {
-    this.hasBaseDropZoneOver = e;
-  }
+  public uploader:FileUploader = new FileUploader({
+    url: 'http://localhost:3002/upload'
+  });
 }

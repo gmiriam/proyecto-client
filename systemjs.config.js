@@ -17,41 +17,26 @@
     '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
     '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
     '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-    '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
     // other libraries
     'rxjs': 'npm:rxjs',
     'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-    'ng2-uploader': 'npm:ng2-uploader/ng2-uploader.js'
+    'ng2-file-upload': 'npm:ng2-file-upload'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app': {
-      main: 'main.js',
+      main: 'main',
       defaultExtension: 'js'
     },
     'rxjs': {
       defaultExtension: 'js'
+    },
+    'ng2-file-upload': {
+      defaultExtension: 'js',
+      main: 'ng2-file-upload'
     }
   };
-
-  /*var packageNames = [
-    'dist',
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/forms',
-    '@angular/http',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/router',
-    '@angular/upgrade'
-  ];
-
-  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-  packageNames.forEach(function(pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
-  });*/
 
   var config = {
     paths: paths,

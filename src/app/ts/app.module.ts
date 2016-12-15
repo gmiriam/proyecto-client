@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './app.routes';
 import { AppComponent }  from './app.component';
+import { UploaderModule }  from './uploader.module';
 
 import {Home} from './home';
 import {Tasks} from './tasks';
@@ -24,11 +25,12 @@ import {Scores} from './scores';
   	RouterModule.forRoot(routes),
     FormsModule,
   	ReactiveFormsModule,
-  	HttpModule
+  	HttpModule,
+    UploaderModule
   ],
   // components and directives
   declarations: [
-  	AppComponent,
+    AppComponent,
   	Home, Tasks, Courses, Admins, Teachers, Students, Subjects, Deliveries, Scores
   ],
   // root component

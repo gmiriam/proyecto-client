@@ -4,14 +4,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app.module';
 
 //import {navbarComponent} from './navbar.component';
-//import {UploaderModule} from './uploader.module';
 
 
 const platform = platformBrowserDynamic();
 
 platform.bootstrapModule(AppModule);
-//platform.bootstrapModule(UploaderModule);
-
 
 // TODO pasar a module??
 //bootstrap(navbarComponent);

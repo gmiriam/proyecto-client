@@ -1,12 +1,13 @@
 import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import
-       { UploaderComponent }  from './uploader.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { UploaderComponent }  from './uploader.component';
 
 @NgModule({
-  imports: [ BrowserModule ],
+  imports: [
+  	FileUploadModule
+  ],
   declarations: [ UploaderComponent ],
-  bootstrap:    [ UploaderComponent ]
+  exports: [ UploaderComponent ],
+  bootstrap:    [  ]
 })
 export class UploaderModule { }
