@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
+
 
 @Component({
     selector: 'file-upload',
@@ -7,7 +7,28 @@ import { FileUploader } from 'ng2-file-upload';
 })
 
 export class UploaderComponent {
-  public uploader:FileUploader = new FileUploader({
+  uploadFile: any;
+  hasBaseDropZoneOver: boolean = false;
+  options: Object = {
     url: 'http://localhost:3002/upload'
-  });
+  };
+  sizeLimit = 2000000;
+
+  handleUpload(data): void {
+    if (data && data.response) {
+      data = JSON.parse(data.response);
+      this.uploadFile = data;
+    }
+  }
+
+  fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  beforeUpload(uploadingFile): void {
+    if (uploadingFile.size > this.sizeLimit) {
+      uploadingFile.setAbort();
+      alert('File is too large');
+    }
+  }
 }

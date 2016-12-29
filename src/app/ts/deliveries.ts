@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
-
+import {GlobalsService} from './globals.service';
 
 export class Delivery {
 	_id: string;
@@ -14,6 +14,7 @@ export class Delivery {
 @Component({
 	selector: 'deliveries',
   	templateUrl: 'src/app/html/deliveries.html',
+  	providers: [GlobalsService]
   //  styleUrls: ['./login.css']
 })
 export class Deliveries {
@@ -21,8 +22,10 @@ export class Deliveries {
 	deliveryToEdit: Delivery;
 	formEnable: boolean;
 	deliveryForm: FormGroup;
+	deliveryUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.deliveryUrl = globalsService.apiUrl + 'delivery/';
 		this.getStudents();
 		this.deliveryForm = fb.group({
 			_id:[""],
@@ -49,7 +52,7 @@ export class Deliveries {
 		}
 	}
 	getStudents() {
-	  this.http.get('http://localhost:3000/delivery/findAll')
+	  this.http.get(this.deliveryUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -74,7 +77,7 @@ export class Deliveries {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/delivery/add', body, { headers: headers })
+	    this.http.post(this.deliveryUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -95,7 +98,7 @@ export class Deliveries {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/delivery/update/' + delivery._id, body, { headers: headers })
+	    this.http.put(this.deliveryUrl + 'update/' + delivery._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -111,7 +114,7 @@ export class Deliveries {
 
 
   delete(delivery, event) {
-	this.http.delete('http://localhost:3000/delivery/delete/' + delivery._id)
+	this.http.delete(this.deliveryUrl + 'delete/' + delivery._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

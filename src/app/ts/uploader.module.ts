@@ -1,10 +1,12 @@
+import { CommonModule }   from '@angular/common';
 import { NgModule }      from '@angular/core';
-import { FileUploadModule } from 'ng2-file-upload';
+import { Ng2UploaderModule } from 'ng2-uploader';
 import { UploaderComponent }  from './uploader.component';
 
 @NgModule({
   imports: [
-  	FileUploadModule
+	CommonModule,
+  	Ng2UploaderModule
   ],
   declarations: [ UploaderComponent ],
   exports: [ UploaderComponent ],

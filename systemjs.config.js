@@ -7,7 +7,7 @@
   // map tells the System loader where to look for things
   var map = {
     // app
-    'app': 'dist/js',
+    'app': 'dist/js/src/app/ts',
     // angular bundles
     '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
     '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -20,7 +20,7 @@
     // other libraries
     'rxjs': 'npm:rxjs',
     'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-    'ng2-file-upload': 'npm:ng2-file-upload'
+    'ng2-uploader': 'npm:ng2-uploader'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -32,9 +32,9 @@
     'rxjs': {
       defaultExtension: 'js'
     },
-    'ng2-file-upload': {
+    'ng2-uploader': {
       defaultExtension: 'js',
-      main: 'ng2-file-upload'
+      main: 'ng2-uploader'
     }
   };
 
