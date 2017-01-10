@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import {GlobalsService} from './globals.service';
 
 
 export class Course {
@@ -12,15 +13,18 @@ export class Course {
 @Component({
 	selector: 'courses',
   templateUrl: 'src/app/html/courses.html',
-  //  styleUrls: ['./login.css']
+  //  styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
 })
 export class Courses {
 	courseList: Object[];
 	courseToEdit: Course;
 	formEnable: boolean;
 	courseForm: FormGroup;
+	courseUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.courseUrl = globalsService.apiUrl + 'course/';
 		this.getCourses();
 		this.courseForm = fb.group({
 			_id:[""],
@@ -45,7 +49,7 @@ export class Courses {
 		}
 	}
 	getCourses() {
-	  this.http.get('http://localhost:3000/course/findAll')
+	  this.http.get(this.courseUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -70,7 +74,7 @@ export class Courses {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/course/add', body, { headers: headers })
+	    this.http.post(this.courseUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -91,7 +95,7 @@ export class Courses {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/course/update/' + course._id, body, { headers: headers })
+	    this.http.put(this.courseUrl + 'update/' + course._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -107,7 +111,7 @@ export class Courses {
 
 
   delete(course, event) {
-	this.http.delete('http://localhost:3000/course/delete/' + course._id)
+	this.http.delete(this.courseUrl + 'delete/' + course._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

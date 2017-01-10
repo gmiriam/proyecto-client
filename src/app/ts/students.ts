@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import {GlobalsService} from './globals.service';
+
 
 
 export class Student {
@@ -16,15 +18,19 @@ export class Student {
 @Component({
 	selector: 'students',
   	templateUrl: 'src/app/html/students.html',
-  //  styleUrls: ['./login.css']
+  //  styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
+
 })
 export class Students {
 	studentList: Object[];
 	studentToEdit: Student;
 	formEnable: boolean;
 	studentForm: FormGroup;
+	studentUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.studentUrl = globalsService.apiUrl + 'student/';
 		this.getStudents();
 		this.studentForm = fb.group({
 			_id:[""],
@@ -57,7 +63,7 @@ export class Students {
 		}
 	}
 	getStudents() {
-	  this.http.get('http://localhost:3000/student/findAll')
+	  this.http.get(this.studentUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -82,7 +88,7 @@ export class Students {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/student/add', body, { headers: headers })
+	    this.http.post(this.studentUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -103,7 +109,7 @@ export class Students {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/student/update/' + student._id, body, { headers: headers })
+	    this.http.put(this.studentUrl + 'update/' + student._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -119,7 +125,7 @@ export class Students {
 
 
   delete(student, event) {
-	this.http.delete('http://localhost:3000/student/delete/' + student._id)
+	this.http.delete(this.studentUrl + 'delete/' + student._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

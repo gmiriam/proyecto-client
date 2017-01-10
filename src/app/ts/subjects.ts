@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import {GlobalsService} from './globals.service';
 
 
 export class Subject {
@@ -13,15 +14,19 @@ export class Subject {
 @Component({
 	selector: 'subjects',
   	templateUrl: 'src/app/html/subjects.html',
-  //  styleUrls: ['./login.css']
+  //  styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
+
 })
 export class Subjects {
 	subjectList: Object[];
 	subjectToEdit: Subject;
 	formEnable: boolean;
 	subjectForm: FormGroup;
+	subjectUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.getSubjects();
 		this.subjectForm = fb.group({
 			_id:[""],
@@ -47,7 +52,7 @@ export class Subjects {
 		}
 	}
 	getSubjects() {
-	  this.http.get('http://localhost:3000/subject/findAll')
+	  this.http.get(this.subjectUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -72,7 +77,7 @@ export class Subjects {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/subject/add', body, { headers: headers })
+	    this.http.post(this.subjectUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -93,7 +98,7 @@ export class Subjects {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/subject/update/' + subject._id, body, { headers: headers })
+	    this.http.put(this.subjectUrl + 'update/' + subject._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -109,7 +114,7 @@ export class Subjects {
 
 
   delete(subject, event) {
-	this.http.delete('http://localhost:3000/subject/delete/' + subject._id)
+	this.http.delete(this.subjectUrl + 'delete/' + subject._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

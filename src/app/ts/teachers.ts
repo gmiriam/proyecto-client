@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import {GlobalsService} from './globals.service';
 
 
 export class Teacher {
@@ -15,15 +16,18 @@ export class Teacher {
 @Component({
 	selector: 'teachers',
   	templateUrl: 'src/app/html/teachers.html',
-  //  styleUrls: ['./login.css']
+  //  styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
 })
 export class Teachers {
 	teacherList: Object[];
 	teacherToEdit: Teacher;
 	formEnable: boolean;
 	teacherForm: FormGroup;
+	teacherUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.teacherUrl = globalsService.apiUrl + 'teacher/';
 		this.getTeachers();
 		this.teacherForm = fb.group({
 			_id:[""],
@@ -51,7 +55,7 @@ export class Teachers {
 		}
 	}
 	getTeachers() {
-	  this.http.get('http://localhost:3000/teacher/findAll')
+	  this.http.get(this.teacherUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -76,7 +80,7 @@ export class Teachers {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/teacher/add', body, { headers: headers })
+	    this.http.post(this.teacherUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -97,7 +101,7 @@ export class Teachers {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/teacher/update/' + teacher._id, body, { headers: headers })
+	    this.http.put(this.teacherUrl + 'update/' + teacher._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -113,7 +117,7 @@ export class Teachers {
 
 
   delete(teacher, event) {
-	this.http.delete('http://localhost:3000/teacher/delete/' + teacher._id)
+	this.http.delete(this.teacherUrl + 'delete/' + teacher._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

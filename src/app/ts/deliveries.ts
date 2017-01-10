@@ -129,4 +129,10 @@ export class Deliveries {
 		  }
  	  );
   }
+
+  onDeliveryUploaded(filename: string) {
+
+  	console.debug("oh milagro", filename);
+  	this.deliveryToEdit.data = filename;
+  }
 }

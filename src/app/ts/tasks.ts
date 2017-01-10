@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import {GlobalsService} from './globals.service';
 
 export class Task {
 	_id: string;
@@ -8,14 +9,16 @@ export class Task {
 	statement: string;
 	startDate: string;
 	endDate: string;
-	maxScore: string;
+	maxtask: string;
 	teacher: string;
+	evaluationTest: string;
 }
 
 @Component({
 	selector: 'tasks',
 	templateUrl: 'src/app/html/tasks.html',
-	//styleUrls: ['./login.css']
+	//styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
 })
 
 export class Tasks {
@@ -23,8 +26,10 @@ export class Tasks {
 	taskToEdit: Task;
 	formEnable: boolean;
 	taskForm: FormGroup;
+	taskUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.getTasks();
 		this.taskForm = fb.group({
 			_id:[""],
@@ -33,7 +38,8 @@ export class Tasks {
 			startDate: ["", Validators.required],
 			endDate: [""],
 			maxScore: [""],
-			teacher: ["", Validators.required]
+			teacher: ["", Validators.required],
+			evaluationTest: ["", Validators.required]
 		});
 	}
 	showForm(event, task) {
@@ -52,7 +58,7 @@ export class Tasks {
 		}
 	}
 	getTasks() {
-	  this.http.get('http://localhost:3000/task/findAll')
+	  this.http.get(this.taskUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -78,7 +84,7 @@ export class Tasks {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/task/add', body, { headers: headers })
+	    this.http.post(this.taskUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -100,7 +106,7 @@ export class Tasks {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/task/update/' + task._id, body, { headers: headers })
+	    this.http.put(this.taskUrl + 'update/' + task._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -116,7 +122,7 @@ export class Tasks {
 
 
   delete(task, event) {
-	this.http.delete('http://localhost:3000/task/delete/' + task._id)
+	this.http.delete(this.taskUrl + 'delete/' + task._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;
@@ -130,5 +136,8 @@ export class Tasks {
 			  console.error(error.text());
 		  }
  	  );
+  }
+  onTaskUploaded(filename: string) {
+  	this.taskToEdit.evaluationTest = filename;
   }
 }

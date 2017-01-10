@@ -52,7 +52,11 @@
 	      <input type="text" class="form-control" [(ngModel)]="taskToEdit.teacher" formControlName="teacher" id="teacher" placeholder="Responsable">
 	    </div>
 	  </div>
-
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+		    <file-upload (onUploaded)="onTaskUploaded($event)"></file-upload>
+	    </div>
+	  </div>
 	  <div class="form-group">
 	    <div class="col-sm-offset-2 col-sm-10">
 	      <button type="submit" class="btn btn-default">Guardar cambios</button>

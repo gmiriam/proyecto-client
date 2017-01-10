@@ -36,6 +36,11 @@
 	      <button type="submit" class="btn btn-default">Guardar cambios</button>
 	    </div>
 	  </div>
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+		    <file-upload (onUploaded)="onDeliveryUploaded($event)"></file-upload>
+	    </div>
+	  </div>
 	</form>
-    <file-upload></file-upload>
 </div>

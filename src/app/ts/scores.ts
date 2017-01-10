@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
-
+import {GlobalsService} from './globals.service';
 
 export class Score {
 	_id: string;
@@ -13,15 +13,19 @@ export class Score {
 @Component({
 	selector: 'scores',
   	templateUrl: 'src/app/html/scores.html',
-  //  styleUrls: ['./login.css']
+  //  styleUrls: ['./login.css'],
+   	providers: [GlobalsService]
+
 })
 export class Scores {
 	scoreList: Object[];
 	scoreToEdit: Score;
 	formEnable: boolean;
 	scoreForm: FormGroup;
+	scoreUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+		this.scoreUrl = globalsService.apiUrl + 'score/';
 		this.getScores();
 		this.scoreForm = fb.group({
 			_id:[""],
@@ -47,7 +51,7 @@ export class Scores {
 		}
 	}
 	getScores() {
-	  this.http.get('http://localhost:3000/score/findAll')
+	  this.http.get(this.scoreUrl + 'findAll')
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -72,7 +76,7 @@ export class Scores {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post('http://localhost:3000/score/add', body, { headers: headers })
+	    this.http.post(this.scoreUrl + 'add', body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -93,7 +97,7 @@ export class Scores {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put('http://localhost:3000/score/update/' + score._id, body, { headers: headers })
+	    this.http.put(this.scoreUrl + 'update/' + score._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -109,7 +113,7 @@ export class Scores {
 
 
   delete(score, event) {
-	this.http.delete('http://localhost:3000/score/delete/' + score._id)
+	this.http.delete(this.scoreUrl + 'delete/' + score._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;
