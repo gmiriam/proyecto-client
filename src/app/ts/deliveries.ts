@@ -23,6 +23,7 @@ export class Deliveries {
 	formEnable: boolean;
 	deliveryForm: FormGroup;
 	deliveryUrl: string;
+	fileTarget: string;
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
 		this.deliveryUrl = globalsService.apiUrl + 'delivery/';
@@ -34,6 +35,7 @@ export class Deliveries {
 	    	score: [""],
 	    	data: [""],
 		});
+		this.fileTarget = 'deliveries';
 	}
 
 	showForm(event, delivery) {

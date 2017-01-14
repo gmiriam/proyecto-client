@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 
 
 @Component({
@@ -8,21 +8,25 @@ import {Component, EventEmitter, Output} from '@angular/core';
 
 export class UploaderComponent {
   @Output() onUploaded = new EventEmitter<string>();
+  @Input() fileTarget;
   uploadFile: any;
   hasBaseDropZoneOver: boolean = false;
-  options: Object = {
-    url: 'http://localhost:3002/upload',
-    data: {
-      "fileTarget": "tests"
-    }
-  };
+  options: Object;
   sizeLimit = 2000000;
+
+  ngOnInit() {
+    this.options = {
+      url: 'http://localhost:3002/upload',
+      data: {
+        "fileTarget": this.fileTarget
+      }
+    };
+  }
 
   handleUpload(data): void {
     if (data && data.response) {
       data = JSON.parse(data.response);
       this.uploadFile = data;
-      console.log("eeee", data);
       this.onUploaded.emit(data.filename);
     }
   }

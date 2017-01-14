@@ -27,6 +27,8 @@ export class Tasks {
 	formEnable: boolean;
 	taskForm: FormGroup;
 	taskUrl: string;
+	testFileTarget: string;
+	attachedFileTarget: string;
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
 		this.taskUrl = globalsService.apiUrl + 'task/';
@@ -39,9 +41,13 @@ export class Tasks {
 			endDate: [""],
 			maxScore: [""],
 			teacher: ["", Validators.required],
-			evaluationTest: ["", Validators.required]
+			evaluationTest: ["", Validators.required],
+			attached: [""]
 		});
+		this.testFileTarget = 'tests';
+		this.attachedFileTarget = 'attached';
 	}
+
 	showForm(event, task) {
 		this.taskToEdit = task ? task : { _id: null };
 		this.formEnable = true;
@@ -137,7 +143,10 @@ export class Tasks {
 		  }
  	  );
   }
-  onTaskUploaded(filename: string) {
+  onTaskTestUploaded(filename: string) {
   	this.taskToEdit.evaluationTest = filename;
+  }
+  onTaskAttachedUploaded(filename: string) {
+  	this.taskToEdit.attached = filename;
   }
 }
