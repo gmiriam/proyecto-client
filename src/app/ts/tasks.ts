@@ -12,6 +12,7 @@ export class Task {
 	maxtask: string;
 	teacher: string;
 	evaluationTest: string;
+	attached: string;
 }
 
 @Component({
