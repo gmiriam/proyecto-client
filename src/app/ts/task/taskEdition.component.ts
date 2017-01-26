@@ -1,39 +1,31 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
-import {GlobalsService} from './globals.service';
-
-export class Task {
-	_id: string;
-	name: string;
-	statement: string;
-	startDate: string;
-	endDate: string;
-	maxtask: string;
-	teacher: string;
-	evaluationTest: string;
-	attached: string;
-}
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import {GlobalsService} from '../globals.service';
+import {Task} from './task';
 
 @Component({
-	selector: 'tasks',
-	templateUrl: 'src/app/html/tasks.html',
+	selector: 'taskEdition',
+	templateUrl: 'src/app/html/task/taskEdition.html',
 	//styleUrls: ['./login.css'],
    	providers: [GlobalsService]
 })
 
-export class Tasks {
-	taskList: Task[];
-	taskToEdit: Task;
+export class TaskEdition {
+	taskId: string;
 	formEnable: boolean;
+	taskToEdit: Task = new Task();
 	taskForm: FormGroup;
 	taskUrl: string;
 	testFileTarget: string;
 	attachedFileTarget: string;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService) {
+	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+		this.route.params.subscribe((params: Params) => {
+			this.taskId = params['id'];
+		});
 		this.taskUrl = globalsService.apiUrl + 'task/';
-		this.getTasks();
 		this.taskForm = fb.group({
 			_id:[""],
 			name: ["", Validators.required],
@@ -47,15 +39,11 @@ export class Tasks {
 		});
 		this.testFileTarget = 'tests';
 		this.attachedFileTarget = 'attached';
-	}
 
-	showForm(event, task) {
-		this.taskToEdit = task ? task : { _id: null };
-		this.formEnable = true;
+		this.getTask();
 	}
 
   	onSubmit(event) {
-		this.formEnable = false;
 		let value = this.taskToEdit;
 		if (value._id){
 			this.update(value)
@@ -64,21 +52,19 @@ export class Tasks {
 			this.add(value)
 		}
 	}
-	getTasks() {
-	  this.http.get(this.taskUrl + 'findAll')
+
+	getTask() {
+		if (this.taskId === "new") {
+			return;
+		}
+
+	  this.http.get(this.taskUrl + 'findById/' + this.taskId)
 		.subscribe(
           response => {
 			  var content = response.json().content;
-			  console.debug("entra")
-			  this.taskList = content;
+			  console.debug("entra", content)
+				this.taskToEdit = content[0] ? content[0] : { _id: null };
 
-			  for (var i = 0; i < content.length; i++) {
-				  var data = content[i];
-				  for (var key in data) {
-					  console.log(key, data[key])
-				  }
-			  }
-          	  console.log(response.json())
 		  },
 		  error => {
 			  console.error(error.text());
@@ -95,7 +81,7 @@ export class Tasks {
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getTask();
 
 	        },
 	        error => {
@@ -117,7 +103,7 @@ export class Tasks {
 	      .subscribe(
 	        response => {
 	          console.log(response)
-				this.getTasks();
+				this.getTask();
 
 	        },
 	        error => {
@@ -136,7 +122,7 @@ export class Tasks {
           	  console.log(status)
           	  if(status == "success") {
           	  	alert("Se ha borrado con éxito")
-				this.getTasks();
+				this.getTask();
 			  }
 		},
 		error => {

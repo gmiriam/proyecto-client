@@ -1,9 +1,9 @@
-﻿import {Home} from './home';
+import {Home} from './home';
 //import {Login} from './login';
 //import {Signup} from './signup';
 
-import {Tasks} from './tasks';
-import {Courses} from './courses';
+import {TaskList} from './task/taskList.component';
+import {TaskEdition} from './task/taskEdition.component';
 import {Admins} from './admins';
 import {Teachers} from './teachers';
 import {Students} from './students';
@@ -23,10 +23,10 @@ export const routes = [{
 //{ path: 'signup', component: Signup },
 {
   path: 'tasks',
-  component: Tasks
+  component: TaskList
 },{
-  path: 'courses',
-  component: Courses
+  path: 'task/:id',
+  component: TaskEdition
 },{
   path: 'admins',
   component: Admins

@@ -2,8 +2,7 @@ import { NgModule }      from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {Tasks} from './tasks';
-import {Courses} from './courses';
+import {TaskEdition} from './task/taskEdition.component';
 import {Admins} from './admins';
 import {Teachers} from './teachers';
 import {Students} from './students';
@@ -21,10 +20,9 @@ import { UploaderModule }  from './uploader.module';
   	UploaderModule
   ],
   declarations: [
-  	Tasks, Courses, Admins, Teachers, Students, Subjects, Deliveries, Scores
+  	TaskEdition, Admins, Teachers, Students, Subjects, Deliveries, Scores
   ],
   exports: [ ]
 })
-export class EditionModule {
-	apiUrl: string = 'http://localhost:3000/';
-}
+
+export class EditionModule {}

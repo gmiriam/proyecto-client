@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { AppComponent }  from './app.component';
 
 import { EditionModule }  from './edition.module';
+import { ListModule }  from './list.module';
 
 import {Home} from './home';
 
@@ -16,7 +17,8 @@ import {Home} from './home';
   	BrowserModule,
   	RouterModule.forRoot(routes),
   	HttpModule,
-    EditionModule
+    EditionModule,
+    ListModule
   ],
   // components and directives
   declarations: [

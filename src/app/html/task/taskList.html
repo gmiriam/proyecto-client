@@ -1,0 +1,11 @@
+<h1> Tareas: </h1>
+<button class="add-button" (click)="addItem($event)">Añadir nueva tarea</button>
+<ul class="heroes">
+  <li *ngFor="let task of taskList">
+    <span class="hero-element">
+      <span class="badge">{{task.name}}</span> {{task.statement}}
+    </span>
+    <button class="edit-button" (click)= "editItem($event, task._id)">Editar</button>
+    <button class="delete-button" (click)="deleteItem($event, task._id)">Eliminar</button>
+  </li>
+</ul>
