@@ -1,4 +1,5 @@
 import {Home} from './home';
+import {navbarComponent} from './navbar.component'
 //import {Login} from './login';
 //import {Signup} from './signup';
 
@@ -18,7 +19,10 @@ export const routes = [{
 },{
   path: 'home',
   component: Home
-},
+}, {
+  path: 'navbar.component',
+  component: navbarComponent
+}
 //{ path: 'login', component: Login },
 //{ path: 'signup', component: Signup },
 {
