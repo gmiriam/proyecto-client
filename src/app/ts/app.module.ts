@@ -10,7 +10,8 @@ import { EditionModule }  from './edition.module';
 import { ListModule }  from './list.module';
 
 import {Home} from './home';
-import {navbarComponent} from './navbar.component'
+import {navbarComponent} from './Bars/navbar.component';
+//import {SideBarComponent} from './Bars/sidebar.component';
 
 @NgModule({
   // module dependencies
@@ -26,6 +27,7 @@ import {navbarComponent} from './navbar.component'
     AppComponent,
   	Home,
     navbarComponent,
+ //   SideBarComponent,
   ],
   // root component
   bootstrap: [ AppComponent ]

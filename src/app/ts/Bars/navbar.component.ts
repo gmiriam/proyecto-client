@@ -29,7 +29,8 @@ import {Component, Input} from '@angular/core';
                     </div>
                 </div>
             </nav>
-    `
+    `,
+    styleUrls: [ '../../src/app/ts/Bars/sidebar.css' ]
 })
 export class navbarComponent {
 }
