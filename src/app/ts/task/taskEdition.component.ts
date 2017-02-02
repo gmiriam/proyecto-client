@@ -58,7 +58,7 @@ export class TaskEdition {
 			return;
 		}
 
-	  this.http.get(this.taskUrl + 'findById/' + this.taskId)
+	  this.http.get(this.taskUrl + this.taskId)
 		.subscribe(
           response => {
 			  var content = response.json().content;
@@ -77,7 +77,7 @@ export class TaskEdition {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.post(this.taskUrl + 'add', body, { headers: headers })
+	    this.http.post(this.taskUrl, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -99,7 +99,7 @@ export class TaskEdition {
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
-	    this.http.put(this.taskUrl + 'update/' + task._id, body, { headers: headers })
+	    this.http.put(this.taskUrl + task._id, body, { headers: headers })
 	      .subscribe(
 	        response => {
 	          console.log(response)
@@ -115,7 +115,7 @@ export class TaskEdition {
 
 
   delete(task, event) {
-	this.http.delete(this.taskUrl + 'delete/' + task._id)
+	this.http.delete(this.taskUrl + task._id)
 	  	.subscribe(
           response => {
 			  var status = response.json().status;

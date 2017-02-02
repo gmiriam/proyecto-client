@@ -7,8 +7,8 @@ module.exports = function(grunt) {
       all: {
         options: {
           create: ['dist/js', 'dist/css']
-        },
-      },
+        }
+      }
     },
     stylus: {
       compile: {
@@ -28,5 +28,4 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['mkdir', 'stylus']);
-
 };

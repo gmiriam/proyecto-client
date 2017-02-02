@@ -1,6 +1,4 @@
 import {Home} from './home';
-import {navbarComponent} from './Bars/navbar.component'
-import {SideBarComponent} from './Bars/sidebar.component'
 //import {Login} from './login';
 //import {Signup} from './signup';
 
@@ -20,16 +18,9 @@ export const routes = [{
 },{
   path: 'home',
   component: Home
-}, {
-  path: 'navbar.component',
-  component: navbarComponent
 },
 //{ path: 'login', component: Login },
 //{ path: 'signup', component: Signup },
-//{
-//  path: 'sidebar.component',
-//  component: SideBarComponent
-//},
 {
   path: 'tasks',
   component: TaskList

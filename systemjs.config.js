@@ -20,7 +20,8 @@
     // other libraries
     'rxjs': 'npm:rxjs',
     'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-    'ng2-uploader': 'npm:ng2-uploader'
+    'ng2-uploader': 'npm:ng2-uploader',
+    'ng-sidebar': 'npm:ng-sidebar'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -35,6 +36,10 @@
     'ng2-uploader': {
       defaultExtension: 'js',
       main: 'ng2-uploader'
+    },
+    'ng-sidebar': {
+      defaultExtension: 'js',
+      main: 'lib/index'
     }
   };
 

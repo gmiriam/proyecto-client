@@ -21,7 +21,7 @@ export class TaskList {
 	}
 
 	getTasks() {
-		this.http.get(this.taskUrl + 'findAll').subscribe(
+		this.http.get(this.taskUrl).subscribe(
 			response => {
 				var content = response.json().content;
 				this.taskList = content;
@@ -47,7 +47,7 @@ export class TaskList {
 			return;
 		}
 
-		this.http.delete(this.taskUrl + 'delete/' + id).subscribe(
+		this.http.delete(this.taskUrl + id).subscribe(
 			response => {
 				console.log("borrado", id);
 				this.getTasks();

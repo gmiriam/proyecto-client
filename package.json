@@ -1,9 +1,9 @@
 {
-  "name": "angular2-quickstart",
-  "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "name": "proyecto-cliente",
+  "version": "0.0.1",
+  "description": "",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "grunt && tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
     "tsc:w": "tsc -w"
@@ -23,6 +23,7 @@
     "angular-in-memory-web-api": "~0.2.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "ng-sidebar": "^3.2.1",
     "ng2-uploader": "^1.6.2",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-rc.4",

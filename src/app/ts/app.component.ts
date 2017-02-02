@@ -3,13 +3,24 @@
 @Component({
 	selector: 'app',
 	template: `
-		<div class="container body-container">
 			<navbar></navbar>
-			<div style="position:absolute; top: 51px; left: 201px;">
-				<router-outlet></router-outlet>
+			<div class="main-container">
+				<ng-sidebar-container>
+					<ng-sidebar [(opened)]="_opened">
+						<ul>
+							<li> <a routerLink="/teachers" routerLinkActive="active"> Ver Profesores </a></li>
+							<li> <a routerLink="/students" routerLinkActive="active"> Ver Alumnos </a></li>
+							<li> <a routerLink="/admins" routerLinkActive="active"> Ver Administradores </a></li>
+						</ul>
+					</ng-sidebar>
+				</ng-sidebar-container>
+				<div class="view-container">
+					<router-outlet></router-outlet>
+				</div>
 			</div>
-		</div>
 	`
 })
 
-export class AppComponent {}
+export class AppComponent {
+	private _opened: boolean = true;
+}

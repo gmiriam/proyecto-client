@@ -10,8 +10,8 @@ import { EditionModule }  from './edition.module';
 import { ListModule }  from './list.module';
 
 import {Home} from './home';
-import {navbarComponent} from './Bars/navbar.component';
-//import {SideBarComponent} from './Bars/sidebar.component';
+import {navbarComponent} from './bars/navbar.component';
+import { SidebarModule } from 'ng-sidebar';
 
 @NgModule({
   // module dependencies
@@ -19,6 +19,7 @@ import {navbarComponent} from './Bars/navbar.component';
   	BrowserModule,
   	RouterModule.forRoot(routes),
   	HttpModule,
+    SidebarModule,
     EditionModule,
     ListModule
   ],
@@ -26,8 +27,7 @@ import {navbarComponent} from './Bars/navbar.component';
   declarations: [
     AppComponent,
   	Home,
-    navbarComponent,
- //   SideBarComponent,
+    navbarComponent
   ],
   // root component
   bootstrap: [ AppComponent ]
