@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {TaskEdition} from './task/taskEdition.component';
 import {Admins} from './admins';
 import {Teachers} from './teachers';
-import {Students} from './students';
+import {StudentEdition} from './student/edition.component';
 import {Subjects} from './subjects';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
@@ -20,7 +20,7 @@ import { UploaderModule }  from './uploader.module';
   	UploaderModule
   ],
   declarations: [
-  	TaskEdition, Admins, Teachers, Students, Subjects, Deliveries, Scores
+  	TaskEdition, Admins, Teachers, StudentEdition, Subjects, Deliveries, Scores
   ],
   exports: [ ]
 })

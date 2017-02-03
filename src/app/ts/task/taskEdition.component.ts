@@ -35,6 +35,7 @@ export class TaskEdition {
 			maxScore: [""],
 			teacher: ["", Validators.required],
 			evaluationTest: ["", Validators.required],
+			subject: ["", Validators.required],
 			attached: [""]
 		});
 		this.testFileTarget = 'tests';
@@ -73,7 +74,7 @@ export class TaskEdition {
   }
 
 	add(task) {
-		let body = JSON.stringify(task);
+		let body = JSON.stringify({ data: task });
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
 
@@ -94,7 +95,7 @@ export class TaskEdition {
 
 
 	update(task) {
-		let body = JSON.stringify(task);
+		let body = JSON.stringify({ data: task });
 		console.debug("mando", body)
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');

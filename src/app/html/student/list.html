@@ -1,0 +1,11 @@
+<h1>Estudiantes</h1>
+<button class="add-button" (click)="addItem($event)">Añadir nuevo estudiante</button>
+<ul class="heroes">
+  <li *ngFor="let student of studentList">
+    <span class="hero-element">
+      <span class="badge">{{student.user.firstName}}</span> {{student.user.surname}}
+    </span>
+    <button class="edit-button" (click)= "editItem($event, student._id)">Editar</button>
+    <button class="delete-button" (click)="deleteItem($event, student._id)">Eliminar</button>
+  </li>
+</ul>
