@@ -1,52 +1,49 @@
 import {Home} from './home';
-//import {Login} from './login';
-//import {Signup} from './signup';
 
-import {TaskList} from './task/taskList.component';
-import {TaskEdition} from './task/taskEdition.component';
-import {Admins} from './admins';
-import {Teachers} from './teachers';
+import {TaskList} from './task/list.component';
+import {TaskEdition} from './task/edition.component';
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
+import {Admins} from './admins';
+import {Teachers} from './teachers';
 import {Subjects} from './subjects';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
 export const routes = [{
-  path: '',
-  redirectTo: '/home',
-  pathMatch: 'full'
+	path: '',
+	redirectTo: '/home',
+	pathMatch: 'full'
 },{
-  path: 'home',
-  component: Home
+	path: 'home',
+	component: Home
 },
 //{ path: 'login', component: Login },
-//{ path: 'signup', component: Signup },
 {
-  path: 'tasks',
-  component: TaskList
+	path: 'tasks',
+	component: TaskList
 },{
-  path: 'task/:id',
-  component: TaskEdition
+	path: 'task/:id',
+	component: TaskEdition
 },{
-  path: 'admins',
-  component: Admins
+	path: 'admins',
+	component: Admins
 },{
-  path: 'teachers',
-  component: Teachers
+	path: 'teachers',
+	component: Teachers
 },{
-  path: 'students',
-  component: StudentList
+	path: 'students',
+	component: StudentList
 },{
-  path: 'student/:id',
-  component: StudentEdition
+	path: 'student/:id',
+	component: StudentEdition
 },{
-  path: 'subjects',
-  component: Subjects
+	path: 'subjects',
+	component: Subjects
 },{
-  path: 'deliveries',
-  component: Deliveries
+	path: 'deliveries',
+	component: Deliveries
 },{
-  path: 'scores',
-  component: Scores
+	path: 'scores',
+	component: Scores
 }];

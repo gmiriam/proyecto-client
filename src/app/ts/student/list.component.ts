@@ -7,7 +7,6 @@ import {Student} from './student';
 @Component({
 	selector: 'studentList',
 	templateUrl: 'src/app/html/student/list.html',
-	//styleUrls: ['./login.css'],
 	providers: [GlobalsService]
 })
 
@@ -16,13 +15,14 @@ export class StudentList {
 	studentUrl: string;
 
 	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
-		this.studentUrl = globalsService.apiUrl + 'student';
+
+		this.studentUrl = globalsService.apiUrl + 'user';
 		this.getStudents();
 	}
 
 	getStudents() {
 
-		var url = this.studentUrl;
+		var url = this.studentUrl + '?role=student';
 
 		this.http.get(url).subscribe(
 			response => {
@@ -44,7 +44,7 @@ export class StudentList {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Are you sure?");
+		var confirmed = window.confirm("Está seguro?");
 
 		if (!confirmed) {
 			return;
@@ -52,7 +52,6 @@ export class StudentList {
 
 		this.http.delete(this.studentUrl + '/' + id).subscribe(
 			response => {
-				console.log("borrado", id);
 				this.getStudents();
 			},
 			error => {

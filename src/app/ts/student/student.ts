@@ -4,6 +4,7 @@ export class Student {
 	surname: string;
 	email: string;
 	password: string;
-	subjects: string;
-	tasks: string;
+	role: string;
+	enrolledSubjects: string;
+	assignedTasks: string;
 }

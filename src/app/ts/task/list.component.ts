@@ -6,8 +6,7 @@ import {Task} from './task';
 
 @Component({
 	selector: 'taskList',
-	templateUrl: 'src/app/html/task/taskList.html',
-	//styleUrls: ['./login.css'],
+	templateUrl: 'src/app/html/task/list.html',
 	providers: [GlobalsService]
 })
 
@@ -16,6 +15,7 @@ export class TaskList {
 	taskUrl: string;
 
 	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
+
 		this.taskUrl = globalsService.apiUrl + 'task';
 		this.getTasks();
 	}
@@ -44,7 +44,7 @@ export class TaskList {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Are you sure?");
+		var confirmed = window.confirm("Está seguro?");
 
 		if (!confirmed) {
 			return;

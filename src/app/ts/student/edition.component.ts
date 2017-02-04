@@ -8,8 +8,7 @@ import {Student} from './student';
 @Component({
 	selector: 'studentEdition',
 	templateUrl: 'src/app/html/student/edition.html',
-	//styleUrls: ['./login.css'],
-   	providers: [GlobalsService]
+	providers: [GlobalsService]
 })
 
 export class StudentEdition {
@@ -18,114 +17,102 @@ export class StudentEdition {
 	studentToEdit: Student = new Student();
 	studentForm: FormGroup;
 	studentUrl: string;
-	testFileTarget: string;
-	attachedFileTarget: string;
+	roles = ['student', 'teacher', 'admin'];
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+
 		this.route.params.subscribe((params: Params) => {
 			this.studentId = params['id'];
 		});
-		this.studentUrl = globalsService.apiUrl + 'student/';
+
+		this.studentUrl = globalsService.apiUrl + 'user/';
+
 		this.studentForm = fb.group({
 			_id:[""],
 			firstName: ["", Validators.required],
 			surname: [""],
 			email: [""],
 			password: ["", Validators.required],
-			subjects: [""],
-			tasks: [""]
+			role: ["", Validators.required],
+			enrolledSubjects: [""],
+			assignedTasks: [""]
 		});
-		this.testFileTarget = 'tests';
-		this.attachedFileTarget = 'attached';
 
 		this.getStudent();
 	}
 
-  	onSubmit(event) {
+	onSubmit(event) {
+
 		let value = this.studentToEdit;
+
 		if (value._id){
 			this.update(value)
-		}
-		else {
+		} else {
 			this.add(value)
 		}
 	}
 
 	getStudent() {
+
 		if (this.studentId === "new") {
 			return;
 		}
 
-	  this.http.get(this.studentUrl + this.studentId)
-		.subscribe(
-          response => {
-			  var content = response.json().content;
-			  console.debug("entra", content)
-				this.studentToEdit = content[0] ? content[0] : { _id: null };
+		this.http.get(this.studentUrl + this.studentId).subscribe(response => {
 
-		  },
-		  error => {
-			  console.error(error.text());
-		  }
- 	  );
-  }
+			var content = response.json().content;
+			console.debug("entra", content)
+			this.studentToEdit = content[0] ? content[0] : { _id: null };
+		}, error => {
+
+			console.error(error.text());
+		});
+	}
 
 	add(student) {
+
 		let body = JSON.stringify({ data: student });
-	    let headers = new Headers();
-	    headers.append('Content-Type', 'application/json');
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 
-	    this.http.post(this.studentUrl, body, { headers: headers })
-	      .subscribe(
-	        response => {
-	          console.log(response)
-				this.getStudent();
+		this.http.post(this.studentUrl, body, { headers: headers }).subscribe(response => {
 
-	        },
-	        error => {
-	          alert(error.text());
-	          console.log(error.text());
-	        }
-	      );
+			this.getStudent();
+		}, error => {
+
+			console.error(error.text());
+		});
 	}
-
-
 
 	update(student) {
+
 		let body = JSON.stringify({ data: student });
-		console.debug("mando", body)
-	    let headers = new Headers();
-	    headers.append('Content-Type', 'application/json');
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 
-	    this.http.put(this.studentUrl + student._id, body, { headers: headers })
-	      .subscribe(
-	        response => {
-	          console.log(response)
-				this.getStudent();
+		this.http.put(this.studentUrl + student._id, body, { headers: headers }).subscribe(response => {
 
-	        },
-	        error => {
-	          alert(error.text());
-	          console.log(error.text());
-	        }
-	      );
+			this.getStudent();
+		}, error => {
+
+			console.error(error.text());
+		});
 	}
 
+	delete(student, event) {
 
-  delete(student, event) {
-	this.http.delete(this.studentUrl + student._id)
-	  	.subscribe(
-          response => {
-			  var status = response.json().status;
-          	  console.log(status)
-          	  if(status == "success") {
-          	  	alert("Se ha borrado con éxito")
-				this.getStudent();
-			  }
-		},
-		error => {
-			  console.error(error.text());
-		  }
- 	  );
-  }
+		this.http.delete(this.studentUrl + student._id)
+			.subscribe(response => {
+
+				var status = response.json().status;
+
+				if (status === "success") {
+					alert("Se ha borrado con éxito")
+					this.getStudent();
+				}
+			}, error => {
+
+				console.error(error.text());
+			});
+	}
 }
