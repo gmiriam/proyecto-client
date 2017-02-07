@@ -17,7 +17,13 @@ export class StudentEdition {
 	studentToEdit: Student = new Student();
 	studentForm: FormGroup;
 	studentUrl: string;
+	subjectUrl: string;
+	taskUrl: string;
 	roles = ['student', 'teacher', 'admin'];
+	subjectList;
+	taskList;
+	enrolledSubjects;
+	assignedTasks;
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
 
@@ -26,6 +32,8 @@ export class StudentEdition {
 		});
 
 		this.studentUrl = globalsService.apiUrl + 'user/';
+		this.subjectUrl = globalsService.apiUrl + 'subject';
+		this.taskUrl = globalsService.apiUrl + 'task';
 
 		this.studentForm = fb.group({
 			_id:[""],
@@ -39,6 +47,22 @@ export class StudentEdition {
 		});
 
 		this.getStudent();
+		this.getSubjects();
+		this.getTasks();
+	}
+
+	onChangeEnrolledSubjects(event) {
+
+		this.studentToEdit.enrolledSubjects = event.map(function(currentValue, index, array) {
+			return currentValue.id;
+		});
+	}
+
+	onChangeAssignedTasks(event) {
+
+		this.studentToEdit.assignedTasks = event.map(function(currentValue, index, array) {
+			return currentValue.id;
+		});
 	}
 
 	onSubmit(event) {
@@ -63,6 +87,66 @@ export class StudentEdition {
 			var content = response.json().content;
 			console.debug("entra", content)
 			this.studentToEdit = content[0] ? content[0] : { _id: null };
+
+			this.enrolledSubjects = this.studentToEdit.enrolledSubjects.map(function(currentValue, index, array) {
+
+				return {
+					id: currentValue,
+					text: currentValue
+				};
+			});
+
+			this.assignedTasks = this.studentToEdit.assignedTasks.map(function(currentValue, index, array) {
+
+				return {
+					id: currentValue,
+					text: currentValue
+				};
+			});
+		}, error => {
+
+			console.error(error.text());
+		});
+	}
+
+	getSubjects() {
+
+		this.http.get(this.subjectUrl).subscribe(response => {
+
+			var content = response.json().content;
+			if (!content) {
+				return;
+			}
+
+			this.subjectList = content.map(function(currentValue, index, array) {
+
+				return {
+					id: currentValue._id,
+					text: currentValue.name
+				};
+			});
+		}, error => {
+
+			console.error(error.text());
+		});
+	}
+
+	getTasks() {
+
+		this.http.get(this.taskUrl).subscribe(response => {
+
+			var content = response.json().content;
+			if (!content) {
+				return;
+			}
+
+			this.taskList = content.map(function(currentValue, index, array) {
+
+				return {
+					id: currentValue._id,
+					text: currentValue.name
+				};
+			});
 		}, error => {
 
 			console.error(error.text());

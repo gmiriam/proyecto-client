@@ -21,6 +21,7 @@
     'rxjs': 'npm:rxjs',
     'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
     'ng2-uploader': 'npm:ng2-uploader',
+    'ng2-select' :'npm:ng2-select',
     'ng-sidebar': 'npm:ng-sidebar'
   };
 
@@ -36,6 +37,10 @@
     'ng2-uploader': {
       defaultExtension: 'js',
       main: 'ng2-uploader'
+    },
+    'ng2-select': {
+      defaultExtension: 'js',
+      main: 'ng2-select'
     },
     'ng-sidebar': {
       defaultExtension: 'js',

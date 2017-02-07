@@ -5,6 +5,6 @@ export class Student {
 	email: string;
 	password: string;
 	role: string;
-	enrolledSubjects: string;
-	assignedTasks: string;
+	enrolledSubjects: Array<any>;
+	assignedTasks: Array<any>;
 }

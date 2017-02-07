@@ -11,7 +11,7 @@ import { ListModule } from './list.module';
 
 import {Home} from './home';
 import {navbarComponent} from './bars/navbar.component';
-import { SidebarModule } from 'ng-sidebar';
+import {SidebarModule } from 'ng-sidebar';
 
 @NgModule({
 	// module dependencies

@@ -11,18 +11,20 @@ import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
 import { UploaderModule }  from './uploader.module';
+import { MultiSelectModule } from './multiSelect.module';
 
 @NgModule({
-  imports: [
-	BrowserModule,
-    FormsModule,
-  	ReactiveFormsModule,
-  	UploaderModule
-  ],
-  declarations: [
-  	TaskEdition, StudentEdition, Admins, Teachers, Subjects, Deliveries, Scores
-  ],
-  exports: [ ]
+	imports: [
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
+		UploaderModule,
+		MultiSelectModule
+	],
+	declarations: [
+		TaskEdition, StudentEdition, Admins, Teachers, Subjects, Deliveries, Scores
+	],
+	exports: [ ]
 })
 
 export class EditionModule {}
