@@ -19,7 +19,7 @@ export class StudentEdition {
 	studentUrl: string;
 	subjectUrl: string;
 	taskUrl: string;
-	roles = ['student', 'teacher', 'admin'];
+	roles = ['estudiante', 'profesor', 'administrador'];
 	subjectList;
 	taskList;
 	enrolledSubjects;
@@ -53,14 +53,21 @@ export class StudentEdition {
 
 	onChangeEnrolledSubjects(event) {
 
-		this.studentToEdit.enrolledSubjects = event.map(function(currentValue, index, array) {
-			return currentValue.id;
-		});
+		this.studentToEdit.enrolledSubjects = this._getSerializedSelection(event);
 	}
 
 	onChangeAssignedTasks(event) {
 
-		this.studentToEdit.assignedTasks = event.map(function(currentValue, index, array) {
+		this.studentToEdit.assignedTasks = this._getSerializedSelection(event);
+	}
+
+	_getSerializedSelection(selection) {
+
+		if (!selection || !selection.length) {
+			return null;
+		}
+
+		return selection.map(function(currentValue, index, array) {
 			return currentValue.id;
 		});
 	}
@@ -85,24 +92,7 @@ export class StudentEdition {
 		this.http.get(this.studentUrl + this.studentId).subscribe(response => {
 
 			var content = response.json().content;
-			console.debug("entra", content)
-			this.studentToEdit = content[0] ? content[0] : { _id: null };
-
-			this.enrolledSubjects = this.studentToEdit.enrolledSubjects.map(function(currentValue, index, array) {
-
-				return {
-					id: currentValue,
-					text: currentValue
-				};
-			});
-
-			this.assignedTasks = this.studentToEdit.assignedTasks.map(function(currentValue, index, array) {
-
-				return {
-					id: currentValue,
-					text: currentValue
-				};
-			});
+			this.studentToEdit = content.length ? content[0] : { _id: null };
 		}, error => {
 
 			console.error(error.text());
@@ -118,13 +108,22 @@ export class StudentEdition {
 				return;
 			}
 
-			this.subjectList = content.map(function(currentValue, index, array) {
+			this.enrolledSubjects = [];
 
-				return {
-					id: currentValue._id,
-					text: currentValue.name
-				};
-			});
+			this.subjectList = content.map((function(currentValue, index, array) {
+
+				var enrolledSubjects = this.studentToEdit.enrolledSubjects,
+					subjectObj = {
+						id: currentValue._id,
+						text: currentValue.name
+					};
+
+				if (enrolledSubjects && enrolledSubjects.indexOf(subjectObj.id) !== -1) {
+					this.enrolledSubjects.push(subjectObj);
+				}
+
+				return subjectObj;
+			}).bind(this));
 		}, error => {
 
 			console.error(error.text());
@@ -140,13 +139,22 @@ export class StudentEdition {
 				return;
 			}
 
-			this.taskList = content.map(function(currentValue, index, array) {
+			this.assignedTasks = [];
 
-				return {
-					id: currentValue._id,
-					text: currentValue.name
-				};
-			});
+			this.taskList = content.map((function(currentValue, index, array) {
+
+				var assignedTasks = this.studentToEdit.assignedTasks,
+					taskObj = {
+						id: currentValue._id,
+						text: currentValue.name
+					};
+
+				if (assignedTasks && assignedTasks.indexOf(taskObj.id) !== -1) {
+					this.assignedTasks.push(taskObj);
+				}
+
+				return taskObj;
+			}).bind(this));
 		}, error => {
 
 			console.error(error.text());
