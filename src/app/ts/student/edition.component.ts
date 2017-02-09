@@ -19,7 +19,7 @@ export class StudentEdition {
 	studentUrl: string;
 	subjectUrl: string;
 	taskUrl: string;
-	roles = ['estudiante', 'profesor', 'administrador'];
+	roles = ['student', 'teacher', 'admin'];
 	subjectList;
 	taskList;
 	enrolledSubjects;

@@ -4,9 +4,10 @@ import {TaskList} from './task/list.component';
 import {TaskEdition} from './task/edition.component';
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
+import {SubjectList} from './subject/list.component';
+import {SubjectEdition} from './subject/edition.component';
 import {Admins} from './admins';
 import {Teachers} from './teachers';
-import {Subjects} from './subjects';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
@@ -39,7 +40,10 @@ export const routes = [{
 	component: StudentEdition
 },{
 	path: 'subjects',
-	component: Subjects
+	component: SubjectList
+},{
+	path: 'subject/:id',
+	component: SubjectEdition
 },{
 	path: 'deliveries',
 	component: Deliveries

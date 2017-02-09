@@ -25,7 +25,7 @@ export class TaskEdition {
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
 		});
-	
+
 		this.taskUrl = globalsService.apiUrl + 'task/';
 
 		this.taskForm = fb.group({

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {TaskList} from './task/list.component';
 import {StudentList} from './student/list.component';
+import {SubjectList} from './subject/list.component';
 
 @NgModule({
 	imports: [
@@ -10,7 +11,8 @@ import {StudentList} from './student/list.component';
 	],
 	declarations: [
 		TaskList,
-		StudentList
+		StudentList,
+		SubjectList
 	],
 	exports: [ ]
 })

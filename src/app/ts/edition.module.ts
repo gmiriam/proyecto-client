@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {TaskEdition} from './task/edition.component';
 import {StudentEdition} from './student/edition.component';
+import {SubjectEdition} from './subject/edition.component';
 import {Admins} from './admins';
 import {Teachers} from './teachers';
-import {Subjects} from './subjects';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
@@ -22,7 +22,7 @@ import { MultiSelectModule } from './multiSelect.module';
 		MultiSelectModule
 	],
 	declarations: [
-		TaskEdition, StudentEdition, Admins, Teachers, Subjects, Deliveries, Scores
+		TaskEdition, StudentEdition, SubjectEdition, Admins, Teachers, Deliveries, Scores
 	],
 	exports: [ ]
 })

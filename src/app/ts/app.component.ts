@@ -8,9 +8,11 @@
 				<ng-sidebar-container>
 					<ng-sidebar [(opened)]="_opened">
 						<ul>
-							<li> <a routerLink="/teachers" routerLinkActive="active"> Ver Profesores </a></li>
-							<li> <a routerLink="/students" routerLinkActive="active"> Ver Alumnos </a></li>
-							<li> <a routerLink="/admins" routerLinkActive="active"> Ver Administradores </a></li>
+							<li> <a routerLink="/admins" routerLinkActive="active"> Ver administradores </a></li>
+							<li> <a routerLink="/teachers" routerLinkActive="active"> Ver profesores </a></li>
+							<li> <a routerLink="/students" routerLinkActive="active"> Ver estudiantes </a></li>
+							<li> <a routerLink="/subjects" routerLinkActive="active"> Ver asignaturas </a></li>
+							<li> <a routerLink="/tasks" routerLinkActive="active"> Ver tareas </a></li>
 						</ul>
 					</ng-sidebar>
 				</ng-sidebar-container>

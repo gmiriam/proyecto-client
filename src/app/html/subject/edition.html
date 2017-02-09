@@ -1,0 +1,37 @@
+<h1>Editar tarea</h1>
+<form class="form-horizontal" [formGroup]="subjectForm" (ngSubmit)="onSubmit($event)">
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">Nombre</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" [(ngModel)]="subjectToEdit.name" formControlName="name" id="name" placeholder="Nombre">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="description" class="col-sm-2 control-label">Descripción</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" [(ngModel)]="subjectToEdit.description" formControlName="description" id="description" placeholder="Descripción">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="teachers" class="col-sm-2 control-label">Profesores</label>
+		<div *ngIf="teacherList" class="col-sm-10">
+			<multiSelect [items]="teacherList" [value]="teachers" (change)="onChangeTeachers($event)"></multiSelect>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Temario</label>
+		<input type="text" class="form-control" [(ngModel)]="subjectToEdit.temary" formControlName="temary" id="temary" placeholder="Temario">
+		<div class="col-sm-offset-2 col-sm-10">
+			<file-upload (onUploaded)="onSubjectTemaryUploaded($event)" [fileTarget]="temaryFileTarget"></file-upload>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Guardar cambios</button>
+		</div>
+	</div>
+</form>

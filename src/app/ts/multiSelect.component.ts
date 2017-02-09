@@ -2,8 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'multiSelect',
-	templateUrl: 'src/app/html/multiSelect.html',
-	styleUrls: ['dist/css/ng2-select.css']
+	templateUrl: 'src/app/html/multiSelect.html'
 })
 
 export class MultiSelectComponent {
