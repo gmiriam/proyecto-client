@@ -22,7 +22,7 @@ export class SubjectList {
 
 	getSubjects() {
 
-		var url = this.subjectUrl;// + '?subjectid=1235';
+		var url = this.subjectUrl;
 
 		this.http.get(url).subscribe(
 			response => {
@@ -52,7 +52,6 @@ export class SubjectList {
 
 		this.http.delete(this.subjectUrl + '/' + id).subscribe(
 			response => {
-				console.log("borrado", id);
 				this.getSubjects();
 			},
 			error => {

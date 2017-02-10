@@ -6,6 +6,7 @@ export class Task {
 	endDate: string;
 	maxScore: string;
 	teacher: string;
+	subject: string;
 	evaluationTest: string;
 	attached: string;
 }

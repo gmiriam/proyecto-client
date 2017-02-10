@@ -4,10 +4,12 @@ import {TaskList} from './task/list.component';
 import {TaskEdition} from './task/edition.component';
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
+import {TeacherList} from './teacher/list.component';
+import {TeacherEdition} from './teacher/edition.component';
+import {AdminList} from './admin/list.component';
+import {AdminEdition} from './admin/edition.component';
 import {SubjectList} from './subject/list.component';
 import {SubjectEdition} from './subject/edition.component';
-import {Admins} from './admins';
-import {Teachers} from './teachers';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
@@ -27,11 +29,17 @@ export const routes = [{
 	path: 'task/:id',
 	component: TaskEdition
 },{
-	path: 'admins',
-	component: Admins
-},{
 	path: 'teachers',
-	component: Teachers
+	component: TeacherList
+},{
+	path: 'teacher/:id',
+	component: TeacherEdition
+},{
+	path: 'admins',
+	component: AdminList
+},{
+	path: 'admin/:id',
+	component: AdminEdition
 },{
 	path: 'students',
 	component: StudentList

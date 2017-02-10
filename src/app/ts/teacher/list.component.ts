@@ -2,32 +2,32 @@ import { Component } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {GlobalsService} from '../globals.service';
-import {Task} from './task';
+import {Teacher} from './teacher';
 
 @Component({
-	selector: 'taskList',
-	templateUrl: 'src/app/html/task/list.html',
+	selector: 'teacherList',
+	templateUrl: 'src/app/html/teacher/list.html',
 	providers: [GlobalsService]
 })
 
-export class TaskList {
-	taskList: Task[];
-	taskUrl: string;
+export class TeacherList {
+	teacherList: Teacher[];
+	teacherUrl: string;
 
 	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
 
-		this.taskUrl = globalsService.apiUrl + 'task';
-		this.getTasks();
+		this.teacherUrl = globalsService.apiUrl + 'user';
+		this.getTeachers();
 	}
 
-	getTasks() {
+	getTeachers() {
 
-		var url = this.taskUrl;
+		var url = this.teacherUrl + '?role=teacher';
 
 		this.http.get(url).subscribe(
 			response => {
 				var content = response.json().content;
-				this.taskList = content;
+				this.teacherList = content;
 			},
 			error => {
 				console.error(error.text());
@@ -35,11 +35,11 @@ export class TaskList {
 	}
 
 	addItem(evt) {
-		this.router.navigate(['task', "new"]);
+		this.router.navigate(['teacher', "new"]);
 	}
 
 	editItem(evt, id) {
-		this.router.navigate(['task', id]);
+		this.router.navigate(['teacher', id]);
 	}
 
 	deleteItem(evt, id) {
@@ -50,10 +50,9 @@ export class TaskList {
 			return;
 		}
 
-		this.http.delete(this.taskUrl + '/' + id).subscribe(
+		this.http.delete(this.teacherUrl + '/' + id).subscribe(
 			response => {
-				console.log("borrado", id);
-				this.getTasks();
+				this.getTeachers();
 			},
 			error => {
 				console.error(error.text());

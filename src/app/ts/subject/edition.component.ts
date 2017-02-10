@@ -45,6 +45,11 @@ export class SubjectEdition {
 		this.getTeachers();
 	}
 
+	onChangeTeachers(event) {
+
+		this.subjectToEdit.teachers = event;
+	}
+
 	onSubmit(event) {
 
 		let value = this.subjectToEdit;

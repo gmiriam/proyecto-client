@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {TaskEdition} from './task/edition.component';
 import {StudentEdition} from './student/edition.component';
+import {TeacherEdition} from './teacher/edition.component';
+import {AdminEdition} from './admin/edition.component';
 import {SubjectEdition} from './subject/edition.component';
-import {Admins} from './admins';
-import {Teachers} from './teachers';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
 import { UploaderModule }  from './uploader.module';
-import { MultiSelectModule } from './multiSelect.module';
+import { CustomSelectModule } from './customSelect.module';
 
 @NgModule({
 	imports: [
@@ -19,10 +19,10 @@ import { MultiSelectModule } from './multiSelect.module';
 		FormsModule,
 		ReactiveFormsModule,
 		UploaderModule,
-		MultiSelectModule
+		CustomSelectModule
 	],
 	declarations: [
-		TaskEdition, StudentEdition, SubjectEdition, Admins, Teachers, Deliveries, Scores
+		TaskEdition, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, Deliveries, Scores
 	],
 	exports: [ ]
 })

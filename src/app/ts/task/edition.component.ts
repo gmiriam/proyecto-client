@@ -17,8 +17,14 @@ export class TaskEdition {
 	taskToEdit: Task = new Task();
 	taskForm: FormGroup;
 	taskUrl: string;
+	teacherUrl: string;
+	subjectUrl: string;
 	testFileTarget: string;
 	attachedFileTarget: string;
+	teacherList;
+	subjectList;
+	teacher;
+	subject;
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
 
@@ -27,6 +33,8 @@ export class TaskEdition {
 		});
 
 		this.taskUrl = globalsService.apiUrl + 'task/';
+		this.teacherUrl = globalsService.apiUrl + 'user?role=teacher';
+		this.subjectUrl = globalsService.apiUrl + 'subject';
 
 		this.taskForm = fb.group({
 			_id:[""],
@@ -45,6 +53,18 @@ export class TaskEdition {
 		this.attachedFileTarget = 'attached';
 
 		this.getTask();
+		this.getTeachers();
+		this.getSubjects();
+	}
+
+	onChangeTeacher(event) {
+
+		this.taskToEdit.teacher = event;
+	}
+
+	onChangeSubject(event) {
+
+		this.taskToEdit.subject = event;
 	}
 
 	onSubmit(event) {
@@ -67,8 +87,69 @@ export class TaskEdition {
 		this.http.get(this.taskUrl + this.taskId).subscribe(response => {
 
 			var content = response.json().content;
-			console.debug("entra", content)
 			this.taskToEdit = content[0] ? content[0] : { _id: null };
+		}, error => {
+
+			console.error(error.text());
+		});
+	}
+
+	getTeachers() {
+
+		this.http.get(this.teacherUrl).subscribe(response => {
+
+			var content = response.json().content;
+			if (!content) {
+				return;
+			}
+
+			this.teacher = [];
+
+			this.teacherList = content.map((function(currentValue, index, array) {
+
+				var teacher = this.taskToEdit.teacher,
+					teacherObj = {
+						id: currentValue._id,
+						text: currentValue.surname + ", " + currentValue.firstName
+					};
+
+				if (teacher === teacherObj.id) {
+					this.teacher.push(teacherObj);
+				}
+
+				return teacherObj;
+			}).bind(this));
+		}, error => {
+
+			console.error(error.text());
+		});
+	}
+
+	getSubjects() {
+
+		this.http.get(this.subjectUrl).subscribe(response => {
+
+			var content = response.json().content;
+			if (!content) {
+				return;
+			}
+
+			this.subject = [];
+
+			this.subjectList = content.map((function(currentValue, index, array) {
+
+				var subject = this.taskToEdit.subject,
+					subjectObj = {
+						id: currentValue._id,
+						text: currentValue.name
+					};
+
+				if (subject === subjectObj.id) {
+					this.subject.push(subjectObj);
+				}
+
+				return subjectObj;
+			}).bind(this));
 		}, error => {
 
 			console.error(error.text());

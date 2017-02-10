@@ -37,14 +37,14 @@
 
 	<div class="form-group">
 		<label for="teacher" class="col-sm-2 control-label">Responsable</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" [(ngModel)]="taskToEdit.teacher" formControlName="teacher" id="teacher" placeholder="Responsable">
+		<div *ngIf="teacherList" class="col-sm-10">
+			<singleSelect [items]="teacherList" [value]="teacher" (change)="onChangeTeacher($event)"></singleSelect>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="subject" class="col-sm-2 control-label">subject</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" [(ngModel)]="taskToEdit.subject" formControlName="subject" id="subject" placeholder="subject">
+		<label for="subject" class="col-sm-2 control-label">Asignatura</label>
+		<div *ngIf="subjectList" class="col-sm-10">
+			<singleSelect [items]="subjectList" [value]="subject" (change)="onChangeSubject($event)"></singleSelect>
 		</div>
 	</div>
 	<div class="form-group">

@@ -1,6 +1,7 @@
 import { CommonModule }   from '@angular/common';
 import { NgModule }      from '@angular/core';
 import { SelectModule } from 'ng2-select';
+import { SingleSelectComponent }  from './singleSelect.component';
 import { MultiSelectComponent }  from './multiSelect.component';
 
 @NgModule({
@@ -8,8 +9,8 @@ import { MultiSelectComponent }  from './multiSelect.component';
 		CommonModule,
 		SelectModule
 	],
-	declarations: [ MultiSelectComponent ],
-	exports: [ MultiSelectComponent ]
+	declarations: [ SingleSelectComponent, MultiSelectComponent ],
+	exports: [ SingleSelectComponent, MultiSelectComponent ]
 })
 
-export class MultiSelectModule { }
+export class CustomSelectModule { }

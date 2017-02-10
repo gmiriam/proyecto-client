@@ -2,32 +2,32 @@ import { Component } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {GlobalsService} from '../globals.service';
-import {Task} from './task';
+import {Admin} from './admin';
 
 @Component({
-	selector: 'taskList',
-	templateUrl: 'src/app/html/task/list.html',
+	selector: 'adminList',
+	templateUrl: 'src/app/html/admin/list.html',
 	providers: [GlobalsService]
 })
 
-export class TaskList {
-	taskList: Task[];
-	taskUrl: string;
+export class AdminList {
+	adminList: Admin[];
+	adminUrl: string;
 
 	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
 
-		this.taskUrl = globalsService.apiUrl + 'task';
-		this.getTasks();
+		this.adminUrl = globalsService.apiUrl + 'user';
+		this.getAdmins();
 	}
 
-	getTasks() {
+	getAdmins() {
 
-		var url = this.taskUrl;
+		var url = this.adminUrl + '?role=admin';
 
 		this.http.get(url).subscribe(
 			response => {
 				var content = response.json().content;
-				this.taskList = content;
+				this.adminList = content;
 			},
 			error => {
 				console.error(error.text());
@@ -35,11 +35,11 @@ export class TaskList {
 	}
 
 	addItem(evt) {
-		this.router.navigate(['task', "new"]);
+		this.router.navigate(['admin', "new"]);
 	}
 
 	editItem(evt, id) {
-		this.router.navigate(['task', id]);
+		this.router.navigate(['admin', id]);
 	}
 
 	deleteItem(evt, id) {
@@ -50,10 +50,9 @@ export class TaskList {
 			return;
 		}
 
-		this.http.delete(this.taskUrl + '/' + id).subscribe(
+		this.http.delete(this.adminUrl + '/' + id).subscribe(
 			response => {
-				console.log("borrado", id);
-				this.getTasks();
+				this.getAdmins();
 			},
 			error => {
 				console.error(error.text());

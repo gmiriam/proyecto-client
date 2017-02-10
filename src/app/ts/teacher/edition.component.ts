@@ -3,20 +3,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
-import {Student} from './student';
+import {Teacher} from './teacher';
 
 @Component({
-	selector: 'studentEdition',
-	templateUrl: 'src/app/html/student/edition.html',
+	selector: 'teacherEdition',
+	templateUrl: 'src/app/html/teacher/edition.html',
 	providers: [GlobalsService]
 })
 
-export class StudentEdition {
-	studentId: string;
+export class TeacherEdition {
+	teacherId: string;
 	formEnable: boolean;
-	studentToEdit: Student = new Student();
-	studentForm: FormGroup;
-	studentUrl: string;
+	teacherToEdit: Teacher = new Teacher();
+	teacherForm: FormGroup;
+	teacherUrl: string;
 	subjectUrl: string;
 	taskUrl: string;
 	roles = ['student', 'teacher', 'admin'];
@@ -28,14 +28,14 @@ export class StudentEdition {
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.studentId = params['id'];
+			this.teacherId = params['id'];
 		});
 
-		this.studentUrl = globalsService.apiUrl + 'user/';
+		this.teacherUrl = globalsService.apiUrl + 'user/';
 		this.subjectUrl = globalsService.apiUrl + 'subject';
 		this.taskUrl = globalsService.apiUrl + 'task';
 
-		this.studentForm = fb.group({
+		this.teacherForm = fb.group({
 			_id:[""],
 			firstName: ["", Validators.required],
 			surname: [""],
@@ -46,24 +46,24 @@ export class StudentEdition {
 			assignedTasks: [""]
 		});
 
-		this.getStudent();
+		this.getTeacher();
 		this.getSubjects();
 		this.getTasks();
 	}
 
 	onChangeEnrolledSubjects(event) {
 
-		this.studentToEdit.enrolledSubjects = event;
+		this.teacherToEdit.enrolledSubjects = event;
 	}
 
 	onChangeAssignedTasks(event) {
 
-		this.studentToEdit.assignedTasks = event;
+		this.teacherToEdit.assignedTasks = event;
 	}
 
 	onSubmit(event) {
 
-		let value = this.studentToEdit;
+		let value = this.teacherToEdit;
 
 		if (value._id){
 			this.update(value)
@@ -72,17 +72,17 @@ export class StudentEdition {
 		}
 	}
 
-	getStudent() {
+	getTeacher() {
 
-		if (this.studentId === "new") {
-			this.studentToEdit.role = "student";
+		if (this.teacherId === "new") {
+			this.teacherToEdit.role = "teacher";
 			return;
 		}
 
-		this.http.get(this.studentUrl + this.studentId).subscribe(response => {
+		this.http.get(this.teacherUrl + this.teacherId).subscribe(response => {
 
 			var content = response.json().content;
-			this.studentToEdit = content.length ? content[0] : { _id: null };
+			this.teacherToEdit = content.length ? content[0] : { _id: null };
 		}, error => {
 
 			console.error(error.text());
@@ -102,7 +102,7 @@ export class StudentEdition {
 
 			this.subjectList = content.map((function(currentValue, index, array) {
 
-				var enrolledSubjects = this.studentToEdit.enrolledSubjects,
+				var enrolledSubjects = this.teacherToEdit.enrolledSubjects,
 					subjectObj = {
 						id: currentValue._id,
 						text: currentValue.name
@@ -133,7 +133,7 @@ export class StudentEdition {
 
 			this.taskList = content.map((function(currentValue, index, array) {
 
-				var assignedTasks = this.studentToEdit.assignedTasks,
+				var assignedTasks = this.teacherToEdit.assignedTasks,
 					taskObj = {
 						id: currentValue._id,
 						text: currentValue.name
@@ -151,46 +151,46 @@ export class StudentEdition {
 		});
 	}
 
-	add(student) {
+	add(teacher) {
 
-		let body = JSON.stringify({ data: student });
+		let body = JSON.stringify({ data: teacher });
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.studentUrl, body, { headers: headers }).subscribe(response => {
+		this.http.post(this.teacherUrl, body, { headers: headers }).subscribe(response => {
 
-			this.getStudent();
+			this.getTeacher();
 		}, error => {
 
 			console.error(error.text());
 		});
 	}
 
-	update(student) {
+	update(teacher) {
 
-		let body = JSON.stringify({ data: student });
+		let body = JSON.stringify({ data: teacher });
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.studentUrl + student._id, body, { headers: headers }).subscribe(response => {
+		this.http.put(this.teacherUrl + teacher._id, body, { headers: headers }).subscribe(response => {
 
-			this.getStudent();
+			this.getTeacher();
 		}, error => {
 
 			console.error(error.text());
 		});
 	}
 
-	delete(student, event) {
+	delete(teacher, event) {
 
-		this.http.delete(this.studentUrl + student._id)
+		this.http.delete(this.teacherUrl + teacher._id)
 			.subscribe(response => {
 
 				var status = response.json().status;
 
 				if (status === "success") {
 					alert("Se ha borrado con éxito")
-					this.getStudent();
+					this.getTeacher();
 				}
 			}, error => {
 
