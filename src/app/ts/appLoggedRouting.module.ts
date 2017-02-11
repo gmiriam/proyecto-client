@@ -1,6 +1,9 @@
-import {Home} from './home';
+﻿import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
+import {Home} from './home.component';
 import {TaskList} from './task/list.component';
+import {TaskView} from './task/view.component';
 import {TaskEdition} from './task/edition.component';
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
@@ -13,20 +16,17 @@ import {SubjectEdition} from './subject/edition.component';
 import {Deliveries} from './deliveries';
 import {Scores} from './scores';
 
-export const routes = [{
-	path: '',
-	redirectTo: '/home',
-	pathMatch: 'full'
-},{
+const routes: Routes = [{
 	path: 'home',
 	component: Home
-},
-//{ path: 'login', component: Login },
-{
+},{
 	path: 'tasks',
 	component: TaskList
 },{
 	path: 'task/:id',
+	component: TaskView
+},{
+	path: 'task/:id/edit',
 	component: TaskEdition
 },{
 	path: 'teachers',
@@ -59,3 +59,14 @@ export const routes = [{
 	path: 'scores',
 	component: Scores
 }];
+
+@NgModule({
+	imports: [
+		RouterModule.forRoot(routes)
+	],
+	exports: [
+		RouterModule
+	]
+})
+
+export class AppLoggedRoutingModule { }

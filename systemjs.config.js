@@ -22,7 +22,8 @@
     'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
     'ng2-uploader': 'npm:ng2-uploader',
     'ng2-select' :'npm:ng2-select',
-    'ng-sidebar': 'npm:ng-sidebar'
+    'ng-sidebar': 'npm:ng-sidebar',
+    'ng2-datetime-picker': 'npm:ng2-datetime-picker/dist'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -45,6 +46,10 @@
     'ng-sidebar': {
       defaultExtension: 'js',
       main: 'lib/index'
+    },
+    'ng2-datetime-picker': {
+      defaultExtension: 'js',
+      main: 'ng2-datetime-picker.umd'
     }
   };
 

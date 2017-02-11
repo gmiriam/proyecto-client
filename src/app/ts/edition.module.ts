@@ -12,6 +12,7 @@ import {Scores} from './scores';
 
 import { UploaderModule }  from './uploader.module';
 import { CustomSelectModule } from './customSelect.module';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,8 @@ import { CustomSelectModule } from './customSelect.module';
 		FormsModule,
 		ReactiveFormsModule,
 		UploaderModule,
-		CustomSelectModule
+		CustomSelectModule,
+		Ng2DatetimePickerModule
 	],
 	declarations: [
 		TaskEdition, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, Deliveries, Scores

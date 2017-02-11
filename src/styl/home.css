@@ -1,0 +1,72 @@
+/*** Main ***/
+.main-content {
+	height:94%;
+}
+
+.main-content .main-block {
+	display:flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+.main-content .main-block.row {
+	margin-left:15px;
+	margin-right:15px;
+}
+
+.main-content .bar-block {
+	margin: 50px 15px 0px 15px;
+}
+
+/**Welcome message**/
+.main-content.index-content .caroussel-box{
+	height:100%;
+	background: url("../../src/images/main-background.jpg") no-repeat center center fixed;
+	background-size: cover;
+}
+
+.main-content.index-content .caroussel-box .welcome-box{
+	position: absolute;
+	/* bottom: 400px; */
+	top: 25%;
+	left: 300px;
+	width: 400px;
+	height: 200px;
+	background-color: lightgray;
+	display:flex;
+	flex-flow: column;
+}
+
+.main-content.index-content .caroussel-box .welcome-message{
+	flex:1;
+	margin:15px;
+	display:flex;
+	flex-flow: column;
+	align-items: flex-start;
+	font-family: "Proxima Nova";
+}
+
+.main-content.index-content .caroussel-box .welcome-message .welcome{
+	font-size: 26px;
+}
+
+.main-content.index-content .caroussel-box .welcome-message .important{
+	font-weight: bold;
+	font-size: 26px;
+}
+
+.main-content.index-content .caroussel-box .login-box{
+	align-self: flex-end;
+}
+
+.main-content.index-content .caroussel-box .login-box .login-button {
+	background-color: grey;
+	color: white;
+	text-decoration:none;
+	font-size: bold;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 20px;
+	margin:10px;
+	border-radius: 20px;
+}

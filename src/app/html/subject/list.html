@@ -5,6 +5,7 @@
 		<span class="hero-element">
 			<span class="badge">{{subject.name}}</span>
 		</span>
+		<button class="view-button" (click)= "viewItem($event, subject._id)">Ver</button>
 		<button class="edit-button" (click)= "editItem($event, subject._id)">Editar</button>
 		<button class="delete-button" (click)="deleteItem($event, subject._id)">Eliminar</button>
 	</li>
