@@ -1,11 +1,48 @@
-<h1>Tareas</h1>
-<button class="add-button" (click)="addItem($event)">Añadir nueva tarea</button>
+<h1>Tarea</h1>
 <ul class="heroes">
-	<li *ngFor="let task of taskList">
+	<li>
 		<span class="hero-element">
-			<span class="badge">{{task.name}}</span> {{task.statement}}
+			<span class="badge">Nombre</span> {{taskToView.name}}
 		</span>
-		<button class="edit-button" (click)= "editItem($event, task._id)">Editar</button>
-		<button class="delete-button" (click)="deleteItem($event, task._id)">Eliminar</button>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Profesor</span> {{teacherName}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Asignatura</span> {{subjectName}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Enunciado</span> {{taskToView.statement}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Adjunto</span> <a href="{{attachedUrl}}" target="_blank">{{taskToView.attached}}</a>
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Puntuación máxima</span> {{taskToView.maxScore}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Disponible desde</span> {{taskToView.startDate}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Disponible hasta</span> {{taskToView.endDate}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Test de evaluación</span> <a href="{{evaluationTestUrl}}" target="_blank">{{taskToView.evaluationTest}}</a>
+		</span>
 	</li>
 </ul>

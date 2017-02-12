@@ -14,6 +14,9 @@ export class TaskView {
 	taskId: string;
 	taskToView: Task = new Task();
 	taskUrl: string;
+	downloadUrl: string;
+	subjectUrl: string;
+	teacherUrl: string;
 
 	constructor(public http: Http, globalsService: GlobalsService, private route: ActivatedRoute) {
 
@@ -22,6 +25,9 @@ export class TaskView {
 		});
 
 		this.taskUrl = globalsService.apiUrl + 'task/';
+		this.downloadUrl = globalsService.apiUrl + 'download';
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
+		this.teacherUrl = globalsService.apiUrl + 'user/';
 
 		this.getTask();
 	}
@@ -32,14 +38,64 @@ export class TaskView {
 			return;
 		}
 
-		this.http.get(this.taskUrl + this.taskId).subscribe(response => {
+		this.http.get(this.taskUrl + this.taskId).subscribe(
+			(this.onTaskResponse).bind(this),
+			error => {
 
-			var content = response.json().content;
-			this.taskToView = content[0] ? content[0] : { _id: null };
-		}, error => {
+				console.error(error.text());
+			});
+	}
 
-			console.error(error.text());
-		});
+	onTaskResponse(response) {
+
+		var content = response.json().content;
+		this.taskToView = content[0] ? content[0] : { _id: null };
+
+		var attached = this.taskToView.attached;
+		if (attached) {
+			this.attachedUrl = this.downloadUrl + "?path=attachments&name=" + attached;
+		}
+
+		var evaluationTest = this.taskToView.evaluationTest;
+		if (evaluationTest) {
+			this.evaluationTestUrl = this.downloadUrl + "?path=tests&name=" + evaluationTest;
+		}
+
+		var teacher = this.taskToView.teacher;
+		if (teacher) {
+			this.getTeacher(teacher);
+		}
+
+		var subject = this.taskToView.subject;
+		if (subject) {
+			this.getSubject(subject);
+		}
+	}
+
+	getTeacher(id) {
+
+		this.http.get(this.teacherUrl + id).subscribe(
+			response => {
+
+				var content = response.json().content[0];
+				this.teacherName = content.surname + ", " + content.firstName;
+			}, error => {
+
+				console.error(error.text());
+			});
+	}
+
+	getSubject(id) {
+
+		this.http.get(this.subjectUrl + id).subscribe(
+			response => {
+
+				var content = response.json().content[0];
+				this.subjectName = content.name;
+			}, error => {
+
+				console.error(error.text());
+			});
 	}
 
 }
