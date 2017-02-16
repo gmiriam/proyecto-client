@@ -13,7 +13,9 @@ import {AdminList} from './admin/list.component';
 import {AdminEdition} from './admin/edition.component';
 import {SubjectList} from './subject/list.component';
 import {SubjectEdition} from './subject/edition.component';
-import {Deliveries} from './deliveries';
+import {DeliveryList} from './delivery/list.component';
+import {DeliveryView} from './delivery/view.component';
+import {DeliveryEdition} from './delivery/edition.component';
 import {Scores} from './scores';
 
 const routes: Routes = [{
@@ -28,6 +30,9 @@ const routes: Routes = [{
 },{
 	path: 'task/:id/edit',
 	component: TaskEdition
+},{
+	path: 'task/:id/deliveries',
+	component: DeliveryList
 },{
 	path: 'teachers',
 	component: TeacherList
@@ -54,7 +59,13 @@ const routes: Routes = [{
 	component: SubjectEdition
 },{
 	path: 'deliveries',
-	component: Deliveries
+	component: DeliveryList
+},{
+	path: 'delivery/:id',
+	component: DeliveryView
+},{
+	path: 'delivery/:id/edit',
+	component: DeliveryEdition
 },{
 	path: 'scores',
 	component: Scores

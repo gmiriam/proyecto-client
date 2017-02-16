@@ -14,11 +14,15 @@ export class TaskView {
 	taskId: string;
 	taskToView: Task = new Task();
 	taskUrl: string;
-	downloadUrl: string;
 	subjectUrl: string;
+	subjectName: string;
 	teacherUrl: string;
+	teacherName: string;
+	downloadUrl: string;
+	attachedUrl: string;
+	evaluationTestUrl: string;
 
-	constructor(public http: Http, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
@@ -96,6 +100,11 @@ export class TaskView {
 
 				console.error(error.text());
 			});
+	}
+
+	showDeliveries(evt, id) {
+
+		this.router.navigate(['task', id, "deliveries"]);
 	}
 
 }

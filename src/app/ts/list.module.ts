@@ -6,6 +6,7 @@ import {StudentList} from './student/list.component';
 import {TeacherList} from './teacher/list.component';
 import {AdminList} from './admin/list.component';
 import {SubjectList} from './subject/list.component';
+import {DeliveryList} from './delivery/list.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import {SubjectList} from './subject/list.component';
 		StudentList,
 		TeacherList,
 		AdminList,
-		SubjectList
+		SubjectList,
+		DeliveryList
 	],
 	exports: [ ]
 })

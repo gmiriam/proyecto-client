@@ -35,14 +35,17 @@ export class TaskList {
 	}
 
 	viewItem(evt, id) {
+
 		this.router.navigate(['task', id]);
 	}
 
 	addItem(evt) {
+
 		this.router.navigate(['task', "new", "edit"]);
 	}
 
 	editItem(evt, id) {
+
 		this.router.navigate(['task', id, "edit"]);
 	}
 

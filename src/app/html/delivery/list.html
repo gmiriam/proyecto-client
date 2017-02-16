@@ -1,0 +1,12 @@
+<h1>Entregas</h1>
+<button class="add-button" (click)="addItem($event)">Añadir nueva entrega</button>
+<ul class="heroes">
+	<li *ngFor="let delivery of deliveryList">
+		<span class="hero-element">
+			<span class="badge">{{delivery._id}}</span>
+		</span>
+		<button class="view-button" (click)= "viewItem($event, delivery._id)">Ver</button>
+		<button class="edit-button" (click)= "editItem($event, delivery._id)">Editar</button>
+		<button class="delete-button" (click)="deleteItem($event, delivery._id)">Eliminar</button>
+	</li>
+</ul>
