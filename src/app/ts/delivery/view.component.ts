@@ -56,7 +56,7 @@ export class DeliveryView {
 
 		var data = this.deliveryToView.data;
 		if (data) {
-			this.dataUrl = this.downloadUrl + "?path=attachments&name=" + data;
+			this.dataUrl = this.downloadUrl + "?path=deliveries&name=" + data;
 		}
 
 		var student = this.deliveryToView.student;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Delivery} from './delivery';
 
