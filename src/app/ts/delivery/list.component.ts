@@ -27,7 +27,11 @@ export class DeliveryList {
 
 	getDeliveries() {
 
-		var url = this.deliveryUrl + '?taskid=' + this.taskId;
+		var url = this.deliveryUrl;
+
+		if (this.taskId) {
+			url += '?taskid=' + this.taskId;
+		}
 
 		this.http.get(url).subscribe(
 			response => {
