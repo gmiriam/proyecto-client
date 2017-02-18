@@ -34,12 +34,17 @@ export class SubjectList {
 			});
 	}
 
+	viewItem(evt, id) {
+
+		this.router.navigate(['subject', id]);
+	}
+
 	addItem(evt) {
-		this.router.navigate(['subject', "new"]);
+		this.router.navigate(['subject', "new", "edit"]);
 	}
 
 	editItem(evt, id) {
-		this.router.navigate(['subject', id]);
+		this.router.navigate(['subject', id, "edit"]);
 	}
 
 	deleteItem(evt, id) {

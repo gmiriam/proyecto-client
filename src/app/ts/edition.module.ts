@@ -7,6 +7,7 @@ import {StudentEdition} from './student/edition.component';
 import {TeacherEdition} from './teacher/edition.component';
 import {AdminEdition} from './admin/edition.component';
 import {SubjectEdition} from './subject/edition.component';
+import {EnrollStudents} from './subject/enrollStudents.component';
 import {DeliveryEdition} from './delivery/edition.component';
 import {Scores} from './scores';
 
@@ -24,7 +25,7 @@ import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 		Ng2DatetimePickerModule
 	],
 	declarations: [
-		TaskEdition, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, DeliveryEdition, Scores
+		TaskEdition, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, EnrollStudents, DeliveryEdition, Scores
 	],
 	exports: [ ]
 })

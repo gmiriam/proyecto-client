@@ -1,0 +1,15 @@
+<h1>Matricular estudiantes</h1>
+<form class="form-horizontal" [formGroup]="enrollStudentsForm" (ngSubmit)="onSubmit($event)">
+	<div class="form-group">
+		<label for="enrolledStudents" class="col-sm-2 control-label">Estudiantes matriculados</label>
+		<div *ngIf="studentsList" class="col-sm-10">
+			<multiSelect [items]="studentList" [value]="enrolledStudents" (change)="onChangeEnrolledStudents($event)" (remove)="onRemoveEnrolledStudent($event)"></multiSelect>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Guardar cambios</button>
+		</div>
+	</div>
+</form>

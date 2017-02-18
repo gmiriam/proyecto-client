@@ -2,20 +2,29 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import {Home} from './home.component';
+
 import {TaskList} from './task/list.component';
 import {TaskView} from './task/view.component';
 import {TaskEdition} from './task/edition.component';
+
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
+
 import {TeacherList} from './teacher/list.component';
 import {TeacherEdition} from './teacher/edition.component';
+
 import {AdminList} from './admin/list.component';
 import {AdminEdition} from './admin/edition.component';
+
 import {SubjectList} from './subject/list.component';
+import {SubjectView} from './subject/view.component';
 import {SubjectEdition} from './subject/edition.component';
+import {EnrollStudents} from './subject/enrollStudents.component';
+
 import {DeliveryList} from './delivery/list.component';
 import {DeliveryView} from './delivery/view.component';
 import {DeliveryEdition} from './delivery/edition.component';
+
 import {Scores} from './scores';
 
 const routes: Routes = [{
@@ -56,7 +65,16 @@ const routes: Routes = [{
 	component: SubjectList
 },{
 	path: 'subject/:id',
+	component: SubjectView
+},{
+	path: 'subject/:id/edit',
 	component: SubjectEdition
+},{
+	path: 'subject/:id/tasks',
+	component: TaskList
+},{
+	path: 'subject/:id/enroll',
+	component: EnrollStudents
 },{
 	path: 'deliveries',
 	component: DeliveryList

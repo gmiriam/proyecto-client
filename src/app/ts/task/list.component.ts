@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
@@ -13,8 +13,13 @@ import {Task} from './task';
 export class TaskList {
 	taskList: Task[];
 	taskUrl: string;
+	subjectId: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
+	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+
+		this.route.params.subscribe((params: Params) => {
+			this.subjectId = params['id'];
+		});
 
 		this.taskUrl = globalsService.apiUrl + 'task';
 		this.getTasks();
@@ -23,6 +28,10 @@ export class TaskList {
 	getTasks() {
 
 		var url = this.taskUrl;
+
+		if (this.subjectId) {
+			url += '?subjectid=' + this.subjectId;
+		}
 
 		this.http.get(url).subscribe(
 			response => {

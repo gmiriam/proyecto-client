@@ -37,10 +37,6 @@ export class DeliveryView {
 
 	getDelivery() {
 
-		if (this.deliveryId === "new") {
-			return;
-		}
-
 		this.http.get(this.deliveryUrl + this.deliveryId).subscribe(
 			(this.onDeliveryResponse).bind(this),
 			error => {

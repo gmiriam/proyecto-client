@@ -38,10 +38,6 @@ export class TaskView {
 
 	getTask() {
 
-		if (this.taskId === "new") {
-			return;
-		}
-
 		this.http.get(this.taskUrl + this.taskId).subscribe(
 			(this.onTaskResponse).bind(this),
 			error => {
