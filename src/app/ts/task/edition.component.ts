@@ -13,7 +13,6 @@ import {Task} from './task';
 
 export class TaskEdition {
 	taskId: string;
-	formEnable: boolean;
 	taskToEdit: Task = new Task();
 	taskForm: FormGroup;
 	taskUrl: string;

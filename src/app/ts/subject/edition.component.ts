@@ -13,7 +13,6 @@ import {Subject} from './subject';
 
 export class SubjectEdition {
 	subjectId: string;
-	formEnable: boolean;
 	subjectToEdit: Subject = new Subject();
 	subjectForm: FormGroup;
 	subjectUrl: string;

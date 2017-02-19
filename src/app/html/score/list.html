@@ -1,0 +1,10 @@
+<h1>Puntuaciones</h1>
+<ul class="heroes">
+	<li *ngFor="let score of scoreList">
+		<span class="hero-element">
+			<span class="badge">{{score.student}}</span> {{score.finalScore}}
+		</span>
+		<button class="view-button" (click)= "viewItem($event, score._id)">Ver</button>
+		<button class="edit-button" (click)= "editItem($event, score._id)">Editar</button>
+	</li>
+</ul>

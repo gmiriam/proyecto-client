@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {SubjectView} from './subject/view.component';
 import {TaskView} from './task/view.component';
 import {DeliveryView} from './delivery/view.component';
+import {ScoreView} from './score/view.component';
 
 @NgModule({
 	imports: [
@@ -12,7 +13,8 @@ import {DeliveryView} from './delivery/view.component';
 	declarations: [
 		SubjectView,
 		TaskView,
-		DeliveryView
+		DeliveryView,
+		ScoreView
 	],
 	exports: [ ]
 })

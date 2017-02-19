@@ -26,9 +26,15 @@ import {DeliveryList} from './delivery/list.component';
 import {DeliveryView} from './delivery/view.component';
 import {DeliveryEdition} from './delivery/edition.component';
 
-import {Scores} from './scores';
+import {ScoreList} from './score/list.component';
+import {ScoreView} from './score/view.component';
+import {ScoreEdition} from './score/edition.component';
 
 const routes: Routes = [{
+	path: '',
+	redirectTo: 'home',
+	pathMatch: 'full'
+},{
 	path: 'home',
 	component: Home
 },{
@@ -90,7 +96,13 @@ const routes: Routes = [{
 	component: DeliveryEdition
 },{
 	path: 'scores',
-	component: Scores
+	component: ScoreList
+},{
+	path: 'score/:id',
+	component: ScoreView
+},{
+	path: 'score/:id/edit',
+	component: ScoreEdition
 }];
 
 @NgModule({

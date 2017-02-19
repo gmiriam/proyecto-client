@@ -13,7 +13,6 @@ import {Admin} from './admin';
 
 export class AdminEdition {
 	adminId: string;
-	formEnable: boolean;
 	adminToEdit: Admin = new Admin();
 	adminForm: FormGroup;
 	adminUrl: string;

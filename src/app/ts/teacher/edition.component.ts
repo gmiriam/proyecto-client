@@ -13,7 +13,6 @@ import {Teacher} from './teacher';
 
 export class TeacherEdition {
 	teacherId: string;
-	formEnable: boolean;
 	teacherToEdit: Teacher = new Teacher();
 	teacherForm: FormGroup;
 	teacherUrl: string;

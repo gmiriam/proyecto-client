@@ -13,7 +13,6 @@ import {Delivery} from './delivery';
 
 export class DeliveryEdition {
 	deliveryId: string;
-	formEnable: boolean;
 	deliveryToEdit: Delivery = new Delivery();
 	deliveryForm: FormGroup;
 	deliveryUrl: string;
