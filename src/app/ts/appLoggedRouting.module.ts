@@ -6,6 +6,7 @@ import {Home} from './home.component';
 import {TaskList} from './task/list.component';
 import {TaskView} from './task/view.component';
 import {TaskEdition} from './task/edition.component';
+import {AssignTask} from './task/assignTask.component';
 
 import {StudentList} from './student/list.component';
 import {StudentEdition} from './student/edition.component';
@@ -42,6 +43,9 @@ const routes: Routes = [{
 },{
 	path: 'task/:id/deliveries',
 	component: DeliveryList
+},{
+	path: 'task/:id/assign',
+	component: AssignTask
 },{
 	path: 'teachers',
 	component: TeacherList

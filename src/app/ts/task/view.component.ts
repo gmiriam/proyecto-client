@@ -103,4 +103,8 @@ export class TaskView {
 		this.router.navigate(['task', id, "deliveries"]);
 	}
 
+	assignTask(evt, id) {
+
+		this.router.navigate(['task', id, "assign"]);
+	}
 }

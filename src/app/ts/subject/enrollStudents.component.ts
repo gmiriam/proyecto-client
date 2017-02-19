@@ -142,10 +142,13 @@ export class EnrollStudents {
 		this.http.post(this.unenrollStudentsUrl, body, { headers: headers }).subscribe(response => {
 
 			this.unenrolledStudentIds = [];
-			this.saveEnrolledStudents({
-				subject: this.subjectId,
-				students: this.enrolledStudentIds
-			});
+
+			if (this.enrolledStudentIds.length) {
+				this.saveEnrolledStudents({
+					subject: this.subjectId,
+					students: this.enrolledStudentIds
+				});
+			}
 		}, error => {
 
 			console.error(error.text());

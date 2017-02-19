@@ -1,0 +1,15 @@
+<h1>Asignar tarea</h1>
+<form class="form-horizontal" [formGroup]="assignTaskForm" (ngSubmit)="onSubmit($event)">
+	<div class="form-group">
+		<label for="assignTask" class="col-sm-2 control-label">Estudiantes con tarea asignada</label>
+		<div *ngIf="enrolledStudentList" class="col-sm-10">
+			<multiSelect [items]="enrolledStudentList" [value]="enrolledStudentWithTaskAssignedList" (change)="onChangeStudentWithTaskAssigned($event)" (select)="onSelectStudentWithTaskAssigned($event)" (remove)="onRemoveStudentWithTaskAssigned($event)"></multiSelect>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Guardar cambios</button>
+		</div>
+	</div>
+</form>

@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {TaskEdition} from './task/edition.component';
+import {AssignTask} from './task/assignTask.component';
 import {StudentEdition} from './student/edition.component';
 import {TeacherEdition} from './teacher/edition.component';
 import {AdminEdition} from './admin/edition.component';
@@ -25,7 +26,8 @@ import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 		Ng2DatetimePickerModule
 	],
 	declarations: [
-		TaskEdition, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, EnrollStudents, DeliveryEdition, Scores
+		TaskEdition, AssignTask, StudentEdition, TeacherEdition, AdminEdition, SubjectEdition, EnrollStudents,
+		DeliveryEdition, Scores
 	],
 	exports: [ ]
 })
