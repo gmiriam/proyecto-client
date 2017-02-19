@@ -15,7 +15,7 @@ export class SubjectView {
 	subjectToView: Subject = new Subject();
 	subjectUrl: string;
 	teacherUrl: string;
-	teachersName: string;
+	teachersName: Array<any>;
 	downloadUrl: string;
 	temaryUrl: string;
 

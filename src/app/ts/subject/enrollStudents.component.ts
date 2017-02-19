@@ -14,12 +14,14 @@ export class EnrollStudents {
 	subjectId: string;
 	enrollStudentsForm: FormGroup;
 	studentUrl: string;
+	enrolledStudentsUrl: string;
 	enrollStudentsUrl: string;
 	unenrollStudentsUrl: string;
 	studentList;
-	originalEnrolledStudents;
-	enrolledStudents;
-	unenrolledStudents = [];
+	enrolledStudentList;
+	originalEnrolledStudentIds;
+	enrolledStudentIds;
+	unenrolledStudentIds = [];
 
 	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
 
@@ -27,10 +29,10 @@ export class EnrollStudents {
 			this.subjectId = params['id'];
 		});
 
-		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?role=student&subjectid=' + this.subjectId;
+		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?role=student&enrolledsubjectid=' + this.subjectId;
 		this.studentUrl = globalsService.apiUrl + 'user?role=student';
-		this.enrollStudentsUrl = globalsService.apiUrl + 'enrollStudents';
-		this.unenrollStudentsUrl = globalsService.apiUrl + 'unenrollStudents';
+		this.enrollStudentsUrl = globalsService.apiUrl + 'subject/enrollstudents';
+		this.unenrollStudentsUrl = globalsService.apiUrl + 'subject/unenrollstudents';
 
 		this.enrollStudentsForm = fb.group({
 			students: ["", Validators.required]
@@ -41,12 +43,22 @@ export class EnrollStudents {
 
 	onChangeEnrolledStudents(event) {
 
-		this.enrolledStudents = event;
+		this.enrolledStudentIds = event;
+	}
+
+	onSelectEnrolledStudent(event) {
+
+		var index = this.unenrolledStudentIds.indexOf(event);
+		if (index !== -1) {
+			this.unenrolledStudentIds.splice(index, 1);
+		}
 	}
 
 	onRemoveEnrolledStudent(event) {
 
-		this.unenrolledStudents.push(event);
+		if (this.unenrolledStudentIds.indexOf(event) === -1 && this.originalEnrolledStudentIds.indexOf(event) !== -1) {
+			this.unenrolledStudentIds.push(event);
+		}
 	}
 
 	onSubmit(event) {
@@ -63,7 +75,12 @@ export class EnrollStudents {
 				return;
 			}
 
-			this.originalEnrolledStudents = content;
+			this.originalEnrolledStudentIds = content.map((function(currentValue, index, array) {
+
+				return currentValue._id;
+			}).bind(this));
+			this.enrolledStudentIds = this.originalEnrolledStudentIds;
+
 			this.getStudents();
 		}, error => {
 
@@ -80,18 +97,17 @@ export class EnrollStudents {
 				return;
 			}
 
-			this.enrolledStudents = [];
+			this.enrolledStudentList = [];
 
 			this.studentList = content.map((function(currentValue, index, array) {
 
-				var students = this.originalEnrolledStudents,
-					studentObj = {
+				var studentObj = {
 						id: currentValue._id,
 						text: currentValue.surname + ", " + currentValue.firstName
 					};
 
-				if (students && students.indexOf(studentObj.id) !== -1) {
-					this.enrolledStudents.push(studentObj);
+				if (this.originalEnrolledStudentIds && this.originalEnrolledStudentIds.indexOf(studentObj.id) !== -1) {
+					this.enrolledStudentList.push(studentObj);
 				}
 
 				return studentObj;
@@ -104,10 +120,17 @@ export class EnrollStudents {
 
 	save() {
 
-		this.saveUnenrolledStudents({
-			subject: this.subjectId,
-			students: this.unenrolledStudents;
-		});
+		if (this.unenrolledStudentIds.length) {
+			this.saveUnenrolledStudents({
+				subject: this.subjectId,
+				students: this.unenrolledStudentIds
+			});
+		} else if (this.enrolledStudentIds.length) {
+			this.saveEnrolledStudents({
+				subject: this.subjectId,
+				students: this.enrolledStudentIds
+			});
+		}
 	}
 
 	saveUnenrolledStudents(value) {
@@ -118,9 +141,10 @@ export class EnrollStudents {
 
 		this.http.post(this.unenrollStudentsUrl, body, { headers: headers }).subscribe(response => {
 
+			this.unenrolledStudentIds = [];
 			this.saveEnrolledStudents({
 				subject: this.subjectId,
-				students: this.enrolledStudents;
+				students: this.enrolledStudentIds
 			});
 		}, error => {
 
@@ -136,7 +160,7 @@ export class EnrollStudents {
 
 		this.http.post(this.enrollStudentsUrl, body, { headers: headers }).subscribe(response => {
 
-			//this.getSubject();
+			this.originalEnrolledStudentIds = this.enrolledStudentIds;
 		}, error => {
 
 			console.error(error.text());
