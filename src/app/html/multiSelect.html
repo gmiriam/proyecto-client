@@ -4,6 +4,8 @@
 		[items]="items"
 		[active]="value"
 		(data)="onChange($event)"
+		(selected)="onSelect($event)"
+		(removed)="onRemove($event)"
 		placeholder="No hay elementos seleccionados">
 	</ng-select>
 </div>
