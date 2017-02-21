@@ -6,8 +6,7 @@ import {Admin} from './admin';
 
 @Component({
 	selector: 'adminList',
-	templateUrl: 'src/app/html/admin/list.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/admin/list.html'
 })
 
 export class AdminList {

@@ -1,4 +1,6 @@
 ﻿import { Component } from '@angular/core';
+import { LocalStorageService } from 'angular-2-local-storage';
+import {GlobalsService} from './globals.service';
 
 @Component({
 	selector: 'app',
@@ -8,14 +10,16 @@
 			<landing *ngIf="!isLogged"></landing>
 			<appLogged *ngIf="isLogged"></appLogged>
 		</div>
-	`
+	`,
+	providers: [GlobalsService]
 })
 
 export class AppComponent {
 
-	isLogged = true;
+	isLogged: Boolean;
 
-	constructor() {
+	constructor(private localStorageService: LocalStorageService) {
 
+		this.isLogged = !!this.localStorageService.get("userToken");
 	}
 }

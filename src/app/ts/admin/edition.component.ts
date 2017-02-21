@@ -7,8 +7,7 @@ import {Admin} from './admin';
 
 @Component({
 	selector: 'adminEdition',
-	templateUrl: 'src/app/html/admin/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/admin/edition.html'
 })
 
 export class AdminEdition {

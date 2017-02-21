@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
 @Component({
 	selector: 'taskList',
-	templateUrl: 'src/app/html/task/list.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/task/list.html'
 })
 
 export class TaskList {
@@ -15,12 +15,14 @@ export class TaskList {
 	taskUrl: string;
 	subjectId: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public http: Http, public router: Router, globalsService: GlobalsService,
+		private route: ActivatedRoute, private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['id'];
 		});
 
+		this.userToken = this.localStorageService.get("userToken");
 		this.taskUrl = globalsService.apiUrl + 'task';
 		this.getTasks();
 	}
@@ -33,7 +35,12 @@ export class TaskList {
 			url += '?subjectid=' + this.subjectId;
 		}
 
-		this.http.get(url).subscribe(
+		let headers = new Headers();
+		headers.append('Authorization', 'Bearer ' + this.userToken);
+
+		this.http.get(url, {
+			headers: headers
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.taskList = content;

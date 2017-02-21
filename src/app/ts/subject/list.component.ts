@@ -6,8 +6,7 @@ import {Subject} from './subject';
 
 @Component({
 	selector: 'subjectList',
-	templateUrl: 'src/app/html/subject/list.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/subject/list.html'
 })
 
 export class SubjectList {

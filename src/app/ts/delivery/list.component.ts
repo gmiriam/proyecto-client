@@ -6,8 +6,7 @@ import {Delivery} from './delivery';
 
 @Component({
 	selector: 'deliveryList',
-	templateUrl: 'src/app/html/delivery/list.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/delivery/list.html'
 })
 
 export class DeliveryList {

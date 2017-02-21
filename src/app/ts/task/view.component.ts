@@ -6,8 +6,7 @@ import {Task} from './task';
 
 @Component({
 	selector: 'taskView',
-	templateUrl: 'src/app/html/task/view.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/task/view.html'
 })
 
 export class TaskView {

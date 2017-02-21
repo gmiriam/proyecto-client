@@ -6,8 +6,7 @@ import {Score} from './score';
 
 @Component({
 	selector: 'scoreList',
-	templateUrl: 'src/app/html/score/list.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/score/list.html'
 })
 
 export class ScoreList {

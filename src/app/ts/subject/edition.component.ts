@@ -7,8 +7,7 @@ import {Subject} from './subject';
 
 @Component({
 	selector: 'subjectEdition',
-	templateUrl: 'src/app/html/subject/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/subject/edition.html'
 })
 
 export class SubjectEdition {

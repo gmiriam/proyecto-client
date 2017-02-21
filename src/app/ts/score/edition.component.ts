@@ -7,8 +7,7 @@ import {Score} from './score';
 
 @Component({
 	selector: 'scoreEdition',
-	templateUrl: 'src/app/html/score/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/score/edition.html'
 })
 
 export class ScoreEdition {

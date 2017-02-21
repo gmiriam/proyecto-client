@@ -23,7 +23,8 @@
     'ng2-uploader': 'npm:ng2-uploader',
     'ng2-select' :'npm:ng2-select',
     'ng-sidebar': 'npm:ng-sidebar',
-    'ng2-datetime-picker': 'npm:ng2-datetime-picker/dist'
+    'ng2-datetime-picker': 'npm:ng2-datetime-picker/dist',
+    'angular-2-local-storage': 'npm:angular-2-local-storage/dist'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -50,6 +51,10 @@
     'ng2-datetime-picker': {
       defaultExtension: 'js',
       main: 'ng2-datetime-picker.umd'
+    },
+    'angular-2-local-storage': {
+      defaultExtension: 'js',
+      main: 'index'
     }
   };
 

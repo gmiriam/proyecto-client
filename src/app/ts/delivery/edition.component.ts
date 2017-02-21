@@ -7,8 +7,7 @@ import {Delivery} from './delivery';
 
 @Component({
 	selector: 'deliveryEdition',
-	templateUrl: 'src/app/html/delivery/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/delivery/edition.html'
 })
 
 export class DeliveryEdition {

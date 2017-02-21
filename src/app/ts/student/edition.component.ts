@@ -7,8 +7,7 @@ import {Student} from './student';
 
 @Component({
 	selector: 'studentEdition',
-	templateUrl: 'src/app/html/student/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/student/edition.html'
 })
 
 export class StudentEdition {

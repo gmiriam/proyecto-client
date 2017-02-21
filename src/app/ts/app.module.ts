@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { AppLoggedModule } from './appLogged.module';
 import { AppUnloggedModule } from './appUnlogged.module';
@@ -11,6 +12,11 @@ import { navbarComponent } from './bars/navbar.component';
 	// module dependencies
 	imports: [
 		BrowserModule,
+		LocalStorageModule.withConfig({
+			prefix: 'client',
+			storageType: 'localStorage'
+		}),
+
 		AppUnloggedModule,
 		AppLoggedModule
 	],

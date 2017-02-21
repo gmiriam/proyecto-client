@@ -6,8 +6,7 @@ import {GlobalsService} from '../globals.service';
 
 @Component({
 	selector: 'enrollStudents',
-	templateUrl: 'src/app/html/subject/enrollStudents.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/subject/enrollStudents.html'
 })
 
 export class EnrollStudents {

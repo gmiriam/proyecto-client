@@ -7,8 +7,7 @@ import {Task} from './task';
 
 @Component({
 	selector: 'taskEdition',
-	templateUrl: 'src/app/html/task/edition.html',
-	providers: [GlobalsService]
+	templateUrl: 'src/app/html/task/edition.html'
 })
 
 export class TaskEdition {
