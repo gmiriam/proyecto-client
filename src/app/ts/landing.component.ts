@@ -9,6 +9,8 @@ import {GlobalsService} from './globals.service';
 })
 
 export class LandingComponent {
+	getTokenUrl: string;
+	clientAuthorization: string;
 
 	constructor(public http: Http, globalsService: GlobalsService,
 		private localStorageService: LocalStorageService) {

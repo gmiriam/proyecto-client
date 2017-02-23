@@ -14,6 +14,7 @@ export class TaskList {
 	taskList: Task[];
 	taskUrl: string;
 	subjectId: string;
+	userToken;
 
 	constructor(public http: Http, public router: Router, globalsService: GlobalsService,
 		private route: ActivatedRoute, private localStorageService: LocalStorageService) {
