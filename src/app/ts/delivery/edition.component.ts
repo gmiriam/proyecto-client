@@ -168,7 +168,9 @@ export class DeliveryEdition {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.deliveryUrl + delivery._id, body, { headers: headers }).subscribe(response => {
+		let url = this.deliveryUrl + delivery._id + "/updatedata";
+		//let url = this.deliveryUrl + delivery._id + "/updatescore";
+		this.http.put(url, body, { headers: headers }).subscribe(response => {
 
 			this.getDelivery();
 		}, error => {
