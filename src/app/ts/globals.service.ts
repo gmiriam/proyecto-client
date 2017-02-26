@@ -13,7 +13,8 @@ export class GlobalsService {
 
 		var headers = options ? options.headers : null,
 			body = options ? options.body : null,
-			token = this.localStorageService.get("userToken");
+			token = this.localStorageService.get('userToken'),
+			userId = this.localStorageService.get('userId');
 
 		if (!headers) {
 			headers = new Headers();
@@ -24,6 +25,7 @@ export class GlobalsService {
 		}
 
 		headers.append('Authorization', 'Bearer ' + token);
+		headers.append('UserId', userId);
 
 		var httpOptions = {
 				headers: headers

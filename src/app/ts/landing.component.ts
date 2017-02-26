@@ -37,12 +37,25 @@ export class LandingComponent {
 		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
 		this.http.post(this.getTokenUrl, bodyEncoded, { headers: headers }).subscribe(
-			response => {
+			(function(username, response) {
+
 				this.localStorageService.set("userToken", response.json().access_token);
-				window.location.href = '//' + window.location.host;
-			},
+
+				this.globalsService.request('get', this.globalsService.apiUrl + 'user?email=' + username).subscribe(
+					response => {
+						var content = response.json().content,
+							user = content[0];
+
+						this.localStorageService.set("userFirstName", user.firstName);
+						this.localStorageService.set("userSurname", user.surname);
+						this.localStorageService.set("userId", user._id);
+
+						window.location.href = '//' + window.location.host;
+					});
+			}).bind(this, username),
 			error => {
 				console.error(error.text());
+				alert(error.text());
 			});
 	}
 }

@@ -4,13 +4,7 @@ import {GlobalsService} from './globals.service';
 
 @Component({
 	selector: 'app',
-	template: `
-		<navbar></navbar>
-		<div class="main-container">
-			<landing *ngIf="!isLogged"></landing>
-			<appLogged *ngIf="isLogged"></appLogged>
-		</div>
-	`,
+	templateUrl: 'src/app/html/app.html',
 	providers: [GlobalsService]
 })
 
