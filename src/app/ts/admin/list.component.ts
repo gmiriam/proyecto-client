@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Admin} from './admin';
@@ -13,7 +12,7 @@ export class AdminList {
 	adminList: Admin[];
 	adminUrl: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
+	constructor(public router: Router, private globalsService: GlobalsService) {
 
 		this.adminUrl = globalsService.apiUrl + 'user';
 		this.getAdmins();
@@ -23,7 +22,7 @@ export class AdminList {
 
 		var url = this.adminUrl + '?role=admin';
 
-		this.http.get(url).subscribe(
+		this.globalsService.request('get', url).subscribe(
 			response => {
 				var content = response.json().content;
 				this.adminList = content;
@@ -49,7 +48,7 @@ export class AdminList {
 			return;
 		}
 
-		this.http.delete(this.adminUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.adminUrl + '/' + id).subscribe(
 			response => {
 				this.getAdmins();
 			},

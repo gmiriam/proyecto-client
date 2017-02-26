@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Teacher} from './teacher';
@@ -13,7 +12,7 @@ export class TeacherList {
 	teacherList: Teacher[];
 	teacherUrl: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService) {
+	constructor(public router: Router, private globalsService: GlobalsService) {
 
 		this.teacherUrl = globalsService.apiUrl + 'user';
 		this.getTeachers();
@@ -23,7 +22,7 @@ export class TeacherList {
 
 		var url = this.teacherUrl + '?role=teacher';
 
-		this.http.get(url).subscribe(
+		this.globalsService.request('get', url).subscribe(
 			response => {
 				var content = response.json().content;
 				this.teacherList = content;
@@ -49,7 +48,7 @@ export class TeacherList {
 			return;
 		}
 
-		this.http.delete(this.teacherUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.teacherUrl + '/' + id).subscribe(
 			response => {
 				this.getTeachers();
 			},

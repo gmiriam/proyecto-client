@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Delivery} from './delivery';
@@ -23,7 +22,7 @@ export class DeliveryEdition {
 	studentList;
 	student;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.deliveryId = params['id'];
@@ -75,7 +74,7 @@ export class DeliveryEdition {
 			return;
 		}
 
-		this.http.get(this.deliveryUrl + this.deliveryId).subscribe(response => {
+		this.globalsService.request('get', this.deliveryUrl + this.deliveryId).subscribe(response => {
 
 			var content = response.json().content;
 			this.deliveryToEdit = content[0] ? content[0] : { _id: null };
@@ -87,7 +86,7 @@ export class DeliveryEdition {
 
 	getTasks() {
 
-		this.http.get(this.taskUrl).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -118,7 +117,7 @@ export class DeliveryEdition {
 
 	getStudents() {
 
-		this.http.get(this.studentUrl).subscribe(response => {
+		this.globalsService.request('get', this.studentUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -150,10 +149,8 @@ export class DeliveryEdition {
 	add(delivery) {
 
 		let body = JSON.stringify({ data: delivery });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.deliveryUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.deliveryUrl, { body: body }).subscribe(response => {
 
 			this.getDelivery();
 		}, error => {
@@ -165,35 +162,16 @@ export class DeliveryEdition {
 	update(delivery) {
 
 		let body = JSON.stringify({ data: delivery });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		let url = this.deliveryUrl + delivery._id + "/updatedata";
-		//let url = this.deliveryUrl + delivery._id + "/updatescore";
-		this.http.put(url, body, { headers: headers }).subscribe(response => {
+		//let url = this.deliveryUrl + delivery._id + "/updatedata";
+		let url = this.deliveryUrl + delivery._id + "/updatescore";
+		this.globalsService.request('put', url, { body: body }).subscribe(response => {
 
 			this.getDelivery();
 		}, error => {
 
 			console.error(error.text());
 		});
-	}
-
-	delete(delivery, event) {
-
-		this.http.delete(this.deliveryUrl + delivery._id)
-			.subscribe(response => {
-
-				var status = response.json().status;
-
-				if (status === "success") {
-					alert("Se ha borrado con éxito")
-					this.getDelivery();
-				}
-			}, error => {
-
-				console.error(error.text());
-			});
 	}
 
 	onDeliveryDataUploaded(filename: string) {

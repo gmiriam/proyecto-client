@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
@@ -21,7 +20,7 @@ export class TaskView {
 	attachedUrl: string;
 	evaluationTestUrl: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
@@ -37,7 +36,7 @@ export class TaskView {
 
 	getTask() {
 
-		this.http.get(this.taskUrl + this.taskId).subscribe(
+		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(
 			(this.onTaskResponse).bind(this),
 			error => {
 
@@ -73,7 +72,7 @@ export class TaskView {
 
 	getTeacher(id) {
 
-		this.http.get(this.teacherUrl + id).subscribe(
+		this.globalsService.request('get', this.teacherUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -86,7 +85,7 @@ export class TaskView {
 
 	getSubject(id) {
 
-		this.http.get(this.subjectUrl + id).subscribe(
+		this.globalsService.request('get', this.subjectUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];

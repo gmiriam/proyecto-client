@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
@@ -24,7 +23,7 @@ export class TaskEdition {
 	teacher;
 	subject;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
@@ -82,7 +81,7 @@ export class TaskEdition {
 			return;
 		}
 
-		this.http.get(this.taskUrl + this.taskId).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(response => {
 
 			var content = response.json().content;
 			this.taskToEdit = content[0] ? content[0] : { _id: null };
@@ -94,7 +93,7 @@ export class TaskEdition {
 
 	getTeachers() {
 
-		this.http.get(this.teacherUrl).subscribe(response => {
+		this.globalsService.request('get', this.teacherUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -125,7 +124,7 @@ export class TaskEdition {
 
 	getSubjects() {
 
-		this.http.get(this.subjectUrl).subscribe(response => {
+		this.globalsService.request('get', this.subjectUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -157,10 +156,10 @@ export class TaskEdition {
 	add(task) {
 
 		let body = JSON.stringify({ data: task });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.taskUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.taskUrl, {
+			body: body
+		}).subscribe(response => {
 
 			this.getTask();
 		}, error => {
@@ -172,33 +171,14 @@ export class TaskEdition {
 	update(task) {
 
 		let body = JSON.stringify({ data: task });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.taskUrl + task._id, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('put', this.taskUrl + task._id, { body: body }).subscribe(response => {
 
 			this.getTask();
 		}, error => {
 
 			console.error(error.text());
 		});
-	}
-
-	delete(task, event) {
-
-		this.http.delete(this.taskUrl + task._id)
-			.subscribe(response => {
-
-				var status = response.json().status;
-
-				if (status === "success") {
-					alert("Se ha borrado con éxito")
-					this.getTask();
-				}
-			}, error => {
-
-				console.error(error.text());
-			});
 	}
 
 	onTaskTestUploaded(filename: string) {

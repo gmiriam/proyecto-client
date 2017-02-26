@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
@@ -14,16 +12,13 @@ export class TaskList {
 	taskList: Task[];
 	taskUrl: string;
 	subjectId: string;
-	userToken;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService,
-		private route: ActivatedRoute, private localStorageService: LocalStorageService) {
+	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['id'];
 		});
 
-		this.userToken = this.localStorageService.get("userToken");
 		this.taskUrl = globalsService.apiUrl + 'task';
 		this.getTasks();
 	}
@@ -36,12 +31,7 @@ export class TaskList {
 			url += '?subjectid=' + this.subjectId;
 		}
 
-		let headers = new Headers();
-		headers.append('Authorization', 'Bearer ' + this.userToken);
-
-		this.http.get(url, {
-			headers: headers
-		}).subscribe(
+		this.globalsService.request('get', url).subscribe(
 			response => {
 				var content = response.json().content;
 				this.taskList = content;
@@ -74,7 +64,7 @@ export class TaskList {
 			return;
 		}
 
-		this.http.delete(this.taskUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.taskUrl + '/' + id).subscribe(
 			response => {
 				console.log("borrado", id);
 				this.getTasks();

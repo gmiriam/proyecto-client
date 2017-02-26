@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Delivery} from './delivery';
@@ -20,7 +19,7 @@ export class DeliveryView {
 	downloadUrl: string;
 	dataUrl: string;
 
-	constructor(public http: Http, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.deliveryId = params['id'];
@@ -36,7 +35,7 @@ export class DeliveryView {
 
 	getDelivery() {
 
-		this.http.get(this.deliveryUrl + this.deliveryId).subscribe(
+		this.globalsService.request('get', this.deliveryUrl + this.deliveryId).subscribe(
 			(this.onDeliveryResponse).bind(this),
 			error => {
 
@@ -67,7 +66,7 @@ export class DeliveryView {
 
 	getStudent(id) {
 
-		this.http.get(this.studentUrl + id).subscribe(
+		this.globalsService.request('get', this.studentUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -80,7 +79,7 @@ export class DeliveryView {
 
 	getTask(id) {
 
-		this.http.get(this.taskUrl + id).subscribe(
+		this.globalsService.request('get', this.taskUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];

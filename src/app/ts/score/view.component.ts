@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Score} from './score';
@@ -18,7 +17,7 @@ export class ScoreView {
 	studentUrl: string;
 	studentName: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.scoreId = params['id'];
@@ -33,7 +32,7 @@ export class ScoreView {
 
 	getScore() {
 
-		this.http.get(this.scoreUrl + this.scoreId).subscribe(
+		this.globalsService.request('get', this.scoreUrl + this.scoreId).subscribe(
 			(this.onScoreResponse).bind(this),
 			error => {
 
@@ -59,7 +58,7 @@ export class ScoreView {
 
 	getStudent(id) {
 
-		this.http.get(this.studentUrl + id).subscribe(
+		this.globalsService.request('get', this.studentUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -72,7 +71,7 @@ export class ScoreView {
 
 	getSubject(id) {
 
-		this.http.get(this.subjectUrl + id).subscribe(
+		this.globalsService.request('get', this.subjectUrl + id).subscribe(
 			response => {
 
 				var content = response.json().content[0];

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Teacher} from './teacher';
@@ -23,7 +22,7 @@ export class TeacherEdition {
 	enrolledSubjects;
 	assignedTasks;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.teacherId = params['id'];
@@ -77,7 +76,7 @@ export class TeacherEdition {
 			return;
 		}
 
-		this.http.get(this.teacherUrl + this.teacherId).subscribe(response => {
+		this.globalsService.request('get', this.teacherUrl + this.teacherId).subscribe(response => {
 
 			var content = response.json().content;
 			this.teacherToEdit = content.length ? content[0] : { _id: null };
@@ -89,7 +88,7 @@ export class TeacherEdition {
 
 	getSubjects() {
 
-		this.http.get(this.subjectUrl).subscribe(response => {
+		this.globalsService.request('get', this.subjectUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -120,7 +119,7 @@ export class TeacherEdition {
 
 	getTasks() {
 
-		this.http.get(this.taskUrl).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -152,10 +151,8 @@ export class TeacherEdition {
 	add(teacher) {
 
 		let body = JSON.stringify({ data: teacher });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.teacherUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.teacherUrl, { body: body }).subscribe(response => {
 
 			this.getTeacher();
 		}, error => {
@@ -167,32 +164,13 @@ export class TeacherEdition {
 	update(teacher) {
 
 		let body = JSON.stringify({ data: teacher });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.teacherUrl + teacher._id, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('put', this.teacherUrl + teacher._id, { body: body }).subscribe(response => {
 
 			this.getTeacher();
 		}, error => {
 
 			console.error(error.text());
 		});
-	}
-
-	delete(teacher, event) {
-
-		this.http.delete(this.teacherUrl + teacher._id)
-			.subscribe(response => {
-
-				var status = response.json().status;
-
-				if (status === "success") {
-					alert("Se ha borrado con éxito")
-					this.getTeacher();
-				}
-			}, error => {
-
-				console.error(error.text());
-			});
 	}
 }

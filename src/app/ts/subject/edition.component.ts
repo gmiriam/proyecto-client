@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Subject} from './subject';
@@ -20,7 +19,7 @@ export class SubjectEdition {
 	teachers;
 	temaryFileTarget: string;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['id'];
@@ -65,7 +64,7 @@ export class SubjectEdition {
 			return;
 		}
 
-		this.http.get(this.subjectUrl + this.subjectId).subscribe(response => {
+		this.globalsService.request('get', this.subjectUrl + this.subjectId).subscribe(response => {
 
 			var content = response.json().content;
 			this.subjectToEdit = content[0] ? content[0] : { _id: null };
@@ -77,7 +76,7 @@ export class SubjectEdition {
 
 	getTeachers() {
 
-		this.http.get(this.teacherUrl).subscribe(response => {
+		this.globalsService.request('get', this.teacherUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -109,10 +108,8 @@ export class SubjectEdition {
 	add(subject) {
 
 		let body = JSON.stringify({ data: subject });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.subjectUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.subjectUrl, { body: body }).subscribe(response => {
 
 			this.getSubject();
 		}, error => {
@@ -124,33 +121,14 @@ export class SubjectEdition {
 	update(subject) {
 
 		let body = JSON.stringify({ data: subject });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.subjectUrl + subject._id, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('put', this.subjectUrl + subject._id, { body: body }).subscribe(response => {
 
 			this.getSubject();
 		}, error => {
 
 			console.error(error.text());
 		});
-	}
-
-	delete(subject, event) {
-
-		this.http.delete(this.subjectUrl + subject._id)
-			.subscribe(response => {
-
-				var status = response.json().status;
-
-				if (status === "success") {
-					alert("Se ha borrado con éxito")
-					this.getSubject();
-				}
-			}, error => {
-
-				console.error(error.text());
-			});
 	}
 
 	onSubjectTemaryUploaded(filename: string) {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Subject} from './subject';
@@ -18,7 +17,7 @@ export class SubjectView {
 	downloadUrl: string;
 	temaryUrl: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['id'];
@@ -33,7 +32,7 @@ export class SubjectView {
 
 	getSubject() {
 
-		this.http.get(this.subjectUrl + this.subjectId).subscribe(
+		this.globalsService.request('get', this.subjectUrl + this.subjectId).subscribe(
 			(this.onSubjectResponse).bind(this),
 			error => {
 
@@ -59,7 +58,7 @@ export class SubjectView {
 
 	getTeachers() {
 
-		this.http.get(this.teacherUrl).subscribe(
+		this.globalsService.request('get', this.teacherUrl).subscribe(
 			response => {
 
 				var content = response.json().content;

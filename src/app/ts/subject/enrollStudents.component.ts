@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 
@@ -22,7 +21,7 @@ export class EnrollStudents {
 	enrolledStudentIds;
 	unenrolledStudentIds = [];
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['id'];
@@ -67,7 +66,7 @@ export class EnrollStudents {
 
 	getEnrolledStudents() {
 
-		this.http.get(this.enrolledStudentsUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -89,7 +88,7 @@ export class EnrollStudents {
 
 	getStudents() {
 
-		this.http.get(this.studentUrl).subscribe(response => {
+		this.globalsService.request('get', this.studentUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -135,10 +134,8 @@ export class EnrollStudents {
 	saveUnenrolledStudents(value) {
 
 		let body = JSON.stringify({ data: value });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.unenrollStudentsUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.unenrollStudentsUrl, { body: body }).subscribe(response => {
 
 			this.unenrolledStudentIds = [];
 
@@ -157,10 +154,8 @@ export class EnrollStudents {
 	saveEnrolledStudents(value) {
 
 		let body = JSON.stringify({ data: value });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.enrollStudentsUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.enrollStudentsUrl, { body: body }).subscribe(response => {
 
 			this.originalEnrolledStudentIds = this.enrolledStudentIds;
 		}, error => {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Delivery} from './delivery';
@@ -14,7 +13,7 @@ export class DeliveryList {
 	deliveryUrl: string;
 	taskId: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
@@ -32,7 +31,7 @@ export class DeliveryList {
 			url += '?taskid=' + this.taskId;
 		}
 
-		this.http.get(url).subscribe(
+		this.globalsService.request('get', url).subscribe(
 			response => {
 				var content = response.json().content;
 				this.deliveryList = content;
@@ -65,7 +64,7 @@ export class DeliveryList {
 			return;
 		}
 
-		this.http.delete(this.deliveryUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.deliveryUrl + '/' + id).subscribe(
 			response => {
 				console.log("borrado", id);
 				this.getDeliveries();

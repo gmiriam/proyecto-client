@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Score} from './score';
@@ -16,7 +15,7 @@ export class ScoreEdition {
 	scoreForm: FormGroup;
 	scoreUrl: string;
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.scoreId = params['id'];
@@ -40,7 +39,7 @@ export class ScoreEdition {
 
 	getScore() {
 
-		this.http.get(this.scoreUrl + this.scoreId).subscribe(response => {
+		this.globalsService.request('get', this.scoreUrl + this.scoreId).subscribe(response => {
 
 			var content = response.json().content;
 			this.scoreToEdit = content[0] ? content[0] : { _id: null };
@@ -53,10 +52,8 @@ export class ScoreEdition {
 	update(score) {
 
 		let body = JSON.stringify({ data: score });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.put(this.scoreUrl + score._id, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('put', this.scoreUrl + score._id, { body: body }).subscribe(response => {
 
 			this.getScore();
 		}, error => {

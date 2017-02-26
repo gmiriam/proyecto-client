@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 
@@ -25,7 +24,7 @@ export class AssignTask {
 	enrolledStudentWithTaskAssignedIds;
 	enrolledStudentWithoutTaskAssignedIds = [];
 
-	constructor(public http: Http, fb: FormBuilder, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.taskId = params['id'];
@@ -76,7 +75,7 @@ export class AssignTask {
 
 	getTask() {
 
-		this.http.get(this.taskUrl + this.taskId).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(response => {
 
 			var content = response.json().content[0];
 			if (!content) {
@@ -95,7 +94,7 @@ export class AssignTask {
 
 	getEnrolledStudentsWithTaskAssigned() {
 
-		this.http.get(this.enrolledStudentsWithTaskAssignedUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsWithTaskAssignedUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -117,7 +116,7 @@ export class AssignTask {
 
 	getEnrolledStudents() {
 
-		this.http.get(this.enrolledStudentsUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsUrl).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -165,10 +164,8 @@ export class AssignTask {
 	saveEnrolledStudentWithoutTaskAssigned(value) {
 
 		let body = JSON.stringify({ data: value });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.unassignTaskUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.unassignTaskUrl, { body: body }).subscribe(response => {
 
 			this.enrolledStudentWithoutTaskAssignedIds = [];
 
@@ -187,10 +184,8 @@ export class AssignTask {
 	saveEnrolledStudentWithTaskAssigned(value) {
 
 		let body = JSON.stringify({ data: value });
-		let headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.assignTaskUrl, body, { headers: headers }).subscribe(response => {
+		this.globalsService.request('post', this.assignTaskUrl, { body: body }).subscribe(response => {
 
 			this.originalEnrolledStudentWithTaskAssignedIds = this.enrolledStudentWithTaskAssignedIds;
 		}, error => {

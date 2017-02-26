@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Score} from './score';
@@ -15,7 +14,7 @@ export class ScoreList {
 	subjectId: string;
 	studentId: string;
 
-	constructor(public http: Http, public router: Router, globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.subjectId = params['subjectid'];
@@ -41,7 +40,7 @@ export class ScoreList {
 
 		url += queryParams;
 
-		this.http.get(url).subscribe(
+		this.globalsService.request('get', url).subscribe(
 			response => {
 				var content = response.json().content;
 				this.scoreList = content;
