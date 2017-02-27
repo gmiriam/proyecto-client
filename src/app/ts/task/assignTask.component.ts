@@ -10,8 +10,9 @@ import {GlobalsService} from '../globals.service';
 
 export class AssignTask {
 	apiUrl: string;
-	taskId: string;
+	params;
 	subjectId: string;
+	taskId: string;
 	assignTaskForm: FormGroup;
 	taskUrl: string;
 	enrolledStudentsUrl: string;
@@ -27,8 +28,10 @@ export class AssignTask {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.taskId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
 
 		this.apiUrl = globalsService.apiUrl;
 		this.taskUrl = this.apiUrl + 'task/';
@@ -75,7 +78,9 @@ export class AssignTask {
 
 	getTask() {
 
-		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl + this.taskId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content[0];
 			if (!content) {
@@ -94,7 +99,9 @@ export class AssignTask {
 
 	getEnrolledStudentsWithTaskAssigned() {
 
-		this.globalsService.request('get', this.enrolledStudentsWithTaskAssignedUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsWithTaskAssignedUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -116,7 +123,9 @@ export class AssignTask {
 
 	getEnrolledStudents() {
 
-		this.globalsService.request('get', this.enrolledStudentsUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -165,7 +174,10 @@ export class AssignTask {
 
 		let body = JSON.stringify({ data: value });
 
-		this.globalsService.request('post', this.unassignTaskUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.unassignTaskUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.enrolledStudentWithoutTaskAssignedIds = [];
 
@@ -185,7 +197,10 @@ export class AssignTask {
 
 		let body = JSON.stringify({ data: value });
 
-		this.globalsService.request('post', this.assignTaskUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.assignTaskUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.originalEnrolledStudentWithTaskAssignedIds = this.enrolledStudentWithTaskAssignedIds;
 		}, error => {

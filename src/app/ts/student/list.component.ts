@@ -9,6 +9,7 @@ import {Student} from './student';
 })
 
 export class StudentList {
+	params;
 	studentList: Student[];
 	studentUrl: string;
 
@@ -22,7 +23,9 @@ export class StudentList {
 
 		var url = this.studentUrl + '?role=student';
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.studentList = content;
@@ -48,7 +51,9 @@ export class StudentList {
 			return;
 		}
 
-		this.globalsService.request('delete', this.studentUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.studentUrl + '/' + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				this.getStudents();
 			},

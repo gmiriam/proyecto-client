@@ -9,17 +9,18 @@ import {Score} from './score';
 })
 
 export class ScoreList {
+	params;
+	subjectId: string;
+	studentId;
 	scoreList: Score[];
 	scoreUrl: string;
-	subjectId: string;
-	studentId: string;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.subjectId = params['subjectid'];
-			this.studentId = params['studentId'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
 
 		this.scoreUrl = globalsService.apiUrl + 'score';
 		this.getScores();
@@ -40,7 +41,9 @@ export class ScoreList {
 
 		url += queryParams;
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.scoreList = content;

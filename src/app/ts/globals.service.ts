@@ -13,6 +13,7 @@ export class GlobalsService {
 
 		var headers = options ? options.headers : null,
 			body = options ? options.body : null,
+			urlParams = options ? options.urlParams : null,
 			token = this.localStorageService.get('userToken'),
 			userId = this.localStorageService.get('userId');
 
@@ -22,6 +23,14 @@ export class GlobalsService {
 
 		if (body) {
 			headers.append('Content-Type', 'application/json');
+		}
+
+		if (urlParams) {
+			var subjectId = urlParams.subjectid,
+				taskId = urlParams.taskid;
+
+			subjectId && headers.append('SubjectId', subjectId);
+			taskId && headers.append('TaskId', taskId);
 		}
 
 		headers.append('Authorization', 'Bearer ' + token);

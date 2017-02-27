@@ -10,27 +10,22 @@ import {Student} from './student';
 })
 
 export class StudentEdition {
+	params;
 	studentId: string;
 	studentToEdit: Student = new Student();
 	studentForm: FormGroup;
 	studentUrl: string;
-	subjectUrl: string;
-	taskUrl: string;
 	roles = ['student', 'teacher', 'admin'];
-	subjectList;
-	taskList;
-	enrolledSubjects;
-	assignedTasks;
 
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.studentId = params['id'];
+
+			this.params = params;
 		});
+		this.studentId = this.params['id'];
 
 		this.studentUrl = globalsService.apiUrl + 'user/';
-		this.subjectUrl = globalsService.apiUrl + 'subject';
-		this.taskUrl = globalsService.apiUrl + 'task';
 
 		this.studentForm = fb.group({
 			_id:[""],
@@ -38,24 +33,10 @@ export class StudentEdition {
 			surname: [""],
 			email: [""],
 			password: ["", Validators.required],
-			role: ["", Validators.required],
-			enrolledSubjects: [""],
-			assignedTasks: [""]
+			role: ["", Validators.required]
 		});
 
 		this.getStudent();
-		this.getSubjects();
-		this.getTasks();
-	}
-
-	onChangeEnrolledSubjects(event) {
-
-		this.studentToEdit.enrolledSubjects = event;
-	}
-
-	onChangeAssignedTasks(event) {
-
-		this.studentToEdit.assignedTasks = event;
 	}
 
 	onSubmit(event) {
@@ -76,72 +57,12 @@ export class StudentEdition {
 			return;
 		}
 
-		this.globalsService.request('get', this.studentUrl + this.studentId).subscribe(response => {
+		this.globalsService.request('get', this.studentUrl + this.studentId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.studentToEdit = content.length ? content[0] : { _id: null };
-		}, error => {
-
-			console.error(error.text());
-		});
-	}
-
-	getSubjects() {
-
-		this.globalsService.request('get', this.subjectUrl).subscribe(response => {
-
-			var content = response.json().content;
-			if (!content) {
-				return;
-			}
-
-			this.enrolledSubjects = [];
-
-			this.subjectList = content.map((function(currentValue, index, array) {
-
-				var enrolledSubjects = this.studentToEdit.enrolledSubjects,
-					subjectObj = {
-						id: currentValue._id,
-						text: currentValue.name
-					};
-
-				if (enrolledSubjects && enrolledSubjects.indexOf(subjectObj.id) !== -1) {
-					this.enrolledSubjects.push(subjectObj);
-				}
-
-				return subjectObj;
-			}).bind(this));
-		}, error => {
-
-			console.error(error.text());
-		});
-	}
-
-	getTasks() {
-
-		this.globalsService.request('get', this.taskUrl).subscribe(response => {
-
-			var content = response.json().content;
-			if (!content) {
-				return;
-			}
-
-			this.assignedTasks = [];
-
-			this.taskList = content.map((function(currentValue, index, array) {
-
-				var assignedTasks = this.studentToEdit.assignedTasks,
-					taskObj = {
-						id: currentValue._id,
-						text: currentValue.name
-					};
-
-				if (assignedTasks && assignedTasks.indexOf(taskObj.id) !== -1) {
-					this.assignedTasks.push(taskObj);
-				}
-
-				return taskObj;
-			}).bind(this));
 		}, error => {
 
 			console.error(error.text());
@@ -152,7 +73,10 @@ export class StudentEdition {
 
 		let body = JSON.stringify({ data: student });
 
-		this.globalsService.request('post', this.studentUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.studentUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getStudent();
 		}, error => {
@@ -165,7 +89,10 @@ export class StudentEdition {
 
 		let body = JSON.stringify({ data: student });
 
-		this.globalsService.request('put', this.studentUrl + student._id, { body: body }).subscribe(response => {
+		this.globalsService.request('put', this.studentUrl + student._id, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getStudent();
 		}, error => {

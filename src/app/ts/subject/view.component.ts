@@ -9,6 +9,7 @@ import {Subject} from './subject';
 })
 
 export class SubjectView {
+	params;
 	subjectId: string;
 	subjectToView: Subject = new Subject();
 	subjectUrl: string;
@@ -20,8 +21,9 @@ export class SubjectView {
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.subjectId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
 
 		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.downloadUrl = globalsService.apiUrl + 'download';
@@ -32,7 +34,9 @@ export class SubjectView {
 
 	getSubject() {
 
-		this.globalsService.request('get', this.subjectUrl + this.subjectId).subscribe(
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
 			(this.onSubjectResponse).bind(this),
 			error => {
 
@@ -58,7 +62,9 @@ export class SubjectView {
 
 	getTeachers() {
 
-		this.globalsService.request('get', this.teacherUrl).subscribe(
+		this.globalsService.request('get', this.teacherUrl, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {GlobalsService} from '../globals.service';
 import {Subject} from './subject';
 
@@ -9,10 +9,11 @@ import {Subject} from './subject';
 })
 
 export class SubjectList {
+	params;
 	subjectList: Subject[];
 	subjectUrl: string;
 
-	constructor(public router: Router, private globalsService: GlobalsService) {
+	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService) {
 
 		this.subjectUrl = globalsService.apiUrl + 'subject';
 		this.getSubjects();
@@ -22,7 +23,9 @@ export class SubjectList {
 
 		var url = this.subjectUrl;
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.subjectList = content;
@@ -53,7 +56,9 @@ export class SubjectList {
 			return;
 		}
 
-		this.globalsService.request('delete', this.subjectUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.subjectUrl + '/' + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				this.getSubjects();
 			},

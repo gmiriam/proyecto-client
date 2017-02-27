@@ -10,6 +10,8 @@ import {Task} from './task';
 })
 
 export class TaskEdition {
+	params;
+	subjectId: string;
 	taskId: string;
 	taskToEdit: Task = new Task();
 	taskForm: FormGroup;
@@ -26,8 +28,10 @@ export class TaskEdition {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.taskId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
 
 		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.teacherUrl = globalsService.apiUrl + 'user?role=teacher';
@@ -81,7 +85,9 @@ export class TaskEdition {
 			return;
 		}
 
-		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl + this.taskId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.taskToEdit = content[0] ? content[0] : { _id: null };
@@ -93,7 +99,9 @@ export class TaskEdition {
 
 	getTeachers() {
 
-		this.globalsService.request('get', this.teacherUrl).subscribe(response => {
+		this.globalsService.request('get', this.teacherUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -124,7 +132,9 @@ export class TaskEdition {
 
 	getSubjects() {
 
-		this.globalsService.request('get', this.subjectUrl).subscribe(response => {
+		this.globalsService.request('get', this.subjectUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -158,6 +168,7 @@ export class TaskEdition {
 		let body = JSON.stringify({ data: task });
 
 		this.globalsService.request('post', this.taskUrl, {
+			urlParams: this.params,
 			body: body
 		}).subscribe(response => {
 
@@ -172,7 +183,10 @@ export class TaskEdition {
 
 		let body = JSON.stringify({ data: task });
 
-		this.globalsService.request('put', this.taskUrl + task._id, { body: body }).subscribe(response => {
+		this.globalsService.request('put', this.taskUrl + task._id, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getTask();
 		}, error => {

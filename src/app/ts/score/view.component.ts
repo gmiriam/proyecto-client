@@ -9,6 +9,8 @@ import {Score} from './score';
 })
 
 export class ScoreView {
+	params;
+	subjectId: string;
 	scoreId: string;
 	scoreToView: Score = new Score();
 	scoreUrl: string;
@@ -20,8 +22,10 @@ export class ScoreView {
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.scoreId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.scoreId = this.params['scoreid'];
 
 		this.scoreUrl = globalsService.apiUrl + 'score/';
 		this.subjectUrl = globalsService.apiUrl + 'subject/';
@@ -32,7 +36,9 @@ export class ScoreView {
 
 	getScore() {
 
-		this.globalsService.request('get', this.scoreUrl + this.scoreId).subscribe(
+		this.globalsService.request('get', this.scoreUrl + this.scoreId, {
+			urlParams: this.params
+		}).subscribe(
 			(this.onScoreResponse).bind(this),
 			error => {
 
@@ -58,7 +64,9 @@ export class ScoreView {
 
 	getStudent(id) {
 
-		this.globalsService.request('get', this.studentUrl + id).subscribe(
+		this.globalsService.request('get', this.studentUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -71,7 +79,9 @@ export class ScoreView {
 
 	getSubject(id) {
 
-		this.globalsService.request('get', this.subjectUrl + id).subscribe(
+		this.globalsService.request('get', this.subjectUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];

@@ -9,15 +9,17 @@ import {Task} from './task';
 })
 
 export class TaskList {
+	params;
+	subjectId: string;
 	taskList: Task[];
 	taskUrl: string;
-	subjectId: string;
 
 	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.subjectId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
 
 		this.taskUrl = globalsService.apiUrl + 'task';
 		this.getTasks();
@@ -31,7 +33,9 @@ export class TaskList {
 			url += '?subjectid=' + this.subjectId;
 		}
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.taskList = content;
@@ -43,17 +47,17 @@ export class TaskList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['task', id]);
+		this.router.navigate(['subject', this.subjectId, 'task', id]);
 	}
 
 	addItem(evt) {
 
-		this.router.navigate(['task', "new", "edit"]);
+		this.router.navigate(['subject', this.subjectId, 'task', "new", "edit"]);
 	}
 
 	editItem(evt, id) {
 
-		this.router.navigate(['task', id, "edit"]);
+		this.router.navigate(['subject', this.subjectId, 'task', id, "edit"]);
 	}
 
 	deleteItem(evt, id) {
@@ -64,7 +68,9 @@ export class TaskList {
 			return;
 		}
 
-		this.globalsService.request('delete', this.taskUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.taskUrl + '/' + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				console.log("borrado", id);
 				this.getTasks();

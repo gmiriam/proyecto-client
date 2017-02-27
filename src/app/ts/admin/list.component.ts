@@ -9,6 +9,7 @@ import {Admin} from './admin';
 })
 
 export class AdminList {
+	params;
 	adminList: Admin[];
 	adminUrl: string;
 
@@ -22,7 +23,9 @@ export class AdminList {
 
 		var url = this.adminUrl + '?role=admin';
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.adminList = content;
@@ -48,7 +51,9 @@ export class AdminList {
 			return;
 		}
 
-		this.globalsService.request('delete', this.adminUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.adminUrl + '/' + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				this.getAdmins();
 			},

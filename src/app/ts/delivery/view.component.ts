@@ -9,6 +9,9 @@ import {Delivery} from './delivery';
 })
 
 export class DeliveryView {
+	params;
+	subjectId: string;
+	taskId: string;
 	deliveryId: string;
 	deliveryToView: Delivery = new Delivery();
 	deliveryUrl: string;
@@ -22,8 +25,11 @@ export class DeliveryView {
 	constructor(private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.deliveryId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
+		this.deliveryId = this.params['deliveryid'];
 
 		this.deliveryUrl = globalsService.apiUrl + 'delivery/';
 		this.downloadUrl = globalsService.apiUrl + 'download';
@@ -35,7 +41,9 @@ export class DeliveryView {
 
 	getDelivery() {
 
-		this.globalsService.request('get', this.deliveryUrl + this.deliveryId).subscribe(
+		this.globalsService.request('get', this.deliveryUrl + this.deliveryId, {
+			urlParams: this.params
+		}).subscribe(
 			(this.onDeliveryResponse).bind(this),
 			error => {
 
@@ -66,7 +74,9 @@ export class DeliveryView {
 
 	getStudent(id) {
 
-		this.globalsService.request('get', this.studentUrl + id).subscribe(
+		this.globalsService.request('get', this.studentUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -79,7 +89,9 @@ export class DeliveryView {
 
 	getTask(id) {
 
-		this.globalsService.request('get', this.taskUrl + id).subscribe(
+		this.globalsService.request('get', this.taskUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];

@@ -10,6 +10,7 @@ import {Subject} from './subject';
 })
 
 export class SubjectEdition {
+	params;
 	subjectId: string;
 	subjectToEdit: Subject = new Subject();
 	subjectForm: FormGroup;
@@ -22,8 +23,11 @@ export class SubjectEdition {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.subjectId = params['id'];
+
+			this.params = params;
 		});
+
+		this.subjectId = this.params['subjectid'];
 
 		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.teacherUrl = globalsService.apiUrl + 'user?role=teacher';
@@ -64,7 +68,9 @@ export class SubjectEdition {
 			return;
 		}
 
-		this.globalsService.request('get', this.subjectUrl + this.subjectId).subscribe(response => {
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.subjectToEdit = content[0] ? content[0] : { _id: null };
@@ -76,7 +82,9 @@ export class SubjectEdition {
 
 	getTeachers() {
 
-		this.globalsService.request('get', this.teacherUrl).subscribe(response => {
+		this.globalsService.request('get', this.teacherUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -109,7 +117,10 @@ export class SubjectEdition {
 
 		let body = JSON.stringify({ data: subject });
 
-		this.globalsService.request('post', this.subjectUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.subjectUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getSubject();
 		}, error => {
@@ -122,7 +133,10 @@ export class SubjectEdition {
 
 		let body = JSON.stringify({ data: subject });
 
-		this.globalsService.request('put', this.subjectUrl + subject._id, { body: body }).subscribe(response => {
+		this.globalsService.request('put', this.subjectUrl + subject._id, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getSubject();
 		}, error => {

@@ -9,6 +9,7 @@ import {GlobalsService} from '../globals.service';
 })
 
 export class EnrollStudents {
+	params;
 	subjectId: string;
 	enrollStudentsForm: FormGroup;
 	studentUrl: string;
@@ -24,8 +25,9 @@ export class EnrollStudents {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.subjectId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
 
 		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?role=student&enrolledsubjectid=' + this.subjectId;
 		this.studentUrl = globalsService.apiUrl + 'user?role=student';
@@ -66,7 +68,9 @@ export class EnrollStudents {
 
 	getEnrolledStudents() {
 
-		this.globalsService.request('get', this.enrolledStudentsUrl).subscribe(response => {
+		this.globalsService.request('get', this.enrolledStudentsUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -88,7 +92,9 @@ export class EnrollStudents {
 
 	getStudents() {
 
-		this.globalsService.request('get', this.studentUrl).subscribe(response => {
+		this.globalsService.request('get', this.studentUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -135,7 +141,10 @@ export class EnrollStudents {
 
 		let body = JSON.stringify({ data: value });
 
-		this.globalsService.request('post', this.unenrollStudentsUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.unenrollStudentsUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.unenrolledStudentIds = [];
 
@@ -155,7 +164,10 @@ export class EnrollStudents {
 
 		let body = JSON.stringify({ data: value });
 
-		this.globalsService.request('post', this.enrollStudentsUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.enrollStudentsUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.originalEnrolledStudentIds = this.enrolledStudentIds;
 		}, error => {

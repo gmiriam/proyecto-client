@@ -10,6 +10,9 @@ import {Delivery} from './delivery';
 })
 
 export class DeliveryEdition {
+	params;
+	subjectId: string;
+	taskId: string;
 	deliveryId: string;
 	deliveryToEdit: Delivery = new Delivery();
 	deliveryForm: FormGroup;
@@ -25,8 +28,11 @@ export class DeliveryEdition {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.deliveryId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
+		this.deliveryId = this.params['deliveryid'];
 
 		this.deliveryUrl = globalsService.apiUrl + 'delivery/';
 		this.taskUrl = globalsService.apiUrl + 'task';
@@ -74,7 +80,9 @@ export class DeliveryEdition {
 			return;
 		}
 
-		this.globalsService.request('get', this.deliveryUrl + this.deliveryId).subscribe(response => {
+		this.globalsService.request('get', this.deliveryUrl + this.deliveryId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.deliveryToEdit = content[0] ? content[0] : { _id: null };
@@ -86,7 +94,9 @@ export class DeliveryEdition {
 
 	getTasks() {
 
-		this.globalsService.request('get', this.taskUrl).subscribe(response => {
+		this.globalsService.request('get', this.taskUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -117,7 +127,9 @@ export class DeliveryEdition {
 
 	getStudents() {
 
-		this.globalsService.request('get', this.studentUrl).subscribe(response => {
+		this.globalsService.request('get', this.studentUrl, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			if (!content) {
@@ -150,7 +162,10 @@ export class DeliveryEdition {
 
 		let body = JSON.stringify({ data: delivery });
 
-		this.globalsService.request('post', this.deliveryUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.deliveryUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getDelivery();
 		}, error => {
@@ -165,7 +180,10 @@ export class DeliveryEdition {
 
 		//let url = this.deliveryUrl + delivery._id + "/updatedata";
 		let url = this.deliveryUrl + delivery._id + "/updatescore";
-		this.globalsService.request('put', url, { body: body }).subscribe(response => {
+		this.globalsService.request('put', url, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getDelivery();
 		}, error => {

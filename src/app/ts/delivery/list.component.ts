@@ -11,13 +11,17 @@ import {Delivery} from './delivery';
 export class DeliveryList {
 	deliveryList: Delivery[];
 	deliveryUrl: string;
+	params;
+	subjectId: string;
 	taskId: string;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.taskId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
 
 		this.deliveryUrl = globalsService.apiUrl + 'delivery';
 		this.getDeliveries();
@@ -31,7 +35,9 @@ export class DeliveryList {
 			url += '?taskid=' + this.taskId;
 		}
 
-		this.globalsService.request('get', url).subscribe(
+		this.globalsService.request('get', url, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				var content = response.json().content;
 				this.deliveryList = content;
@@ -43,17 +49,17 @@ export class DeliveryList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['delivery', id]);
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', id]);
 	}
 
 	addItem(evt) {
 
-		this.router.navigate(['delivery', "new", "edit"]);
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', "new", "edit"]);
 	}
 
 	editItem(evt, id) {
 
-		this.router.navigate(['delivery', id, "edit"]);
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', id, "edit"]);
 	}
 
 	deleteItem(evt, id) {
@@ -64,7 +70,9 @@ export class DeliveryList {
 			return;
 		}
 
-		this.globalsService.request('delete', this.deliveryUrl + '/' + id).subscribe(
+		this.globalsService.request('delete', this.deliveryUrl + '/' + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 				console.log("borrado", id);
 				this.getDeliveries();

@@ -10,6 +10,7 @@ import {Admin} from './admin';
 })
 
 export class AdminEdition {
+	params;
 	adminId: string;
 	adminToEdit: Admin = new Admin();
 	adminForm: FormGroup;
@@ -19,9 +20,9 @@ export class AdminEdition {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.adminId = params['id'];
+			this.params = params;
 		});
-
+		this.adminId = this.params['id'];
 		this.adminUrl = globalsService.apiUrl + 'user/';
 
 		this.adminForm = fb.group({
@@ -56,7 +57,9 @@ export class AdminEdition {
 			return;
 		}
 
-		this.globalsService.request('get', this.adminUrl + this.adminId).subscribe(response => {
+		this.globalsService.request('get', this.adminUrl + this.adminId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.adminToEdit = content.length ? content[0] : { _id: null };
@@ -70,7 +73,10 @@ export class AdminEdition {
 
 		let body = JSON.stringify({ data: admin });
 
-		this.globalsService.request('post', this.adminUrl, { body: body }).subscribe(response => {
+		this.globalsService.request('post', this.adminUrl, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getAdmin();
 		}, error => {
@@ -83,7 +89,10 @@ export class AdminEdition {
 
 		let body = JSON.stringify({ data: admin });
 
-		this.globalsService.request('put', this.adminUrl + admin._id, { body: body }).subscribe(response => {
+		this.globalsService.request('put', this.adminUrl + admin._id, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getAdmin();
 		}, error => {

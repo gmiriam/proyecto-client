@@ -38,21 +38,6 @@ const routes: Routes = [{
 	path: 'home',
 	component: Home
 },{
-	path: 'tasks',
-	component: TaskList
-},{
-	path: 'task/:id',
-	component: TaskView
-},{
-	path: 'task/:id/edit',
-	component: TaskEdition
-},{
-	path: 'task/:id/deliveries',
-	component: DeliveryList
-},{
-	path: 'task/:id/assign',
-	component: AssignTask
-},{
 	path: 'teachers',
 	component: TeacherList
 },{
@@ -74,34 +59,43 @@ const routes: Routes = [{
 	path: 'subjects',
 	component: SubjectList
 },{
-	path: 'subject/:id',
+	path: 'subject/:subjectid',
 	component: SubjectView
 },{
-	path: 'subject/:id/edit',
+	path: 'subject/:subjectid/edit',
 	component: SubjectEdition
 },{
-	path: 'subject/:id/tasks',
-	component: TaskList
-},{
-	path: 'subject/:id/enroll',
+	path: 'subject/:subjectid/enroll',
 	component: EnrollStudents
 },{
-	path: 'deliveries',
+	path: 'subject/:subjectid/tasks',
+	component: TaskList
+},{
+	path: 'subject/:subjectid/task/:taskid',
+	component: TaskView
+},{
+	path: 'subject/:subjectid/task/:taskid/edit',
+	component: TaskEdition
+},{
+	path: 'subject/:subjectid/task/:taskid/assign',
+	component: AssignTask
+},{
+	path: 'subject/:subjectid/task/:taskid/deliveries',
 	component: DeliveryList
 },{
-	path: 'delivery/:id',
+	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid',
 	component: DeliveryView
 },{
-	path: 'delivery/:id/edit',
+	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/edit',
 	component: DeliveryEdition
 },{
-	path: 'scores',
+	path: 'subject/:subjectid/scores',
 	component: ScoreList
 },{
-	path: 'score/:id',
+	path: 'subject/:subjectid/score/:scoreid',
 	component: ScoreView
 },{
-	path: 'score/:id/edit',
+	path: 'subject/:subjectid/score/:scoreid/edit',
 	component: ScoreEdition
 }];
 

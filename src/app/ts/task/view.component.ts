@@ -9,6 +9,8 @@ import {Task} from './task';
 })
 
 export class TaskView {
+	params;
+	subjectId: string;
 	taskId: string;
 	taskToView: Task = new Task();
 	taskUrl: string;
@@ -23,8 +25,10 @@ export class TaskView {
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.taskId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.taskId = this.params['taskid'];
 
 		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.downloadUrl = globalsService.apiUrl + 'download';
@@ -36,7 +40,9 @@ export class TaskView {
 
 	getTask() {
 
-		this.globalsService.request('get', this.taskUrl + this.taskId).subscribe(
+		this.globalsService.request('get', this.taskUrl + this.taskId, {
+			urlParams: this.params
+		}).subscribe(
 			(this.onTaskResponse).bind(this),
 			error => {
 
@@ -72,7 +78,9 @@ export class TaskView {
 
 	getTeacher(id) {
 
-		this.globalsService.request('get', this.teacherUrl + id).subscribe(
+		this.globalsService.request('get', this.teacherUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -85,7 +93,9 @@ export class TaskView {
 
 	getSubject(id) {
 
-		this.globalsService.request('get', this.subjectUrl + id).subscribe(
+		this.globalsService.request('get', this.subjectUrl + id, {
+			urlParams: this.params
+		}).subscribe(
 			response => {
 
 				var content = response.json().content[0];
@@ -98,11 +108,11 @@ export class TaskView {
 
 	showDeliveries(evt, id) {
 
-		this.router.navigate(['task', id, "deliveries"]);
+		this.router.navigate(['subject', this.subjectId, 'task', id, "deliveries"]);
 	}
 
 	assignTask(evt, id) {
 
-		this.router.navigate(['task', id, "assign"]);
+		this.router.navigate(['subject', this.subjectId, 'task', id, "assign"]);
 	}
 }

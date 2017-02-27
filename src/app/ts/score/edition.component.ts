@@ -10,6 +10,8 @@ import {Score} from './score';
 })
 
 export class ScoreEdition {
+	params;
+	subjectId: string;
 	scoreId: string;
 	scoreToEdit: Score = new Score();
 	scoreForm: FormGroup;
@@ -18,8 +20,10 @@ export class ScoreEdition {
 	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-			this.scoreId = params['id'];
+			this.params = params;
 		});
+		this.subjectId = this.params['subjectid'];
+		this.scoreId = this.params['scoreid'];
 
 		this.scoreUrl = globalsService.apiUrl + 'score/';
 
@@ -39,7 +43,9 @@ export class ScoreEdition {
 
 	getScore() {
 
-		this.globalsService.request('get', this.scoreUrl + this.scoreId).subscribe(response => {
+		this.globalsService.request('get', this.scoreUrl + this.scoreId, {
+			urlParams: this.params
+		}).subscribe(response => {
 
 			var content = response.json().content;
 			this.scoreToEdit = content[0] ? content[0] : { _id: null };
@@ -53,7 +59,10 @@ export class ScoreEdition {
 
 		let body = JSON.stringify({ data: score });
 
-		this.globalsService.request('put', this.scoreUrl + score._id, { body: body }).subscribe(response => {
+		this.globalsService.request('put', this.scoreUrl + score._id, {
+			urlParams: this.params,
+			body: body
+		}).subscribe(response => {
 
 			this.getScore();
 		}, error => {
