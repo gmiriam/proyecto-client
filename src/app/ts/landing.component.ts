@@ -49,6 +49,7 @@ export class LandingComponent {
 						this.localStorageService.set("userFirstName", user.firstName);
 						this.localStorageService.set("userSurname", user.surname);
 						this.localStorageService.set("userId", user._id);
+						this.localStorageService.set("userRole", user.role);
 
 						window.location.href = '//' + window.location.host;
 					});
