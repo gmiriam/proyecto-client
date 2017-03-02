@@ -20,7 +20,8 @@ export class SubjectEdition {
 	teachers;
 	temaryFileTarget: string;
 
-	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
+		private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 
@@ -43,7 +44,6 @@ export class SubjectEdition {
 		this.temaryFileTarget = 'temaries';
 
 		this.getSubject();
-		this.getTeachers();
 	}
 
 	onChangeTeachers(event) {
@@ -65,6 +65,7 @@ export class SubjectEdition {
 	getSubject() {
 
 		if (this.subjectId === "new") {
+			this.getTeachers();
 			return;
 		}
 
@@ -74,6 +75,7 @@ export class SubjectEdition {
 
 			var content = response.json().content;
 			this.subjectToEdit = content[0] ? content[0] : { _id: null };
+			this.getTeachers();
 		}, error => {
 
 			console.error(error.text());
@@ -122,7 +124,7 @@ export class SubjectEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getSubject();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
@@ -138,11 +140,23 @@ export class SubjectEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getSubject();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
 		});
+	}
+
+	finishEdition(event?) {
+
+		event && event.preventDefault();
+
+		var paths = ['subject'];
+		if (this.subjectId !== 'new') {
+			paths.push(this.subjectId);
+		}
+
+		this.router.navigate(paths);
 	}
 
 	onSubjectTemaryUploaded(filename: string) {

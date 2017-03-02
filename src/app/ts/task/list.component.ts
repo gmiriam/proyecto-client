@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
@@ -12,25 +13,63 @@ export class TaskList {
 	params;
 	subjectId: string;
 	taskList: Task[];
+	subjectUrl: string;
 	taskUrl: string;
+	userIsTeacherInSubject;
 
-	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService) {
+	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
+		private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
 		});
 		this.subjectId = this.params['subjectid'];
 
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.taskUrl = globalsService.apiUrl + 'task';
-		this.getTasks();
+
+		this.getSubject();
 	}
 
-	getTasks() {
+	getSubject() {
 
-		var url = this.taskUrl;
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
 
-		if (this.subjectId) {
-			url += '?subjectid=' + this.subjectId;
+				console.error(error.text());
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0] ? content[0] : { _id: null };
+
+		var teachers = subject.teachers,
+			userId = this.localStorageService.get('userId'),
+			userRole = this.localStorageService.get('userRole'),
+			userQuery = '';
+
+		if (teachers) {
+			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
+		}
+
+		if (userRole !== "admin" && (teachers && teachers.indexOf(userId) === -1)) {
+			userQuery += '&userid=' + userId;
+		}
+
+		this.getTasks(userQuery);
+	}
+
+	getTasks(userQuery?) {
+
+		var url = this.taskUrl + '?subjectid=' + this.subjectId;
+
+		if (userQuery) {
+			url += userQuery;
 		}
 
 		this.globalsService.request('get', url, {
@@ -47,36 +86,11 @@ export class TaskList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', id]);
+		this.router.navigate([id], { relativeTo: this.route });
 	}
 
 	addItem(evt) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', "new", "edit"]);
-	}
-
-	editItem(evt, id) {
-
-		this.router.navigate(['subject', this.subjectId, 'task', id, "edit"]);
-	}
-
-	deleteItem(evt, id) {
-
-		var confirmed = window.confirm("Está seguro?");
-
-		if (!confirmed) {
-			return;
-		}
-
-		this.globalsService.request('delete', this.taskUrl + '/' + id, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				console.log("borrado", id);
-				this.getTasks();
-			},
-			error => {
-				console.error(error.text());
-			});
+		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
 }

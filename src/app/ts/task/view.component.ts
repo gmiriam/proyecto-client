@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
@@ -21,8 +22,10 @@ export class TaskView {
 	downloadUrl: string;
 	attachedUrl: string;
 	evaluationTestUrl: string;
+	userIsTeacherInSubject;
 
-	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
+		private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -30,12 +33,39 @@ export class TaskView {
 		this.subjectId = this.params['subjectid'];
 		this.taskId = this.params['taskid'];
 
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.downloadUrl = globalsService.apiUrl + 'download';
-		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.teacherUrl = globalsService.apiUrl + 'user/';
 
+		this.getSubject();
 		this.getTask();
+	}
+
+	getSubject() {
+
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
+
+				console.error(error.text());
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0];
+
+		this.subjectName = subject.name;
+
+		var teachers = subject.teachers;
+		if (teachers) {
+			var userId = this.localStorageService.get('userId');
+			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
+		}
 	}
 
 	getTask() {
@@ -69,11 +99,6 @@ export class TaskView {
 		if (teacher) {
 			this.getTeacher(teacher);
 		}
-
-		var subject = this.taskToView.subject;
-		if (subject) {
-			this.getSubject(subject);
-		}
 	}
 
 	getTeacher(id) {
@@ -91,28 +116,37 @@ export class TaskView {
 			});
 	}
 
-	getSubject(id) {
+	editItem(evt, id) {
 
-		this.globalsService.request('get', this.subjectUrl + id, {
+		this.router.navigate(['edit'], { relativeTo: this.route });
+	}
+
+	deleteItem(evt, id) {
+
+		var confirmed = window.confirm("Está seguro?");
+
+		if (!confirmed) {
+			return;
+		}
+
+		this.globalsService.request('delete', this.taskUrl + id, {
 			urlParams: this.params
 		}).subscribe(
 			response => {
-
-				var content = response.json().content[0];
-				this.subjectName = content.name;
-			}, error => {
-
+				this.router.navigate(['subject', this.subjectId, 'task']);
+			},
+			error => {
 				console.error(error.text());
 			});
 	}
 
 	showDeliveries(evt, id) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', id, "deliveries"]);
+		this.router.navigate(['delivery'], { relativeTo: this.route });
 	}
 
 	assignTask(evt, id) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', id, "assign"]);
+		this.router.navigate(['assign'], { relativeTo: this.route });
 	}
 }

@@ -17,7 +17,8 @@ export class AdminEdition {
 	adminUrl: string;
 	roles = ['student', 'teacher', 'admin'];
 
-	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
+		private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -78,7 +79,7 @@ export class AdminEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getAdmin();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
@@ -94,10 +95,16 @@ export class AdminEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getAdmin();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
 		});
+	}
+
+	finishEdition(event?) {
+
+		event && event.preventDefault();
+		this.router.navigate(['admin', this.adminId]);
 	}
 }

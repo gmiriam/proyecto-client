@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Subject} from './subject';
 
@@ -13,15 +14,17 @@ export class SubjectList {
 	subjectList: Subject[];
 	subjectUrl: string;
 
-	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService) {
+	constructor(private router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
+		private localStorageService: LocalStorageService) {
 
 		this.subjectUrl = globalsService.apiUrl + 'subject';
+
 		this.getSubjects();
 	}
 
 	getSubjects() {
 
-		var url = this.subjectUrl;
+		var url = this.subjectUrl + '?userid=' + this.localStorageService.get('userId');
 
 		this.globalsService.request('get', url, {
 			urlParams: this.params
@@ -37,33 +40,11 @@ export class SubjectList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['subject', id]);
+		this.router.navigate([id], { relativeTo: this.route });
 	}
 
 	addItem(evt) {
-		this.router.navigate(['subject', "new", "edit"]);
-	}
 
-	editItem(evt, id) {
-		this.router.navigate(['subject', id, "edit"]);
-	}
-
-	deleteItem(evt, id) {
-
-		var confirmed = window.confirm("Está seguro?");
-
-		if (!confirmed) {
-			return;
-		}
-
-		this.globalsService.request('delete', this.subjectUrl + '/' + id, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				this.getSubjects();
-			},
-			error => {
-				console.error(error.text());
-			});
+		this.router.navigate(["new", "edit"], { relativeTo: this.route });
 	}
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Task} from './task';
 
@@ -17,15 +18,14 @@ export class TaskEdition {
 	taskForm: FormGroup;
 	taskUrl: string;
 	teacherUrl: string;
-	subjectUrl: string;
 	testFileTarget: string;
 	attachedFileTarget: string;
 	teacherList;
-	subjectList;
 	teacher;
-	subject;
+	userRole;
 
-	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
+		private route: ActivatedRoute, private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -33,9 +33,10 @@ export class TaskEdition {
 		this.subjectId = this.params['subjectid'];
 		this.taskId = this.params['taskid'];
 
+		this.userRole = this.localStorageService.get('userRole');
+
 		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.teacherUrl = globalsService.apiUrl + 'user?role=teacher';
-		this.subjectUrl = globalsService.apiUrl + 'subject';
 
 		this.taskForm = fb.group({
 			_id:[""],
@@ -46,7 +47,6 @@ export class TaskEdition {
 			maxScore: [""],
 			teacher: ["", Validators.required],
 			evaluationTest: ["", Validators.required],
-			subject: ["", Validators.required],
 			attached: [""]
 		});
 
@@ -54,18 +54,11 @@ export class TaskEdition {
 		this.attachedFileTarget = 'attached';
 
 		this.getTask();
-		this.getTeachers();
-		this.getSubjects();
 	}
 
 	onChangeTeacher(event) {
 
 		this.taskToEdit.teacher = event;
-	}
-
-	onChangeSubject(event) {
-
-		this.taskToEdit.subject = event;
 	}
 
 	onSubmit(event) {
@@ -82,6 +75,8 @@ export class TaskEdition {
 	getTask() {
 
 		if (this.taskId === "new") {
+			this.taskToEdit.subject = this.subjectId;
+			this.getTeachers();
 			return;
 		}
 
@@ -91,6 +86,7 @@ export class TaskEdition {
 
 			var content = response.json().content;
 			this.taskToEdit = content[0] ? content[0] : { _id: null };
+			this.getTeachers();
 		}, error => {
 
 			console.error(error.text());
@@ -130,39 +126,6 @@ export class TaskEdition {
 		});
 	}
 
-	getSubjects() {
-
-		this.globalsService.request('get', this.subjectUrl, {
-			urlParams: this.params
-		}).subscribe(response => {
-
-			var content = response.json().content;
-			if (!content) {
-				return;
-			}
-
-			this.subject = [];
-
-			this.subjectList = content.map((function(currentValue, index, array) {
-
-				var subject = this.taskToEdit.subject,
-					subjectObj = {
-						id: currentValue._id,
-						text: currentValue.name
-					};
-
-				if (subject === subjectObj.id) {
-					this.subject.push(subjectObj);
-				}
-
-				return subjectObj;
-			}).bind(this));
-		}, error => {
-
-			console.error(error.text());
-		});
-	}
-
 	add(task) {
 
 		let body = JSON.stringify({ data: task });
@@ -172,7 +135,7 @@ export class TaskEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getTask();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
@@ -188,7 +151,7 @@ export class TaskEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getTask();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
@@ -203,5 +166,17 @@ export class TaskEdition {
 	onTaskAttachedUploaded(filename: string) {
 
 		this.taskToEdit.attached = filename;
+	}
+
+	finishEdition(event?) {
+
+		event && event.preventDefault();
+
+		var paths = ['subject', this.subjectId, 'task'];
+		if (this.taskId !== 'new') {
+			paths.push(this.taskId);
+		}
+
+		this.router.navigate(paths);
 	}
 }

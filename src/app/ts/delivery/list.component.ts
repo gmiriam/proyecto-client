@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Delivery} from './delivery';
 
@@ -15,7 +16,8 @@ export class DeliveryList {
 	subjectId: string;
 	taskId: string;
 
-	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
+		private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -29,10 +31,10 @@ export class DeliveryList {
 
 	getDeliveries() {
 
-		var url = this.deliveryUrl;
+		var url = this.deliveryUrl + '?studentid=' + this.localStorageService.get('userId');
 
 		if (this.taskId) {
-			url += '?taskid=' + this.taskId;
+			url += '&taskid=' + this.taskId;
 		}
 
 		this.globalsService.request('get', url, {
@@ -49,36 +51,11 @@ export class DeliveryList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', id]);
+		this.router.navigate([id], { relativeTo: this.route });
 	}
 
 	addItem(evt) {
 
-		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', "new", "edit"]);
-	}
-
-	editItem(evt, id) {
-
-		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery', id, "edit"]);
-	}
-
-	deleteItem(evt, id) {
-
-		var confirmed = window.confirm("Está seguro?");
-
-		if (!confirmed) {
-			return;
-		}
-
-		this.globalsService.request('delete', this.deliveryUrl + '/' + id, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				console.log("borrado", id);
-				this.getDeliveries();
-			},
-			error => {
-				console.error(error.text());
-			});
+		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
 }

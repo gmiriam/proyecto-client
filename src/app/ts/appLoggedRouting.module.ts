@@ -38,25 +38,25 @@ const routes: Routes = [{
 	path: 'home',
 	component: Home
 },{
-	path: 'teachers',
+	path: 'teacher',
 	component: TeacherList
 },{
 	path: 'teacher/:id',
 	component: TeacherEdition
 },{
-	path: 'admins',
+	path: 'admin',
 	component: AdminList
 },{
 	path: 'admin/:id',
 	component: AdminEdition
 },{
-	path: 'students',
+	path: 'student',
 	component: StudentList
 },{
 	path: 'student/:id',
 	component: StudentEdition
 },{
-	path: 'subjects',
+	path: 'subject',
 	component: SubjectList
 },{
 	path: 'subject/:subjectid',
@@ -68,7 +68,7 @@ const routes: Routes = [{
 	path: 'subject/:subjectid/enroll',
 	component: EnrollStudents
 },{
-	path: 'subject/:subjectid/tasks',
+	path: 'subject/:subjectid/task',
 	component: TaskList
 },{
 	path: 'subject/:subjectid/task/:taskid',
@@ -80,7 +80,7 @@ const routes: Routes = [{
 	path: 'subject/:subjectid/task/:taskid/assign',
 	component: AssignTask
 },{
-	path: 'subject/:subjectid/task/:taskid/deliveries',
+	path: 'subject/:subjectid/task/:taskid/delivery',
 	component: DeliveryList
 },{
 	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid',
@@ -89,7 +89,7 @@ const routes: Routes = [{
 	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/edit',
 	component: DeliveryEdition
 },{
-	path: 'subject/:subjectid/scores',
+	path: 'subject/:subjectid/score',
 	component: ScoreList
 },{
 	path: 'subject/:subjectid/score/:scoreid',

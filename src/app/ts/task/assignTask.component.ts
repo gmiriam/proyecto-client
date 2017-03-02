@@ -25,7 +25,8 @@ export class AssignTask {
 	enrolledStudentWithTaskAssignedIds;
 	enrolledStudentWithoutTaskAssignedIds = [];
 
-	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
+		private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -203,9 +204,16 @@ export class AssignTask {
 		}).subscribe(response => {
 
 			this.originalEnrolledStudentWithTaskAssignedIds = this.enrolledStudentWithTaskAssignedIds;
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
 		});
+	}
+
+	finishEdition(event?) {
+
+		event && event.preventDefault();
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId]);
 	}
 }

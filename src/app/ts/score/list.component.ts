@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Score} from './score';
 
@@ -15,7 +16,8 @@ export class ScoreList {
 	scoreList: Score[];
 	scoreUrl: string;
 
-	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
+		private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -28,15 +30,15 @@ export class ScoreList {
 
 	getScores() {
 
-		var url = this.scoreUrl,
+		var url = this.scoreUrl + '?studentid=' + this.localStorageService.get('userId'),
 			queryParams = '';
 
 		if (this.subjectId) {
-			queryParams += (queryParams.length ? '&' : '?') + 'subjectid=' + this.subjectId;
+			queryParams += '&subjectid=' + this.subjectId;
 		}
 
 		if (this.studentId) {
-			queryParams += (queryParams.length ? '&' : '?') + 'studentid=' + this.studentId;
+			queryParams += '&studentid=' + this.studentId;
 		}
 
 		url += queryParams;

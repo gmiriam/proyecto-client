@@ -17,7 +17,8 @@ export class ScoreEdition {
 	scoreForm: FormGroup;
 	scoreUrl: string;
 
-	constructor(fb: FormBuilder, private globalsService: GlobalsService, private route: ActivatedRoute) {
+	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
+		private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
@@ -64,10 +65,16 @@ export class ScoreEdition {
 			body: body
 		}).subscribe(response => {
 
-			this.getScore();
+			this.finishEdition();
 		}, error => {
 
 			console.error(error.text());
 		});
+	}
+
+	finishEdition(event?) {
+
+		event && event.preventDefault();
+		this.router.navigate(['subject', this.subjectId, 'score', this.scoreId]);
 	}
 }
