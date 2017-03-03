@@ -1,10 +1,12 @@
 <h1>Profesores</h1>
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button" (click)="addItem($event)">Añadir nuevo profesor</button>
-<ul class="heroes">
-	<li *ngFor="let teacher of teacherList">
-		<span class="hero-element">
-			<span class="badge">{{teacher.firstName}}</span> {{teacher.surname}}
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Añadir nuevo profesor</button>
+<ul class="list-items">
+	<li *ngFor="let teacher of teacherList" class="row">
+		<span class="list-element col-xs-8 col-md-6 col-lg-3">
+			{{teacher.surname}}, {{teacher.firstName}}
 		</span>
-		<button class="view-button" (click)= "viewItem($event, teacher._id)">Ver</button>
+		<div class="col-xs-1 col-lg-1">
+			<button class="view-button ull-button" (click)= "viewItem($event, teacher._id)">Ver</button>
+		</div>
 	</li>
 </ul>

@@ -1,7 +1,7 @@
 <h1>Puntuaciones</h1>
-<ul class="heroes">
+<ul class="list-items">
 	<li *ngFor="let score of scoreList">
-		<span class="hero-element">
+		<span class="list-element">
 			<span class="badge">{{score.student}}</span> {{score.finalScore}}
 		</span>
 		<button class="view-button" (click)= "viewItem($event, score._id)">Ver</button>
