@@ -18,6 +18,7 @@ export class DeliveryView {
 	deliveryUrl: string;
 	taskUrl: string;
 	subjectUrl: string;
+	subjectName: string;
 	taskName: string;
 	studentUrl: string;
 	studentName: string;
@@ -26,7 +27,7 @@ export class DeliveryView {
 	userIsTeacherInSubject;
 	userIsDeliveryOwner;
 
-	constructor(private globalsService: GlobalsService, private route: ActivatedRoute,
+	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {
 
 		this.route.params.subscribe((params: Params) => {
