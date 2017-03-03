@@ -12,6 +12,7 @@ import {Delivery} from './delivery';
 export class DeliveryList {
 	deliveryList: Delivery[];
 	deliveryUrl: string;
+	subjectUrl: string;
 	params;
 	subjectId: string;
 	taskId: string;
@@ -25,16 +26,50 @@ export class DeliveryList {
 		this.subjectId = this.params['subjectid'];
 		this.taskId = this.params['taskid'];
 
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.deliveryUrl = globalsService.apiUrl + 'delivery';
-		this.getDeliveries();
+
+		this.getSubject();
 	}
 
-	getDeliveries() {
+	getSubject() {
 
-		var url = this.deliveryUrl + '?studentid=' + this.localStorageService.get('userId');
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
 
-		if (this.taskId) {
-			url += '&taskid=' + this.taskId;
+				console.error(error.text());
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0] ? content[0] : { _id: null },
+			teachers = subject.teachers,
+			userId = this.localStorageService.get('userId'),
+			userRole = this.localStorageService.get('userRole'),
+			userQuery = '';
+
+		if (teachers) {
+			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
+		}
+
+		if (userRole !== "admin" && (teachers && teachers.indexOf(userId) === -1)) {
+			userQuery += '&studentid=' + userId;
+		}
+
+		this.getDeliveries(userQuery);
+	}
+
+	getDeliveries(userQuery?) {
+
+		var url = this.deliveryUrl + '?taskid=' + this.taskId;
+
+		if (userQuery) {
+			url += userQuery;
 		}
 
 		this.globalsService.request('get', url, {

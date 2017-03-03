@@ -1,11 +1,10 @@
 <h1>Profesores</h1>
-<button class="add-button" (click)="addItem($event)">Añadir nuevo profesor</button>
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button" (click)="addItem($event)">Añadir nuevo profesor</button>
 <ul class="heroes">
 	<li *ngFor="let teacher of teacherList">
 		<span class="hero-element">
 			<span class="badge">{{teacher.firstName}}</span> {{teacher.surname}}
 		</span>
-		<button class="edit-button" (click)= "editItem($event, teacher._id)">Editar</button>
-		<button class="delete-button" (click)="deleteItem($event, teacher._id)">Eliminar</button>
+		<button class="view-button" (click)= "viewItem($event, teacher._id)">Ver</button>
 	</li>
 </ul>

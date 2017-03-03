@@ -21,11 +21,9 @@ export class StudentEdition {
 		private route: ActivatedRoute) {
 
 		this.route.params.subscribe((params: Params) => {
-
 			this.params = params;
 		});
-		this.studentId = this.params['id'];
-
+		this.studentId = this.params['userid'];
 		this.studentUrl = globalsService.apiUrl + 'user/';
 
 		this.studentForm = fb.group({
@@ -105,6 +103,12 @@ export class StudentEdition {
 	finishEdition(event?) {
 
 		event && event.preventDefault();
-		this.router.navigate(['student', this.studentId]);
+
+		var paths = ['student'];
+		if (this.studentId !== 'new') {
+			paths.push(this.studentId);
+		}
+
+		this.router.navigate(paths);
 	}
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Teacher} from './teacher';
 
@@ -13,7 +14,8 @@ export class TeacherList {
 	teacherList: Teacher[];
 	teacherUrl: string;
 
-	constructor(public router: Router, private globalsService: GlobalsService) {
+	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
+		private localStorageService: LocalStorageService) {
 
 		this.teacherUrl = globalsService.apiUrl + 'user';
 		this.getTeachers();
@@ -35,30 +37,13 @@ export class TeacherList {
 			});
 	}
 
+	viewItem(evt, id) {
+
+		this.router.navigate([id], { relativeTo: this.route });
+	}
+
 	addItem(evt) {
-		this.router.navigate(['teacher', "new"]);
-	}
 
-	editItem(evt, id) {
-		this.router.navigate(['teacher', id]);
-	}
-
-	deleteItem(evt, id) {
-
-		var confirmed = window.confirm("Está seguro?");
-
-		if (!confirmed) {
-			return;
-		}
-
-		this.globalsService.request('delete', this.teacherUrl + '/' + id, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				this.getTeachers();
-			},
-			error => {
-				console.error(error.text());
-			});
+		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
 }
