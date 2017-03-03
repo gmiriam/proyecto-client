@@ -16,6 +16,7 @@ export class DeliveryList {
 	params;
 	subjectId: string;
 	taskId: string;
+	userIsTeacherInSubject;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {

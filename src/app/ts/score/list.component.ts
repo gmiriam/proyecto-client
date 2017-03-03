@@ -16,6 +16,7 @@ export class ScoreList {
 	scoreList: Score[];
 	subjectUrl: string;
 	scoreUrl: string;
+	userIsTeacherInSubject;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {
