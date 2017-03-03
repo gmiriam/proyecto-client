@@ -1,18 +1,16 @@
-<div class="view-container">
-	No estas logueado
-
-	<div class="login jumbotron center-block">
-		<h1>Login</h1>
+<div class="view-container login-container">
+	<div class="login center-block col-xs-3 col-lg-3">
+		<h1>Introduce tus credenciales</h1>
 		<form role="form" (submit)="login($event, username.value, password.value)">
 			<div class="form-group">
-				<label for="username">Username</label>
+				<label for="username">Usuario</label>
 				<input type="text" #username class="form-control" id="username" placeholder="Username">
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label>
+				<label for="password">Contraseña</label>
 				<input type="password" #password class="form-control" id="password" placeholder="Password">
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn login-btn">Entrar</button>
 		</form>
 	</div>
 </div>

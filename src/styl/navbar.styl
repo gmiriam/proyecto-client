@@ -4,13 +4,16 @@
 	&.navbar-ull
 		background-color $ull-color
 		height 50px
+		border-radius 0
 		a
 			border-radius 0
 			margin 0
 			padding 15px
 			color white
 		.container-fluid
+			display flex
 			.navbar-header
+				flex 1
 				margin 0
 				a.navbar-brand
 					width 130px
@@ -20,9 +23,20 @@
 					background url(../../src/images/logo-ull.png) 0 12px no-repeat
 				&:hover
 					background-color $ull-color !important
+			.navbar-user
+				flex 3
+				display flex
+				align-items center
+				justify-content flex-end
+				padding-right 20px
+				color white
 			.navbar-right
+				align-self flex-end
 				a
 					background-color $green
+					 font-size 16px
 					&:hover
 						background-color $hover-green !important
 						color $white
+					i
+					    padding-left 5px
