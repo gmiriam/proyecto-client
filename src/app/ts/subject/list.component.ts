@@ -13,18 +13,29 @@ export class SubjectList {
 	params;
 	subjectList: Subject[];
 	subjectUrl: string;
+	userId;
+	userRole;
 
 	constructor(private router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
 		private localStorageService: LocalStorageService) {
 
 		this.subjectUrl = globalsService.apiUrl + 'subject';
 
+		this.userId = this.localStorageService.get('userId');
+		this.userRole = this.localStorageService.get('userRole');
+
 		this.getSubjects();
 	}
 
 	getSubjects() {
 
-		var url = this.subjectUrl + '?userid=' + this.localStorageService.get('userId');
+		var url = this.subjectUrl;
+
+		if (this.userRole === 'teacher') {
+			url += '?teacherid=' + this.userId;
+		} else if (this.userRole === 'student') {
+			url += '?studentid=' + this.userId;
+		}
 
 		this.globalsService.request('get', url, {
 			urlParams: this.params
