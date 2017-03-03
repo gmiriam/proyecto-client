@@ -1,8 +1,8 @@
 <h1>Tareas</h1>
 <button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="add-button" (click)="addItem($event)">Añadir nueva tarea</button>
-<ul class="heroes">
+<ul class="list-items">
 	<li *ngFor="let task of taskList">
-		<span class="hero-element">
+		<span class="list-element">
 			<span class="badge">{{task.name}}</span> {{task.statement}}
 		</span>
 		<button class="view-button" (click)= "viewItem($event, task._id)">Ver</button>

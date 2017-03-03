@@ -1,8 +1,8 @@
 <h1>Administradores</h1>
 <button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button" (click)="addItem($event)">Añadir nuevo administrador</button>
-<ul class="heroes">
+<ul class="list-items">
 	<li *ngFor="let admin of adminList">
-		<span class="hero-element">
+		<span class="list-element">
 			<span class="badge">{{admin.firstName}}</span> {{admin.surname}}
 		</span>
 		<button class="view-button" (click)= "viewItem($event, admin._id)">Ver</button>
