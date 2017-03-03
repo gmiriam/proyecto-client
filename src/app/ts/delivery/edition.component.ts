@@ -17,11 +17,15 @@ export class DeliveryEdition {
 	deliveryId: string;
 	deliveryToEdit: Delivery = new Delivery();
 	deliveryForm: FormGroup;
+	subjectUrl: string;
 	deliveryUrl: string;
 	studentUrl: string;
 	dataFileTarget: string;
 	studentList;
 	student;
+	userId;
+	userRole;
+	userIsTeacherInSubject;
 
 	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
 		private route: ActivatedRoute, private localStorageService: LocalStorageService) {
@@ -33,8 +37,12 @@ export class DeliveryEdition {
 		this.taskId = this.params['taskid'];
 		this.deliveryId = this.params['deliveryid'];
 
+		this.userId = this.localStorageService.get('userId');
+		this.userRole = this.localStorageService.get('userRole');
+
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.deliveryUrl = globalsService.apiUrl + 'delivery/';
-		this.studentUrl = globalsService.apiUrl + 'user?role=student';
+		this.studentUrl = globalsService.apiUrl + 'user?assignedtaskid=' + this.taskId;
 
 		this.deliveryForm = fb.group({
 			_id:[""],
@@ -44,6 +52,33 @@ export class DeliveryEdition {
 		});
 
 		this.dataFileTarget = 'deliveries';
+
+		this.getSubject();
+	}
+
+	getSubject() {
+
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
+
+				console.error(error.text());
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0] ? content[0] : { _id: null };
+
+		var teachers = subject.teachers,
+			userId = this.userId;
+
+		if (teachers) {
+			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
+		}
 
 		this.getDelivery();
 	}
@@ -68,7 +103,12 @@ export class DeliveryEdition {
 
 		if (this.deliveryId === "new") {
 			this.deliveryToEdit.task = this.taskId;
-			this.getStudents();
+
+			if (this.userRole === 'admin' || this.userIsTeacherInSubject) {
+				this.getStudents();
+			} else {
+				this.deliveryToEdit.student = this.userId;
+			}
 			return;
 		}
 
