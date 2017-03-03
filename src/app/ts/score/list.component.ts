@@ -14,6 +14,7 @@ export class ScoreList {
 	subjectId: string;
 	studentId;
 	scoreList: Score[];
+	subjectUrl: string;
 	scoreUrl: string;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
@@ -24,24 +25,51 @@ export class ScoreList {
 		});
 		this.subjectId = this.params['subjectid'];
 
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.scoreUrl = globalsService.apiUrl + 'score';
-		this.getScores();
+
+		this.getSubject();
 	}
 
-	getScores() {
+	getSubject() {
 
-		var url = this.scoreUrl + '?studentid=' + this.localStorageService.get('userId'),
-			queryParams = '';
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
 
-		if (this.subjectId) {
-			queryParams += '&subjectid=' + this.subjectId;
+				console.error(error.text());
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0] ? content[0] : { _id: null },
+			teachers = subject.teachers,
+			userId = this.localStorageService.get('userId'),
+			userRole = this.localStorageService.get('userRole'),
+			userQuery = '';
+
+		if (teachers) {
+			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
 		}
 
-		if (this.studentId) {
-			queryParams += '&studentid=' + this.studentId;
+		if (userRole !== "admin" && (teachers && teachers.indexOf(userId) === -1)) {
+			userQuery += '&studentid=' + userId;
 		}
 
-		url += queryParams;
+		this.getScores(userQuery);
+	}
+
+	getScores(userQuery?) {
+
+		var url = this.scoreUrl + '?subjectid=' + this.subjectId;
+
+		if (userQuery) {
+			url += userQuery;
+		}
 
 		this.globalsService.request('get', url, {
 			urlParams: this.params
@@ -57,11 +85,11 @@ export class ScoreList {
 
 	viewItem(evt, id) {
 
-		this.router.navigate(['score', id]);
+		this.router.navigate([id], { relativeTo: this.route });
 	}
 
 	editItem(evt, id) {
 
-		this.router.navigate(['score', id, "edit"]);
+		this.router.navigate([id, 'edit'], { relativeTo: this.route });
 	}
 }

@@ -23,7 +23,7 @@ export class AdminEdition {
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
 		});
-		this.adminId = this.params['id'];
+		this.adminId = this.params['userid'];
 		this.adminUrl = globalsService.apiUrl + 'user/';
 
 		this.adminForm = fb.group({
@@ -32,9 +32,7 @@ export class AdminEdition {
 			surname: [""],
 			email: [""],
 			password: ["", Validators.required],
-			role: ["", Validators.required],
-			enrolledSubjects: [""],
-			assignedTasks: [""]
+			role: ["", Validators.required]
 		});
 
 		this.getAdmin();
@@ -105,6 +103,12 @@ export class AdminEdition {
 	finishEdition(event?) {
 
 		event && event.preventDefault();
-		this.router.navigate(['admin', this.adminId]);
+
+		var paths = ['admin'];
+		if (this.adminId !== 'new') {
+			paths.push(this.adminId);
+		}
+
+		this.router.navigate(paths);
 	}
 }

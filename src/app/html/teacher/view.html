@@ -1,0 +1,22 @@
+<h1>Profesor</h1>
+<ul class="heroes">
+	<li>
+		<span class="hero-element">
+			<span class="badge">Nombre</span> {{teacherToView.firstName}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Apellidos</span> {{teacherToView.surname}}
+		</span>
+	</li>
+	<li>
+		<span class="hero-element">
+			<span class="badge">Email</span> {{teacherToView.email}}
+		</span>
+	</li>
+</ul>
+
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="edit-button" (click)= "editItem($event, teacherToView._id)">Editar</button>
+
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, teacherToView._id)">Eliminar</button>

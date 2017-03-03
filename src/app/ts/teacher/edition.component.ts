@@ -23,7 +23,7 @@ export class TeacherEdition {
 		this.route.params.subscribe((params: Params) => {
 			this.params = params;
 		});
-		this.teacherId = this.params['id'];
+		this.teacherId = this.params['userid'];
 		this.teacherUrl = globalsService.apiUrl + 'user/';
 
 		this.teacherForm = fb.group({
@@ -103,6 +103,12 @@ export class TeacherEdition {
 	finishEdition(event?) {
 
 		event && event.preventDefault();
-		this.router.navigate(['teacher', this.teacherId]);
+
+		var paths = ['teacher'];
+		if (this.teacherId !== 'new') {
+			paths.push(this.teacherId);
+		}
+
+		this.router.navigate(paths);
 	}
 }

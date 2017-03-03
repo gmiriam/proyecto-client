@@ -9,12 +9,15 @@ import {TaskEdition} from './task/edition.component';
 import {AssignTask} from './task/assignTask.component';
 
 import {StudentList} from './student/list.component';
+import {StudentView} from './student/view.component';
 import {StudentEdition} from './student/edition.component';
 
 import {TeacherList} from './teacher/list.component';
+import {TeacherView} from './teacher/view.component';
 import {TeacherEdition} from './teacher/edition.component';
 
 import {AdminList} from './admin/list.component';
+import {AdminView} from './admin/view.component';
 import {AdminEdition} from './admin/edition.component';
 
 import {SubjectList} from './subject/list.component';
@@ -41,19 +44,28 @@ const routes: Routes = [{
 	path: 'teacher',
 	component: TeacherList
 },{
-	path: 'teacher/:id',
+	path: 'teacher/:userid',
+	component: TeacherView
+},{
+	path: 'teacher/:userid/edit',
 	component: TeacherEdition
 },{
 	path: 'admin',
 	component: AdminList
 },{
-	path: 'admin/:id',
+	path: 'admin/:userid',
+	component: AdminView
+},{
+	path: 'admin/:userid/edit',
 	component: AdminEdition
 },{
 	path: 'student',
 	component: StudentList
 },{
-	path: 'student/:id',
+	path: 'student/:userid',
+	component: StudentView
+},{
+	path: 'student/:userid/edit',
 	component: StudentEdition
 },{
 	path: 'subject',

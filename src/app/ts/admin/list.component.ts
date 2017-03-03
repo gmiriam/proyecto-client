@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 import {GlobalsService} from '../globals.service';
 import {Admin} from './admin';
 
@@ -13,7 +14,8 @@ export class AdminList {
 	adminList: Admin[];
 	adminUrl: string;
 
-	constructor(public router: Router, private globalsService: GlobalsService) {
+	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
+		private localStorageService: LocalStorageService) {
 
 		this.adminUrl = globalsService.apiUrl + 'user';
 		this.getAdmins();
@@ -35,30 +37,13 @@ export class AdminList {
 			});
 	}
 
+	viewItem(evt, id) {
+
+		this.router.navigate([id], { relativeTo: this.route });
+	}
+
 	addItem(evt) {
-		this.router.navigate(['admin', "new"]);
-	}
 
-	editItem(evt, id) {
-		this.router.navigate(['admin', id]);
-	}
-
-	deleteItem(evt, id) {
-
-		var confirmed = window.confirm("Está seguro?");
-
-		if (!confirmed) {
-			return;
-		}
-
-		this.globalsService.request('delete', this.adminUrl + '/' + id, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				this.getAdmins();
-			},
-			error => {
-				console.error(error.text());
-			});
+		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
 }
