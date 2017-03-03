@@ -4,7 +4,7 @@
 			<a class="navbar-brand" (click)="goRoot()"></a>
 		</div>
 		<div *ngIf="userToken" class="navbar-user">
-			<span>{{userSurname}}, {{userFirstName}}</span>
+			<span>{{userFirstName}} {{userSurname}}</span>
 		</div>
 		<div *ngIf="userToken" class="navbar-right">
 			<a class="navbar-brand" (click)="logout()">
