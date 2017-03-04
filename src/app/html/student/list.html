@@ -1,5 +1,5 @@
 <h1>Estudiantes</h1>
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Añadir nuevo estudiante</button>
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Nuevo estudiante</button>
 <ul class="list-items">
 	<li *ngFor="let student of studentList" class="row">
 		<span class="list-element col-xs-8 col-md-6 col-lg-3">

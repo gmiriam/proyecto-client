@@ -1,10 +1,15 @@
 <h1>Asignaturas</h1>
 <button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Añadir nueva asignatura</button>
 <ul class="list-items">
-	<li *ngFor="let subject of subjectList">
-		<span class="list-element ull-button">
-			<span class="badge">{{subject.name}}</span>
-		</span>
-		<button class="view-button" (click)= "viewItem($event, subject._id)">Ver</button>
+	<li *ngFor="let subject of subjectList" class="row">
+		<div class="list-element col-xs-10 col-md-7 col-lg-5">
+			<div class="list-element-column">
+				<span>{{subject.name}}</span>
+				<span>{{subject.description}}</span>
+			</div>
+		</div>
+		<div class="col-xs-1 col-lg-1">
+			<button class="view-button ull-button" (click)= "viewItem($event, subject._id)">Ver</button>
+		</div>
 	</li>
 </ul>
