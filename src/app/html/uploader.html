@@ -1,7 +1,30 @@
-<div class="form-group">
+<!--<div class="drag-n-drop-container"
+	ngFileDrop
+	[ngClass]="{'file-over': hasBaseDropZoneOver}>
+	<h1>Insertar aquí </h1>
+	<label class="upload-button">
+		<input type="file"
+		class="hidden"
+		ngFileSelect
+		(onUpload)="handleUpload($event)"
+		(beforeUpload)="beforeUpload($event)">
+		Browse
+	</label>
+</div>-->
+
+<div class="drag-n-drop-container col-sm-12 col-md-8 col-lg-6"
+      ngFileDrop
+      [options]="options"
+      (onUpload)="handleUpload($event)"
+      [ngClass]="{'file-over': hasBaseDropZoneOver}"
+      (onFileOver)="fileOverBase($event)">
+  <h1>{{message}}</h1>
+  <label class="upload-button">
     <input type="file"
+           class="hidden"
            ngFileSelect
            [options]="options"
-           (onUpload)="handleUpload($event)"
-           (beforeUpload)="beforeUpload($event)">
+           (onUpload)="handleUpload($event)">
+    Examinar
+  </label>
 </div>

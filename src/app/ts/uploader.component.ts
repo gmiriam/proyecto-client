@@ -14,6 +14,7 @@ export class UploaderComponent {
 	hasBaseDropZoneOver: boolean = false;
 	options: Object;
 	sizeLimit = 2000000;
+	message = "Subir fichero";
 
 	constructor(private globalsService: GlobalsService, private localStorageService: LocalStorageService) {}
 
@@ -34,12 +35,14 @@ export class UploaderComponent {
 			data = JSON.parse(data.response);
 			this.uploadFile = data;
 			this.onUploaded.emit(data.filename);
+			this.message="Fichero subido con éxito"
 		}
 	}
 
 	fileOverBase(e:any):void {
 
 		this.hasBaseDropZoneOver = e;
+		this.message="Suelte para subir"
 	}
 
 	beforeUpload(uploadingFile): void {
