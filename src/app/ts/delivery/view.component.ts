@@ -113,7 +113,8 @@ export class DeliveryView {
 
 		var data = this.deliveryToView.data;
 		if (data) {
-			this.dataUrl = this.downloadUrl + "?path=deliveries&name=" + data;
+			this.dataUrl = this.downloadUrl + "?path=deliveries&name=" + data +
+				'&access_token=' + this.localStorageService.get('userToken');
 		}
 
 		var student = this.deliveryToView.student;

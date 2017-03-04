@@ -40,7 +40,7 @@
 			<span class="badge">Disponible hasta</span> {{taskToView.endDate}}
 		</span>
 	</li>
-	<li>
+	<li *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject">
 		<span class="list-element">
 			<span class="badge">Test de evaluación</span> <a href="{{evaluationTestUrl}}" target="_blank">{{taskToView.evaluationTest}}</a>
 		</span>
