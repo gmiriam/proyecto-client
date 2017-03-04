@@ -58,7 +58,8 @@ export class SubjectView {
 
 		var temary = this.subjectToView.temary;
 		if (temary) {
-			this.temaryUrl = this.downloadUrl + "?path=temaries&name=" + temary;
+			this.temaryUrl = this.downloadUrl + "?path=temaries&name=" + temary +
+				'&access_token=' + this.localStorageService.get('userToken');
 		}
 
 		var teachers = this.subjectToView.teachers;

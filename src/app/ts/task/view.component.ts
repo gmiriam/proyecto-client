@@ -87,12 +87,14 @@ export class TaskView {
 
 		var attached = this.taskToView.attached;
 		if (attached) {
-			this.attachedUrl = this.downloadUrl + "?path=attachments&name=" + attached;
+			this.attachedUrl = this.downloadUrl + "?path=attachments&name=" + attached +
+				'&access_token=' + this.localStorageService.get('userToken');
 		}
 
 		var evaluationTest = this.taskToView.evaluationTest;
 		if (evaluationTest) {
-			this.evaluationTestUrl = this.downloadUrl + "?path=tests&name=" + evaluationTest;
+			this.evaluationTestUrl = this.downloadUrl + "?path=tests&name=" + evaluationTest +
+				'&access_token=' + this.localStorageService.get('userToken');
 		}
 
 		var teacher = this.taskToView.teacher;
