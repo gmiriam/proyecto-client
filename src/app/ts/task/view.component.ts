@@ -123,7 +123,7 @@ export class TaskView {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Está seguro?");
+		var confirmed = window.confirm("Está a punto de eliminar esta tarea, ¿está seguro?");
 
 		if (!confirmed) {
 			return;

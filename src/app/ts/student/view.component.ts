@@ -53,7 +53,7 @@ export class StudentView {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Está seguro?");
+		var confirmed = window.confirm("Está a punto de eliminar este estudiante, ¿está seguro?");
 
 		if (!confirmed) {
 			return;

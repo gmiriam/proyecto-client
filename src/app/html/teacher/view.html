@@ -11,8 +11,8 @@
 	</ul>
 
 	<div class="button-group">
-		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="edit-button ull-button" (click)= "editItem($event, teacherToView._id)">Editar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="ull-button" (click)= "editItem($event, teacherToView._id)">Editar</button>
 
-		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button ull-button" (click)="deleteItem($event, teacherToView._id)">Eliminar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="danger-button" (click)="deleteItem($event, teacherToView._id)">Eliminar</button>
 	</div>
 </div>

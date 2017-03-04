@@ -53,7 +53,7 @@ export class TeacherView {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Está seguro?");
+		var confirmed = window.confirm("Está a punto de eliminar este profesor, ¿está seguro?");
 
 		if (!confirmed) {
 			return;

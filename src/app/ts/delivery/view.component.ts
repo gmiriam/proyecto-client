@@ -152,7 +152,7 @@ export class DeliveryView {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Está seguro?");
+		var confirmed = window.confirm("Está a punto de eliminar esta entrega, ¿está seguro?");
 
 		if (!confirmed) {
 			return;

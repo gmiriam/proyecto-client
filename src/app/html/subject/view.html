@@ -1,39 +1,36 @@
-<h1>Asignatura</h1>
-<ul class="list-items">
-	<li>
-		<span class="list-element">
-			<span class="badge">Nombre</span> {{subjectToView.name}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Descripción</span> {{subjectToView.description}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Temario</span> <a href="{{temaryUrl}}" target="_blank">{{subjectToView.temary}}</a>
-		</span>
-	</li>
-	<li *ngIf="studentScore">
-		<span class="list-element">
-			<span class="badge">Puntuación</span> {{studentScore}}
-		</span>
-	</li>
-	<div *ngIf="teachersName">
-		<span class="badge">Profesores</span>
-		<li *ngFor="let teacherName of teachersName">
-			<span>{{teacherName}}</span>
+<div class= "edition-fields">
+	<h1>{{subjectToView.name}}</h1>	
+	<h2> {{subjectToView.description}}</h2>
+
+		<div class="button-group">
+			<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "editItem($event, subjectToView._id)">Editar</button>
+
+			<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="enrollStudents-button ull-button" (click)= "enrollStudents($event, subjectToView._id)">Matricular estudiantes</button>
+
+			<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, subjectToView._id)">Eliminar</button>
+		</div>
+
+	<ul class="list-items">
+		<li *ngIf="subjectToView.temary">
+			<span class="list-element strong-field">
+				<a href="{{temaryUrl}}" target="_blank">Descargar temario</a>
+			</span>
 		</li>
+		<li *ngIf="studentScore">
+			<span class="list-element">
+				<span class="field-element">Puntuación</span> {{studentScore}}
+			</span>
+		</li>
+		<div *ngIf="teachersName">
+			<span class="field-element">Profesores</span>
+			<li *ngFor="let teacherName of teachersName">
+				<span>{{teacherName}}</span>
+			</li>
+		</div>
+	</ul>
+
+	<div class="button-group">
+		<button class="taskList-button ull-button" (click)= "showTasks($event, subjectToView._id)">Tareas</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="taskList-button ull-button" (click)= "showScores($event, subjectToView._id)">Puntuaciones</button>
 	</div>
-</ul>
-
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="edit-button" (click)= "editItem($event, subjectToView._id)">Editar</button>
-
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, subjectToView._id)">Eliminar</button>
-
-<button class="taskList-button" (click)= "showTasks($event, subjectToView._id)">Tareas</button>
-
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="taskList-button" (click)= "showScores($event, subjectToView._id)">Puntuaciones</button>
-
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="enrollStudents-button" (click)= "enrollStudents($event, subjectToView._id)">Matricular estudiantes</button>
+</div>

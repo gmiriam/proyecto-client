@@ -10,8 +10,8 @@
 		</li>
 	</ul>
 	<div class="button-group">
-		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="edit-button" (click)= "editItem($event, studentToView._id)">Editar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="ull-button" (click)= "editItem($event, studentToView._id)">Editar</button>
 
-		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, studentToView._id)">Eliminar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="danger-button" (click)="deleteItem($event, studentToView._id)">Eliminar</button>
 	</div>
 </div>

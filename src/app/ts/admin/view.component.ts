@@ -53,7 +53,7 @@ export class AdminView {
 
 	deleteItem(evt, id) {
 
-		var confirmed = window.confirm("Está seguro?");
+		var confirmed = window.confirm("Está a punto de eliminar este administrador, ¿está seguro?");
 
 		if (!confirmed) {
 			return;
