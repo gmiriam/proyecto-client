@@ -27,7 +27,9 @@ import {EnrollStudents} from './subject/enrollStudents.component';
 
 import {DeliveryList} from './delivery/list.component';
 import {DeliveryView} from './delivery/view.component';
-import {DeliveryEdition} from './delivery/edition.component';
+import {DeliveryCreation} from './delivery/creation.component';
+import {DeliveryScoreEdition} from './delivery/scoreEdition.component';
+import {DeliveryDataEdition} from './delivery/dataEdition.component';
 
 import {ScoreList} from './score/list.component';
 import {ScoreView} from './score/view.component';
@@ -98,8 +100,14 @@ const routes: Routes = [{
 	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid',
 	component: DeliveryView
 },{
-	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/edit',
-	component: DeliveryEdition
+	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/create',
+	component: DeliveryCreation
+},{
+	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/editscore',
+	component: DeliveryScoreEdition
+},{
+	path: 'subject/:subjectid/task/:taskid/delivery/:deliveryid/editdata',
+	component: DeliveryDataEdition
 },{
 	path: 'subject/:subjectid/score',
 	component: ScoreList

@@ -32,8 +32,8 @@
 
 <button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, subjectToView._id)">Eliminar</button>
 
-<button class="taskList-button" (click)= "showTasks($event, subjectToView._id)">Ver tareas</button>
+<button class="taskList-button" (click)= "showTasks($event, subjectToView._id)">Tareas</button>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="taskList-button" (click)= "showScores($event, subjectToView._id)">Ver puntuaciones</button>
+<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="taskList-button" (click)= "showScores($event, subjectToView._id)">Puntuaciones</button>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="enrollStudents-button" (click)= "enrollStudents($event, subjectToView._id)">Matricular alumnos</button>
+<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="enrollStudents-button" (click)= "enrollStudents($event, subjectToView._id)">Matricular estudiantes</button>

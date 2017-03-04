@@ -22,6 +22,8 @@
 	</li>
 </ul>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="edit-button" (click)= "editItem($event, deliveryToView._id)">Editar puntuación</button>
+<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="edit-button" (click)= "editItemScore($event, deliveryToView._id)">Editar puntuación</button>
+
+<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="edit-button" (click)= "editItemData($event, deliveryToView._id)">Editar</button>
 
 <button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="delete-button" (click)="deleteItem($event, deliveryToView._id)">Eliminar</button>

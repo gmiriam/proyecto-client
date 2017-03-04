@@ -36,7 +36,7 @@ export class TaskEdition {
 		this.userRole = this.localStorageService.get('userRole');
 
 		this.taskUrl = globalsService.apiUrl + 'task/';
-		this.teacherUrl = globalsService.apiUrl + 'user?role=teacher';
+		this.teacherUrl = globalsService.apiUrl + 'user?subjectid=' + this.subjectId;
 
 		this.taskForm = fb.group({
 			_id:[""],

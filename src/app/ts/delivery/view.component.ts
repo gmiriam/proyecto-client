@@ -140,9 +140,14 @@ export class DeliveryView {
 			});
 	}
 
-	editItem(evt, id) {
+	editItemData(evt, id) {
 
-		this.router.navigate(['edit'], { relativeTo: this.route });
+		this.router.navigate(['editdata'], { relativeTo: this.route });
+	}
+
+	editItemScore(evt, id) {
+
+		this.router.navigate(['editscore'], { relativeTo: this.route });
 	}
 
 	deleteItem(evt, id) {

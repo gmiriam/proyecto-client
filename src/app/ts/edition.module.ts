@@ -9,7 +9,9 @@ import {TeacherEdition} from './teacher/edition.component';
 import {AdminEdition} from './admin/edition.component';
 import {SubjectEdition} from './subject/edition.component';
 import {EnrollStudents} from './subject/enrollStudents.component';
-import {DeliveryEdition} from './delivery/edition.component';
+import {DeliveryCreation} from './delivery/creation.component';
+import {DeliveryDataEdition} from './delivery/dataEdition.component';
+import {DeliveryScoreEdition} from './delivery/scoreEdition.component';
 import {ScoreEdition} from './score/edition.component';
 
 import { UploaderModule }  from './uploader.module';
@@ -33,7 +35,9 @@ import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 		AdminEdition,
 		SubjectEdition,
 		EnrollStudents,
-		DeliveryEdition,
+		DeliveryCreation,
+		DeliveryDataEdition,
+		DeliveryScoreEdition,
 		ScoreEdition
 	],
 	exports: [ ]

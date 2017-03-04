@@ -51,6 +51,6 @@
 
 <button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="delete-button" (click)="deleteItem($event, taskToView._id)">Eliminar</button>
 
-<button class="deliveryList-button" (click)= "showDeliveries($event, taskToView._id)">Ver entregas</button>
+<button class="deliveryList-button" (click)= "showDeliveries($event, taskToView._id)">Entregas</button>
 
 <button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="deliveryList-button" (click)= "assignTask($event, taskToView._id)">Asignar a estudiantes</button>
