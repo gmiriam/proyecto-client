@@ -1,22 +1,17 @@
-<h1>Estudiante</h1>
-<ul class="list-items">
-	<li>
-		<span class="list-element">
-			<span class="badge">Nombre</span> {{studentToView.firstName}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Apellidos</span> {{studentToView.surname}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Email</span> {{studentToView.email}}
-		</span>
-	</li>
-</ul>
+<div class= "edition-fields">
+	<h1>{{studentToView.firstName}} {{studentToView.surname}}</h1>
+	<h2>(Estudiante)</h2>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="edit-button" (click)= "editItem($event, studentToView._id)">Editar</button>
+	<ul class="list-items">
+		<li>
+			<span class="list-element">
+				<span class="field-element">Email:</span> {{studentToView.email}}
+			</span>
+		</li>
+	</ul>
+	<div class="button-group">
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="edit-button" (click)= "editItem($event, studentToView._id)">Editar</button>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, studentToView._id)">Eliminar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin'" class="delete-button" (click)="deleteItem($event, studentToView._id)">Eliminar</button>
+	</div>
+</div>

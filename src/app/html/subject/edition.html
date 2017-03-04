@@ -23,7 +23,6 @@
 
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Temario</label>
-		<input type="text" class="form-control" [(ngModel)]="subjectToEdit.temary" formControlName="temary" id="temary" placeholder="Temario">
 		<div class="col-sm-offset-2 col-sm-10">
 			<file-upload (onUploaded)="onSubjectTemaryUploaded($event)" [fileTarget]="temaryFileTarget"></file-upload>
 		</div>

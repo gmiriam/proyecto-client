@@ -1,3 +1,25 @@
+.edition-fields
+	display flex
+	flex-flow column
+	align-items center
+	h1
+		margin 0
+		margin-top 20px
+	h2
+		font-size 23px
+		margin 10px 0
+	.list-items
+		margin 10px 0
+		padding 0
+		.field-element
+			font-weight bold
+			margin-right 10px
+	.button-group
+		margin-top 10px
+		button
+			margin 0 5px
+
+
 .list-items
 	margin-top 10px
 	list-style-type none
@@ -6,3 +28,48 @@
 		&.row
 			display flex
 			justify-content center
+			align-items center
+			.list-element
+				.list-element-column
+					display flex
+					flex-flow column
+					margin 5px 0
+					span:first-child
+						font-size 16px
+						font-weight bold
+
+.drag-n-drop-container
+	-webkit-touch-callout none
+	-webkit-user-select none
+	-moz-user-select none
+	-ms-user-select none
+	user-select none
+	height 100px
+	padding 10px
+	border 3px dashed rgb(204, 204, 204)
+	border-radius 20px
+	margin-top 20px
+	margin-bottom 30px
+	display flex
+	flex-flow column
+	align-items center
+	justify-content center
+	h1
+		margin 0
+		padding 5px
+		font-size 30px
+		color #888
+	.upload-button 
+		width 200px
+		display block
+		outline none
+		border-radius 10px
+		background $green
+		color $white
+		text-transform uppercase
+		font-weight bold
+		font-size 16px
+		text-align center
+		&:hover 
+			cursor pointer
+			background $hover-green

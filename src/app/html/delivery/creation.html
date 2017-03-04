@@ -9,7 +9,6 @@
 
 	<div *ngIf="userRole === 'admin' || userIsStudentInSubjectAndHasTaskAssigned" class="form-group">
 		<label class="col-sm-2 control-label">Fichero</label>
-		<input type="text" class="form-control" [(ngModel)]="deliveryToEdit.data" formControlName="data" id="data" placeholder="Fichero">
 		<div class="col-sm-offset-2 col-sm-10">
 			<file-upload (onUploaded)="onDeliveryDataUploaded($event)" [fileTarget]="dataFileTarget"></file-upload>
 		</div>
