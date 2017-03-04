@@ -23,6 +23,7 @@ export class DeliveryDataEdition {
 	dataFileTarget: string;
 	userId;
 	userRole;
+	userIsTeacherInSubject;
 	userIsStudentInSubjectAndHasTaskAssigned;
 
 	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
