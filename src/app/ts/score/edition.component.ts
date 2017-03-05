@@ -75,6 +75,6 @@ export class ScoreEdition {
 	finishEdition(event?) {
 
 		event && event.preventDefault();
-		this.router.navigate(['subject', this.subjectId, 'score', this.scoreId]);
+		this.router.navigate(['subject', this.subjectId, 'score']);
 	}
 }
