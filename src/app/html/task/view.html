@@ -1,56 +1,44 @@
-<h1>Tarea</h1>
-<ul class="list-items">
-	<li>
-		<span class="list-element">
-			<span class="badge">Nombre</span> {{taskToView.name}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Profesor</span> {{teacherName}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Asignatura</span> {{subjectName}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Enunciado</span> {{taskToView.statement}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Adjunto</span> <a href="{{attachedUrl}}" target="_blank">{{taskToView.attached}}</a>
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Puntuación máxima</span> {{taskToView.maxScore}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Disponible desde</span> {{taskToView.startDate}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Disponible hasta</span> {{taskToView.endDate}}
-		</span>
-	</li>
-	<li *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject">
-		<span class="list-element">
-			<span class="badge">Test de evaluación</span> <a href="{{evaluationTestUrl}}" target="_blank">{{taskToView.evaluationTest}}</a>
-		</span>
-	</li>
-</ul>
+<div class= "edition-fields">
+	<h1>Tarea de {{subjectName}}</h1>
+	<h2>{{taskToView.name}}</h2>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="edit-button" (click)= "editItem($event, taskToView._id)">Editar</button>
+	<div class="button-group">
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "editItem($event, taskToView._id)">Editar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "assignTask($event, taskToView._id)">Asignar a estudiantes</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="delete-button" (click)="deleteItem($event, taskToView._id)">Eliminar</button>
+	</div>
+	
+	<h3>{{taskToView.statement}}</h3>
+	<ul class="list-items">
+		<li>
+		<li *ngIf="taskToView.attached">
+			<span class="list-element strong-field">
+				<a href="{attachedUrl}}" target="_blank">Descargar adjunto</a>
+			</span>
+		</li>
+		<li *ngIf="(localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject) && evaluationTestUrl">
+			<span class="list-element strong-field">
+				<a href="{evaluationTestUrl}}" target="_blank">Descargar test de evaluación</a>
+			</span>
+		</li>
+		<li>
+			<span class="list-element">
+				<span class="field-element">Responsable:</span> {{teacherName}}
+			</span>
+		</li>
+		<li>
+			<span class="list-element">
+				<span class="field-element">Puntuación máxima:</span> {{taskToView.maxScore}}
+			</span>
+		</li>
+		<li *ngIf="taskToView.startDate">
+			<span class="list-element">
+				<span class="field-element">Disponible desde</span> {{taskToView.startDate}} 
+				<span *ngIf="taskToView.endDate" class="field-element"> hasta</span> {{taskToView.endDate}}
+			</span>
+		</li>
+	</ul>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="delete-button" (click)="deleteItem($event, taskToView._id)">Eliminar</button>
+		<button class="ull-button" (click)= "showDeliveries($event, taskToView._id)">Entregas</button>
 
-<button class="deliveryList-button" (click)= "showDeliveries($event, taskToView._id)">Entregas</button>
-
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="deliveryList-button" (click)= "assignTask($event, taskToView._id)">Asignar a estudiantes</button>
+</div>

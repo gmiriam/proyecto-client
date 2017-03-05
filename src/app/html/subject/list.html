@@ -1,5 +1,7 @@
 <h1>Asignaturas</h1>
-<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Añadir nueva asignatura</button>
+<a href =""> <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i>Atrás </a>
+<button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Nueva asignatura</button>
+
 <ul class="list-items">
 	<li *ngFor="let subject of subjectList" class="row">
 		<div class="list-element col-xs-10 col-md-7 col-lg-5">
