@@ -1,12 +1,14 @@
 <button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
-<h1>Entregas</h1>
+<h1>Entregas de {{taskName}} - {{subjectName}}</h1>
 
 <button *ngIf="userRole === 'admin' || (userIsStudentInSubjectAndHasTaskAssigned && studentHasNotDeliveries)" class="add-button ull-button" (click)="addItem($event)">Nueva entrega</button>
 <ul class="list-items">
-	<li *ngFor="let delivery of deliveryList">
-		<span class="list-element">
-			<span>{{delivery._id}}</span>
+	<li *ngFor="let delivery of deliveryList" class="row">
+		<span class="list-element col-xs-10 col-md-7 col-lg-5">
+			<span>{{studentNamesById[delivery.student]}}</span>
 		</span>
-		<button class="view-button ull-button" (click)= "viewItem($event, delivery._id)">Ver</button>
+		<div class="col-xs-1 col-lg-1">
+			<button class="view-button ull-button" (click)= "viewItem($event, delivery._id)">Ver</button>
+		</div>
 	</li>
 </ul>

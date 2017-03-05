@@ -15,8 +15,11 @@ export class ScoreList {
 	studentId;
 	scoreList: Score[];
 	subjectUrl: string;
+	studentUrl: string;
 	scoreUrl: string;
 	userIsTeacherInSubject;
+	subjectName;
+	studentNamesById;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {
@@ -28,6 +31,7 @@ export class ScoreList {
 
 		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.scoreUrl = globalsService.apiUrl + 'score';
+		this.studentUrl = globalsService.apiUrl + 'user?role=student';
 
 		this.getSubject();
 	}
@@ -52,6 +56,8 @@ export class ScoreList {
 			userId = this.localStorageService.get('userId'),
 			userRole = this.localStorageService.get('userRole'),
 			userQuery = '';
+
+		this.subjectName = subject.name;
 
 		if (teachers) {
 			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
@@ -78,8 +84,40 @@ export class ScoreList {
 			response => {
 				var content = response.json().content;
 				this.scoreList = content;
+
+				var studentIds = this.scoreList.map(function(value) {
+					return value.student;
+				});
+				this.studentNamesById = {};
+				for (let i = 0; i < studentIds.length; i++) {
+					let id = studentIds[i];
+					this.studentNamesById[id] = true;
+				}
+				this.getStudents();
 			},
 			error => {
+				console.error(error.text());
+			});
+	}
+
+	getStudents() {
+
+		this.globalsService.request('get', this.studentUrl, {
+			urlParams: this.params
+		}).subscribe(
+			response => {
+
+				var students = response.json().content;
+
+				for (var i = 0; i < students.length; i++) {
+					var student = students[i];
+
+					if (this.studentNamesById[student._id]) {
+						this.studentNamesById[student._id] = student.surname + ', ' + student.firstName;
+					}
+				}
+			}, error => {
+
 				console.error(error.text());
 			});
 	}

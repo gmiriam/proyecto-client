@@ -13,7 +13,9 @@ export class DeliveryList {
 	deliveryList: Delivery[];
 	deliveryUrl: string;
 	subjectUrl: string;
+	taskUrl: string;
 	userUrl: string;
+	studentUrl: string;
 	params;
 	subjectId: string;
 	taskId: string;
@@ -22,6 +24,9 @@ export class DeliveryList {
 	studentHasNotDeliveries;
 	userId;
 	userRole;
+	subjectName;
+	taskName;
+	studentNamesById;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {
@@ -36,10 +41,13 @@ export class DeliveryList {
 		this.userRole = this.localStorageService.get('userRole');
 
 		this.subjectUrl = globalsService.apiUrl + 'subject/';
+		this.taskUrl = globalsService.apiUrl + 'task/';
 		this.deliveryUrl = globalsService.apiUrl + 'delivery';
 		this.userUrl = globalsService.apiUrl + 'user/';
+		this.studentUrl = globalsService.apiUrl + 'user?role=student';
 
 		this.getSubject();
+		this.getTask();
 		this.getUser();
 	}
 
@@ -64,6 +72,8 @@ export class DeliveryList {
 			userRole = this.userRole,
 			userQuery = '';
 
+		this.subjectName = subject.name;
+
 		if (teachers) {
 			this.userIsTeacherInSubject = teachers.indexOf(userId) !== -1;
 		}
@@ -73,6 +83,26 @@ export class DeliveryList {
 		}
 
 		this.getDeliveries(userQuery);
+	}
+
+	getTask() {
+
+		this.globalsService.request('get', this.taskUrl + this.taskId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onTaskResponse).bind(this),
+			error => {
+
+				console.error(error.text());
+			});
+	}
+
+	onTaskResponse(response) {
+
+		var content = response.json().content,
+			task = content[0] ? content[0] : { _id: null };
+
+		this.taskName = task.name;
 	}
 
 	getUser() {
@@ -116,8 +146,40 @@ export class DeliveryList {
 				if (this.userIsStudentInSubjectAndHasTaskAssigned) {
 					this.studentHasNotDeliveries = !this.deliveryList.length;
 				}
+
+				var studentIds = this.deliveryList.map(function(value) {
+					return value.student;
+				});
+				this.studentNamesById = {};
+				for (let i = 0; i < studentIds.length; i++) {
+					let id = studentIds[i];
+					this.studentNamesById[id] = true;
+				}
+				this.getStudents();
 			},
 			error => {
+				console.error(error.text());
+			});
+	}
+
+	getStudents() {
+
+		this.globalsService.request('get', this.studentUrl, {
+			urlParams: this.params
+		}).subscribe(
+			response => {
+
+				var students = response.json().content;
+
+				for (var i = 0; i < students.length; i++) {
+					var student = students[i];
+
+					if (this.studentNamesById[student._id]) {
+						this.studentNamesById[student._id] = student.surname + ', ' + student.firstName;
+					}
+				}
+			}, error => {
+
 				console.error(error.text());
 			});
 	}

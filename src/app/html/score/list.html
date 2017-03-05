@@ -1,9 +1,10 @@
 <button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
-<h1>Puntuaciones</h1>
+<h1>Puntuaciones de {{subjectName}}</h1>
+
 <ul class="list-items">
 	<li *ngFor="let score of scoreList" class="row">
 		<span class="list-element col-xs-6 col-md-6 col-lg-3">
-			{{score.student}}
+			{{studentNamesById[score.student]}}
 		</span>
 		<span class="list-element col-xs-1 col-md-1">
 			<span class="field-element">{{score.finalScore}}</span>

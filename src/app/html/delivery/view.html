@@ -1,6 +1,6 @@
 <button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
 <div class= "edition-fields">
-	<h1>Entrega de {{taskName}}</h1>
+	<h1>Entrega de {{taskName}} - {{subjectName}}</h1>
 
 	<div class="button-group">
 		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "editItemScore($event, deliveryToView._id)">Evaluar</button>

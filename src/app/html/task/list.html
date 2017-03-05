@@ -1,5 +1,5 @@
 <button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
-<h1>Tareas</h1>
+<h1>Tareas de {{subjectName}}</h1>
 <button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="add-button ull-button" (click)="addItem($event)">Nueva tarea</button>
 <ul class="list-items">
 	<li *ngFor="let task of taskList" class="row">

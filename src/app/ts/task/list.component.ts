@@ -16,6 +16,7 @@ export class TaskList {
 	subjectUrl: string;
 	taskUrl: string;
 	userIsTeacherInSubject;
+	subjectName;
 
 	constructor(public router: Router, private route: ActivatedRoute, private globalsService: GlobalsService,
 		private localStorageService: LocalStorageService) {
@@ -47,6 +48,8 @@ export class TaskList {
 
 		var content = response.json().content,
 			subject = content[0] ? content[0] : { _id: null };
+
+		this.subjectName = subject.name;
 
 		var teachers = subject.teachers,
 			userId = this.localStorageService.get('userId'),
