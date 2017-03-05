@@ -6,7 +6,7 @@ import { AppLoggedModule } from './appLogged.module';
 import { AppUnloggedModule } from './appUnlogged.module';
 
 import { AppComponent } from './app.component';
-import { navbarComponent } from './bars/navbar.component';
+import { navbarComponent } from './navbar.component';
 
 @NgModule({
 	// module dependencies
