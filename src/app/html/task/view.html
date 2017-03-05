@@ -13,12 +13,12 @@
 		<li>
 		<li *ngIf="taskToView.attached">
 			<span class="list-element strong-field">
-				<a href="{attachedUrl}}" target="_blank">Descargar adjunto</a>
+				<a href="{{attachedUrl}}" target="_blank">Descargar adjunto</a>
 			</span>
 		</li>
 		<li *ngIf="(localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject) && evaluationTestUrl">
 			<span class="list-element strong-field">
-				<a href="{evaluationTestUrl}}" target="_blank">Descargar test de evaluación</a>
+				<a href="{{evaluationTestUrl}}" target="_blank">Descargar test de evaluación</a>
 			</span>
 		</li>
 		<li>
