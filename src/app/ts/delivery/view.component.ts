@@ -169,4 +169,9 @@ export class DeliveryView {
 				console.error(error.text());
 			});
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery']);
+	}
 }

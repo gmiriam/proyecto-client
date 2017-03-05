@@ -151,4 +151,9 @@ export class SubjectView {
 
 		this.router.navigate(["enroll"], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['subject']);
+	}
 }

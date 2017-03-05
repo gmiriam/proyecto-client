@@ -151,4 +151,9 @@ export class TaskView {
 
 		this.router.navigate(['assign'], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['subject', this.subjectId, 'task']);
+	}
 }

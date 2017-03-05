@@ -1,3 +1,4 @@
+<button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
 <div class= "edition-fields">
 	<h1>Tarea de {{subjectName}}</h1>
 	<h2>{{taskToView.name}}</h2>
@@ -7,7 +8,7 @@
 		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "assignTask($event, taskToView._id)">Asignar a estudiantes</button>
 		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="delete-button" (click)="deleteItem($event, taskToView._id)">Eliminar</button>
 	</div>
-	
+
 	<h3>{{taskToView.statement}}</h3>
 	<ul class="list-items">
 		<li>
@@ -33,7 +34,7 @@
 		</li>
 		<li *ngIf="taskToView.startDate">
 			<span class="list-element">
-				<span class="field-element">Disponible desde</span> {{taskToView.startDate}} 
+				<span class="field-element">Disponible desde</span> {{taskToView.startDate}}
 				<span *ngIf="taskToView.endDate" class="field-element"> hasta</span> {{taskToView.endDate}}
 			</span>
 		</li>

@@ -131,4 +131,9 @@ export class DeliveryList {
 
 		this.router.navigate(['new', 'create'], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['subject', this.subjectId, 'task', this.taskId]);
+	}
 }

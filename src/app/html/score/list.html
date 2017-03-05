@@ -1,3 +1,4 @@
+<button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
 <h1>Puntuaciones</h1>
 <ul class="list-items">
 	<li *ngFor="let score of scoreList" class="row">
@@ -6,7 +7,7 @@
 		</span>
 		<span class="list-element col-xs-1 col-md-1">
 			<span class="field-element">{{score.finalScore}}</span>
-		</span>		
+		</span>
 		<div class="col-xs-3 col-md-3 col-lg-2">
 			<button class="ull-button" (click)= "editItem($event, score._id)">Editar</button>
 		</div>

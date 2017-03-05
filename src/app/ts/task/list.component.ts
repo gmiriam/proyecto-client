@@ -93,4 +93,9 @@ export class TaskList {
 
 		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['subject', this.subjectId]);
+	}
 }

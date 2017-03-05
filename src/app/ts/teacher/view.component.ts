@@ -69,4 +69,9 @@ export class TeacherView {
 				console.error(error.text());
 			});
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['teacher']);
+	}
 }

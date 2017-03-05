@@ -1,3 +1,4 @@
+<button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
 <h1>Entregas</h1>
 
 <button *ngIf="userRole === 'admin' || (userIsStudentInSubjectAndHasTaskAssigned && studentHasNotDeliveries)" class="add-button ull-button" (click)="addItem($event)">Nueva entrega</button>

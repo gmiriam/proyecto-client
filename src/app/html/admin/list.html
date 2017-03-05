@@ -1,3 +1,4 @@
+<button class="back-button" (click)="goBack($event)"><i> Volver</i></button>
 <h1>Administradores</h1>
 
 <button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Nuevo administrador</button>

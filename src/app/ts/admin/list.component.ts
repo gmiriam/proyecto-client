@@ -46,4 +46,9 @@ export class AdminList {
 
 		this.router.navigate(['new', 'edit'], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['home']);
+	}
 }

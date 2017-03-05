@@ -71,4 +71,9 @@ export class AdminView {
 				console.error(error.text());
 			});
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['admin']);
+	}
 }

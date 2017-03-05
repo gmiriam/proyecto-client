@@ -42,6 +42,7 @@ button:disabled
 	&:hover
 		background-color $hover-green
 		color #aaa
+		cursor pointer
 
 .danger-button
 .delete-button
@@ -51,6 +52,7 @@ button:disabled
 	&:hover
 		background-color $hover-red
 		color #aaa
+		cursor pointer
 
 .cancel-button
 	background-color $gray
@@ -59,6 +61,7 @@ button:disabled
 	&:hover
 		background-color $hover-gray
 		color #aaa
+		cursor pointer
 
 .edit-button
 	background-color $yellow
@@ -67,6 +70,21 @@ button:disabled
 	&:hover
 		background-color $hover-yellow
 		color #aaa
+		cursor pointer
+
+.back-button
+	i
+		@extend .fa
+		&:before
+			@extend .fa-arrow-left:before
+
+	background-color $gray
+	color $white
+	font-weight bold
+	&:hover
+		background-color $hover-gray
+		color #aaa
+		cursor pointer
 
 
 .form-horizontal .form-group

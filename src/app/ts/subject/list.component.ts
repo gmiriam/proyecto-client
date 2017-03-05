@@ -88,4 +88,9 @@ export class SubjectList {
 
 		this.router.navigate(["new", "edit"], { relativeTo: this.route });
 	}
+
+	goBack(evt) {
+
+		this.router.navigate(['home']);
+	}
 }
