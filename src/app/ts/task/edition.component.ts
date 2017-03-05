@@ -135,6 +135,10 @@ export class TaskEdition {
 			body: body
 		}).subscribe(response => {
 
+			var content = response.json().content,
+				task = content[0];
+
+			this.taskId = task._id;
 			this.finishEdition();
 		}, error => {
 
@@ -170,7 +174,13 @@ export class TaskEdition {
 
 	finishEdition(event?) {
 
-		event && event.preventDefault();
+		if (!event) {
+			this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'assign']);
+
+			return;
+		}
+
+		event.preventDefault();
 
 		var paths = ['subject', this.subjectId, 'task'];
 		if (this.taskId !== 'new') {
