@@ -2,10 +2,11 @@
 <h1>Asignaturas</h1>
 <button *ngIf="localStorageService.get('userRole') === 'admin'" class="add-button ull-button" (click)="addItem($event)">Nueva asignatura</button>
 
-<div *ngIf="subjectsEnrolledList && subjectsEnrolledList.length">
-	<h2 *ngIf="localStorageService.get('userRole') === 'teacher'">Asignaturas matriculadas</h2>
+<div *ngIf="subjectsToEvaluateList && subjectsToEvaluateList.length">
 	<ul class="list-items">
-		<li *ngFor="let subject of subjectsEnrolledList" class="row">
+		<h2 class="col-sm-offset-2" *ngIf="localStorageService.get('userRole') === 'teacher'">Asignaturas impartidas</h2>
+
+		<li *ngFor="let subject of subjectsToEvaluateList" class="row">
 			<div class="list-element col-xs-10 col-md-7 col-lg-5">
 				<div class="list-element-column">
 					<span>{{subject.name}}</span>
@@ -19,10 +20,10 @@
 	</ul>
 </div>
 
-<div *ngIf="subjectsToEvaluateList && subjectsToEvaluateList.length">
-	<h2 *ngIf="localStorageService.get('userRole') === 'teacher'">Asignaturas impartidas</h2>
+<div *ngIf="subjectsEnrolledList && subjectsEnrolledList.length">
 	<ul class="list-items">
-		<li *ngFor="let subject of subjectsToEvaluateList" class="row">
+		<h2  class="col-sm-offset-2" *ngIf="localStorageService.get('userRole') === 'teacher'">Asignaturas matriculadas</h2>
+		<li *ngFor="let subject of subjectsEnrolledList" class="row">
 			<div class="list-element col-xs-10 col-md-7 col-lg-5">
 				<div class="list-element-column">
 					<span>{{subject.name}}</span>
