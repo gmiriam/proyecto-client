@@ -30,8 +30,8 @@ export class EnrollStudents {
 		});
 		this.subjectId = this.params['subjectid'];
 
-		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?role=student&enrolledsubjectid=' + this.subjectId;
-		this.studentUrl = globalsService.apiUrl + 'user?role=student';
+		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?enrolledsubjectid=' + this.subjectId;
+		this.studentUrl = globalsService.apiUrl + 'user?role=student,teacher';
 		this.enrollStudentsUrl = globalsService.apiUrl + 'subject/enrollstudents';
 		this.unenrollStudentsUrl = globalsService.apiUrl + 'subject/unenrollstudents';
 
