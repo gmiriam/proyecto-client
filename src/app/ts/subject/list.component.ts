@@ -12,6 +12,8 @@ import {Subject} from './subject';
 export class SubjectList {
 	params;
 	subjectList: Subject[];
+	subjectsEnrolledList: Subject[];
+	subjectsToEvaluateList: Subject[];
 	subjectUrl: string;
 	userId;
 	userRole;
@@ -29,24 +31,52 @@ export class SubjectList {
 
 	getSubjects() {
 
-		var url = this.subjectUrl;
+		var url = this.subjectUrl,
+			studentQuery = '?studentid=' + this.userId,
+			teacherQuery = '?teacherid=' + this.userId,
+			subjectsEnrolledCbk = (this.onSubjectsResponse).bind(this, 'subjectsEnrolledList'),
+			subjectsToEvaluateCbk = (this.onSubjectsResponse).bind(this, 'subjectsToEvaluateList');
 
-		if (this.userRole === 'teacher') {
-			url += '?teacherid=' + this.userId;
-		} else if (this.userRole === 'student') {
-			url += '?studentid=' + this.userId;
+		if (this.userRole === 'admin') {
+			this.globalsService.request('get', url, {
+				urlParams: this.params
+			}).subscribe(
+				subjectsToEvaluateCbk,
+				error => {
+					console.error(error.text());
+				});
 		}
+		if (this.userRole === 'teacher') {
+			this.globalsService.request('get', url + teacherQuery, {
+				urlParams: this.params
+			}).subscribe(
+				subjectsToEvaluateCbk,
+				error => {
+					console.error(error.text());
+				});
 
-		this.globalsService.request('get', url, {
-			urlParams: this.params
-		}).subscribe(
-			response => {
-				var content = response.json().content;
-				this.subjectList = content;
-			},
-			error => {
-				console.error(error.text());
-			});
+			this.globalsService.request('get', url + studentQuery, {
+				urlParams: this.params
+			}).subscribe(
+				subjectsEnrolledCbk,
+				error => {
+					console.error(error.text());
+				});
+		} else if (this.userRole === 'student') {
+			this.globalsService.request('get', url + studentQuery, {
+				urlParams: this.params
+			}).subscribe(
+				subjectsEnrolledCbk,
+				error => {
+					console.error(error.text());
+				});
+		}
+	}
+
+	onSubjectsResponse(subjectListName, response) {
+
+		var content = response.json().content;
+		this[subjectListName] = content;
 	}
 
 	viewItem(evt, id) {

@@ -14,6 +14,7 @@ export class AdminView {
 	adminId: string;
 	adminToView: Admin = new Admin();
 	adminUrl: string;
+	viewingYourself;
 
 	constructor(public router: Router, private globalsService: GlobalsService, private route: ActivatedRoute,
 		private localStorageService: LocalStorageService) {
@@ -23,6 +24,7 @@ export class AdminView {
 		});
 		this.adminId = this.params['userid'];
 
+		this.viewingYourself = this.localStorageService.get('userId') === this.adminId;
 		this.adminUrl = globalsService.apiUrl + 'user/';
 
 		this.getAdmin();

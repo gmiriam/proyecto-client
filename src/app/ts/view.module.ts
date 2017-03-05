@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {SubjectView} from './subject/view.component';
 import {TaskView} from './task/view.component';
 import {DeliveryView} from './delivery/view.component';
-import {ScoreView} from './score/view.component';
 import {AdminView} from './admin/view.component';
 import {TeacherView} from './teacher/view.component';
 import {StudentView} from './student/view.component';
@@ -17,7 +16,6 @@ import {StudentView} from './student/view.component';
 		SubjectView,
 		TaskView,
 		DeliveryView,
-		ScoreView,
 		AdminView,
 		TeacherView,
 		StudentView

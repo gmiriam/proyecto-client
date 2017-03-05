@@ -32,7 +32,6 @@ import {DeliveryScoreEdition} from './delivery/scoreEdition.component';
 import {DeliveryDataEdition} from './delivery/dataEdition.component';
 
 import {ScoreList} from './score/list.component';
-import {ScoreView} from './score/view.component';
 import {ScoreEdition} from './score/edition.component';
 
 const routes: Routes = [{
@@ -111,9 +110,6 @@ const routes: Routes = [{
 },{
 	path: 'subject/:subjectid/score',
 	component: ScoreList
-},{
-	path: 'subject/:subjectid/score/:scoreid',
-	component: ScoreView
 },{
 	path: 'subject/:subjectid/score/:scoreid/edit',
 	component: ScoreEdition
