@@ -1,29 +1,29 @@
-<h1>Entrega</h1>
-<ul class="list-items">
-	<li>
-		<span class="list-element">
-			<span class="badge">Tarea</span> {{taskName}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Estudiante</span> {{studentName}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Puntuación</span> {{deliveryToView.score}}
-		</span>
-	</li>
-	<li>
-		<span class="list-element">
-			<span class="badge">Fichero</span> <a href="{{dataUrl}}" target="_blank">{{deliveryToView.data}}</a>
-		</span>
-	</li>
-</ul>
+<div class= "edition-fields">
+	<h1>Entrega de {{taskName}}</h1>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="edit-button" (click)= "editItemScore($event, deliveryToView._id)">Editar puntuación</button>
+	<div class="button-group">
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsTeacherInSubject" class="ull-button" (click)= "editItemScore($event, deliveryToView._id)">Evaluar</button>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="edit-button" (click)= "editItemData($event, deliveryToView._id)">Editar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="ull-button" (click)= "editItemData($event, deliveryToView._id)">Editar</button>
 
-<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="delete-button" (click)="deleteItem($event, deliveryToView._id)">Eliminar</button>
+		<button *ngIf="localStorageService.get('userRole') === 'admin' || userIsDeliveryOwner" class="delete-button" (click)="deleteItem($event, deliveryToView._id)">Eliminar</button>
+	</div>
+	<ul class="list-items">
+		<li>
+			<span class="list-element">
+				<span class="field-element">Estudiante</span> {{studentName}}
+			</span>
+		</li>
+		<li>
+			<span class="list-element">
+				<span class="field-element">Puntuación</span> {{deliveryToView.score}}
+			</span>
+		</li>
+		<li>
+			<span class="list-element strong-field">
+				<a href="{{dataUrl}}" target="_blank">Descargar entrega</a>
+			</span>
+		</li>
+	</ul>
+
+</div>

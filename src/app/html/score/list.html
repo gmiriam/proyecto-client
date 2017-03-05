@@ -1,10 +1,14 @@
 <h1>Puntuaciones</h1>
 <ul class="list-items">
-	<li *ngFor="let score of scoreList">
-		<span class="list-element">
-			<span class="badge">{{score.student}}</span> {{score.finalScore}}
+	<li *ngFor="let score of scoreList" class="row">
+		<span class="list-element col-xs-6 col-md-6 col-lg-3">
+			{{score.student}}
 		</span>
-		<button class="view-button" (click)= "viewItem($event, score._id)">Ver</button>
-		<button class="edit-button" (click)= "editItem($event, score._id)">Editar</button>
+		<span class="list-element col-xs-1 col-md-1">
+			<span class="field-element">{{score.finalScore}}</span>
+		</span>		
+		<div class="col-xs-3 col-md-3 col-lg-2">
+			<button class="ull-button" (click)= "editItem($event, score._id)">Editar</button>
+		</div>
 	</li>
 </ul>
