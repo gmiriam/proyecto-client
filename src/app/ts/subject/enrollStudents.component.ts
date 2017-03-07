@@ -87,7 +87,7 @@ export class EnrollStudents {
 			this.getStudents();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -119,7 +119,7 @@ export class EnrollStudents {
 			}).bind(this));
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -157,7 +157,7 @@ export class EnrollStudents {
 			}
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -174,7 +174,7 @@ export class EnrollStudents {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

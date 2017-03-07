@@ -38,7 +38,7 @@ export class AdminView {
 			(this.onAdminResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -68,7 +68,7 @@ export class AdminView {
 				this.router.navigate(['admin']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

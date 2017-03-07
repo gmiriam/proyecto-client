@@ -56,7 +56,7 @@ export class DeliveryView {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -82,7 +82,7 @@ export class DeliveryView {
 			(this.onTaskResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -102,7 +102,7 @@ export class DeliveryView {
 			(this.onDeliveryResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -137,7 +137,7 @@ export class DeliveryView {
 				this.studentName = content.surname + ", " + content.firstName;
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -166,7 +166,7 @@ export class DeliveryView {
 				this.router.navigate(['subject', this.subjectId, 'task', this.taskId, 'delivery']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

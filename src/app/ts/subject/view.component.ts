@@ -47,7 +47,7 @@ export class SubjectView {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -87,7 +87,7 @@ export class SubjectView {
 				}
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -109,7 +109,7 @@ export class SubjectView {
 				}
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -133,7 +133,7 @@ export class SubjectView {
 				this.router.navigate(['subject']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

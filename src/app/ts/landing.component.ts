@@ -55,8 +55,7 @@ export class LandingComponent {
 					});
 			}).bind(this, username),
 			error => {
-				console.error(error.text());
-				alert(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 }

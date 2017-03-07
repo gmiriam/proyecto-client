@@ -33,7 +33,7 @@ export class AdminList {
 				this.adminList = content;
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

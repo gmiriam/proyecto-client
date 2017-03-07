@@ -24,7 +24,8 @@
     'ng2-select' :'npm:ng2-select',
     'ng-sidebar': 'npm:ng-sidebar',
     'ng2-datetime-picker': 'npm:ng2-datetime-picker/dist',
-    'angular-2-local-storage': 'npm:angular-2-local-storage/dist'
+    'angular-2-local-storage': 'npm:angular-2-local-storage/dist',
+    'alertifyjs': 'alertifyjs'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension

@@ -40,7 +40,7 @@ export class TaskList {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -83,7 +83,7 @@ export class TaskList {
 				this.taskList = content;
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

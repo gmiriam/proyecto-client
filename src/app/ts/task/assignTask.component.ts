@@ -94,7 +94,7 @@ export class AssignTask {
 			this.getEnrolledStudentsWithTaskAssigned();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -118,7 +118,7 @@ export class AssignTask {
 			this.getEnrolledStudents();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -152,7 +152,7 @@ export class AssignTask {
 			}).bind(this));
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -190,7 +190,7 @@ export class AssignTask {
 			}
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -207,7 +207,7 @@ export class AssignTask {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

@@ -36,7 +36,7 @@ export class StudentView {
 			(this.onStudentResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -66,7 +66,7 @@ export class StudentView {
 				this.router.navigate(['student']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

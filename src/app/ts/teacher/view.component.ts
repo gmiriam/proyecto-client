@@ -36,7 +36,7 @@ export class TeacherView {
 			(this.onTeacherResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -66,7 +66,7 @@ export class TeacherView {
 				this.router.navigate(['teacher']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

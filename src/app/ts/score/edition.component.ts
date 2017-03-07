@@ -52,7 +52,7 @@ export class ScoreEdition {
 			this.scoreToEdit = content[0] ? content[0] : { _id: null };
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -68,7 +68,7 @@ export class ScoreEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

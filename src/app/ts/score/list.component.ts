@@ -44,7 +44,7 @@ export class ScoreList {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -96,7 +96,7 @@ export class ScoreList {
 				this.getStudents();
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -118,7 +118,7 @@ export class ScoreList {
 				}
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

@@ -33,7 +33,7 @@ export class StudentList {
 				this.studentList = content;
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

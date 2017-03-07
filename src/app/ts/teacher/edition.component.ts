@@ -64,7 +64,7 @@ export class TeacherEdition {
 			this.teacherToEdit = content.length ? content[0] : { _id: null };
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -80,7 +80,7 @@ export class TeacherEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -96,7 +96,7 @@ export class TeacherEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

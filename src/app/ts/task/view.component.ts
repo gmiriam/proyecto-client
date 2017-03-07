@@ -50,7 +50,7 @@ export class TaskView {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -76,7 +76,7 @@ export class TaskView {
 			(this.onTaskResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -114,7 +114,7 @@ export class TaskView {
 				this.teacherName = content.surname + ", " + content.firstName;
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -138,7 +138,7 @@ export class TaskView {
 				this.router.navigate(['subject', this.subjectId, 'task']);
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

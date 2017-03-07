@@ -6,8 +6,12 @@ import { LocalStorageService } from 'angular-2-local-storage';
 export class GlobalsService {
 
 	apiUrl: string = 'http://localhost:3002/';
+	alertify;
 
-	constructor(private http: Http, private localStorageService: LocalStorageService) {}
+	constructor(private http: Http, private localStorageService: LocalStorageService) {
+
+		this.alertify = require('alertifyjs/alertify.min.js');
+	}
 
 	request(method, url, options?) {
 
@@ -50,4 +54,9 @@ export class GlobalsService {
 		return promise;
 	}
 
+	showError(error) {
+
+		this.alertify.error("Ha ocurrido un error");
+		console.error(error);
+	}
 }

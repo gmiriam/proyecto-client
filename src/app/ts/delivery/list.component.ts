@@ -59,7 +59,7 @@ export class DeliveryList {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -93,7 +93,7 @@ export class DeliveryList {
 			(this.onTaskResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -113,7 +113,7 @@ export class DeliveryList {
 			(this.onUserResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -158,7 +158,7 @@ export class DeliveryList {
 				this.getStudents();
 			},
 			error => {
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -180,7 +180,7 @@ export class DeliveryList {
 				}
 			}, error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 

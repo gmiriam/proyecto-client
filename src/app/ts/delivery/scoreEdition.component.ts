@@ -55,7 +55,7 @@ export class DeliveryScoreEdition {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -91,7 +91,7 @@ export class DeliveryScoreEdition {
 			this.deliveryToEdit = content[0] ? content[0] : { _id: null };
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -108,7 +108,7 @@ export class DeliveryScoreEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

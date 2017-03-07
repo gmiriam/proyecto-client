@@ -66,7 +66,7 @@ export class DeliveryCreation {
 			(this.onSubjectResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -117,7 +117,7 @@ export class DeliveryCreation {
 			(this.onUserResponse).bind(this),
 			error => {
 
-				console.error(error.text());
+				this.globalsService.showError(error);
 			});
 	}
 
@@ -161,7 +161,7 @@ export class DeliveryCreation {
 			}).bind(this));
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -177,7 +177,7 @@ export class DeliveryCreation {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

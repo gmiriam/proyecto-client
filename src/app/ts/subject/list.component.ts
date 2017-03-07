@@ -43,7 +43,7 @@ export class SubjectList {
 			}).subscribe(
 				subjectsToEvaluateCbk,
 				error => {
-					console.error(error.text());
+					this.globalsService.showError(error);
 				});
 		}
 		if (this.userRole === 'teacher') {
@@ -52,7 +52,7 @@ export class SubjectList {
 			}).subscribe(
 				subjectsToEvaluateCbk,
 				error => {
-					console.error(error.text());
+					this.globalsService.showError(error);
 				});
 
 			this.globalsService.request('get', url + studentQuery, {
@@ -60,7 +60,7 @@ export class SubjectList {
 			}).subscribe(
 				subjectsEnrolledCbk,
 				error => {
-					console.error(error.text());
+					this.globalsService.showError(error);
 				});
 		} else if (this.userRole === 'student') {
 			this.globalsService.request('get', url + studentQuery, {
@@ -68,7 +68,7 @@ export class SubjectList {
 			}).subscribe(
 				subjectsEnrolledCbk,
 				error => {
-					console.error(error.text());
+					this.globalsService.showError(error);
 				});
 		}
 	}

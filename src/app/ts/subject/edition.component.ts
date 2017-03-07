@@ -78,7 +78,7 @@ export class SubjectEdition {
 			this.getTeachers();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -111,7 +111,7 @@ export class SubjectEdition {
 			}).bind(this));
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -127,7 +127,7 @@ export class SubjectEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -143,7 +143,7 @@ export class SubjectEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 

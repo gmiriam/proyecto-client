@@ -89,7 +89,7 @@ export class TaskEdition {
 			this.getTeachers();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -122,7 +122,7 @@ export class TaskEdition {
 			}).bind(this));
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -142,7 +142,7 @@ export class TaskEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
@@ -158,7 +158,7 @@ export class TaskEdition {
 			this.finishEdition();
 		}, error => {
 
-			console.error(error.text());
+			this.globalsService.showError(error);
 		});
 	}
 
