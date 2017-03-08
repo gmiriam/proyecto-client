@@ -13,6 +13,7 @@ export class EnrollStudents {
 	subjectId: string;
 	enrollStudentsForm: FormGroup;
 	studentUrl: string;
+	subjectUrl: string;
 	enrolledStudentsUrl: string;
 	enrollStudentsUrl: string;
 	unenrollStudentsUrl: string;
@@ -21,6 +22,7 @@ export class EnrollStudents {
 	originalEnrolledStudentIds;
 	enrolledStudentIds;
 	unenrolledStudentIds = [];
+	subjectTeachers = [];
 
 	constructor(public router: Router, fb: FormBuilder, private globalsService: GlobalsService,
 		private route: ActivatedRoute) {
@@ -32,12 +34,35 @@ export class EnrollStudents {
 
 		this.enrolledStudentsUrl = globalsService.apiUrl + 'user?enrolledsubjectid=' + this.subjectId;
 		this.studentUrl = globalsService.apiUrl + 'user?role=student,teacher';
+		this.subjectUrl = globalsService.apiUrl + 'subject/';
 		this.enrollStudentsUrl = globalsService.apiUrl + 'subject/enrollstudents';
 		this.unenrollStudentsUrl = globalsService.apiUrl + 'subject/unenrollstudents';
 
 		this.enrollStudentsForm = fb.group({
 			students: ["", Validators.required]
 		});
+
+		this.getSubject();
+	}
+
+	getSubject() {
+
+		this.globalsService.request('get', this.subjectUrl + this.subjectId, {
+			urlParams: this.params
+		}).subscribe(
+			(this.onSubjectResponse).bind(this),
+			error => {
+
+				this.globalsService.showError(error);
+			});
+	}
+
+	onSubjectResponse(response) {
+
+		var content = response.json().content,
+			subject = content[0];
+
+		this.subjectTeachers = subject.teachers || [];
 
 		this.getEnrolledStudents();
 	}
@@ -102,9 +127,14 @@ export class EnrollStudents {
 				return;
 			}
 
+			var filteredContent = content.filter((function(value) {
+
+				return this.subjectTeachers.indexOf(value._id) === -1;
+			}).bind(this))
+
 			this.enrolledStudentList = [];
 
-			this.studentList = content.map((function(currentValue, index, array) {
+			this.studentList = filteredContent.map((function(currentValue, index, array) {
 
 				var studentObj = {
 						id: currentValue._id,
